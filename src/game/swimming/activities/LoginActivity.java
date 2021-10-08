@@ -11,6 +11,7 @@ public class LoginActivity extends JFrame {
         setSize(MainActivity.GAME_WIDTH, MainActivity.GAME_HEIGHT);
         setResizable(false);
         setLocationRelativeTo(null); //화면 중앙에 창 위치
+        setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setVisible(true);
