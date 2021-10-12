@@ -1,6 +1,5 @@
 package game.swimming;
 
-import game.swimming.activities.PlayActivity;
 import game.swimming.activities.SignUpActivity;
 
 import java.awt.*;
@@ -29,7 +28,7 @@ class init extends JPanel {
             public void actionPerformed(ActionEvent e) {
             	if(idField.getText().equals(idSample) && pwField.getText().equals(pwSample)) {
             		setVisible(false);
-            		new PlayActivity();
+            		//new PlayActivity();
             	}
             	else {
             		notfound.showMessageDialog(null, "ID 혹은 Password가 일치하지 않습니다.");
@@ -47,7 +46,6 @@ class init extends JPanel {
         joinBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
                 new SignUpActivity();
             }
         });

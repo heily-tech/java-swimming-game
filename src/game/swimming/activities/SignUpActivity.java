@@ -41,7 +41,7 @@ public class SignUpActivity extends JFrame{
         setSize(MainActivity.GAME_WIDTH, MainActivity.GAME_HEIGHT);
         setResizable(false);
         setLocationRelativeTo(null); //화면 중앙에 창 위치
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
     private void setBackground(int i, int j, int k) {
