@@ -1,52 +1,52 @@
 package game.swimming.activities;
 
-import game.swimming.MainActivity;
-
 import java.awt.event.*;
 import javax.swing.*;
 
 //뒤로가기 버튼
 
 public class SignUpActivity extends JFrame{
-    JButton done;
-    JLabel IDW, PWW;
-    JTextField NID;
-    JPasswordField NPW;
+    JButton doBtn;
+    JLabel idLabel, pwLabel;
+    JTextField idField;
+    JPasswordField pwField;
+
     public SignUpActivity() {
-        JPanel Btns = new JPanel();
+        //JPanel btnPanel = new JPanel();
         setLayout(null);
-        setBackground(0, 0, 255);
-        IDW = new JLabel("NEW ID : ");
-        NID = new JTextField();
-        PWW = new JLabel("NEW PW : ");
-        NPW = new JPasswordField();
-        done = new JButton("DONE");
-        add(IDW); //label
-        IDW.setBounds(350, 300, 100, 45);
-        add(NID); //label
-        NID.setBounds(500, 305, 150, 30);
-        add(PWW); //field
-        PWW.setBounds(350, 400, 100, 45);
-        add(NPW); //field
-        NPW.setBounds(500, 405, 150, 30);
-        add(done);
-        done.setBounds(450, 500, 100, 35);
-        done.addActionListener(new ActionListener() {
+
+        idLabel = new JLabel("아이디 : ");
+        idLabel.setBounds(100, 200, 100, 35);
+        //idLabel.getHorizontalTextPosition();
+        add(idLabel);
+
+        idField = new JTextField();
+        idField.setBounds(200, 200, 150, 35);
+        add(idField);
+
+        pwLabel = new JLabel("패스워드 : ");
+        pwLabel.setBounds(100, 240, 100, 35);
+        add(pwLabel);
+
+        pwField = new JPasswordField();
+        pwField.setBounds(200, 240, 150, 35);
+        add(pwField);
+
+        doBtn = new JButton("가입");
+        doBtn.setBounds(150, 300, 100, 35);
+        doBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
+        add(doBtn);
 
         setTitle("My Swimming Game : Sign UP");
-        setSize(MainActivity.GAME_WIDTH, MainActivity.GAME_HEIGHT);
+        setSize(400, 500);
         setResizable(false);
         setLocationRelativeTo(null); //화면 중앙에 창 위치
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
-    }
-    private void setBackground(int i, int j, int k) {
-        // TODO Auto-generated method stub
-
     }
 }
 
