@@ -14,12 +14,12 @@ public class initActivity extends JPanel {
     JTextField idField;
     JPasswordField pwField;
     String idSample = "1111", pwSample = "1111"; //변경 필요
-    JOptionPane notfound;
+    JOptionPane notFound;
 
     public initActivity() {
         setOpaque(false);
         setLayout(null);
-        notfound = new JOptionPane();
+        notFound = new JOptionPane();
 
         loginBtn = new JButton();
         ImageIcon loginImg = new ImageIcon(MainActivity.class.getResource("res/btns/login.jpg"));
@@ -32,7 +32,7 @@ public class initActivity extends JPanel {
                     new SelectActivity();
                 }
                 else {
-                    notfound.showMessageDialog(null, "ID 혹은 Password가 일치하지 않습니다.");
+                    notFound.showMessageDialog(null, "ID/Password가 일치하지 않습니다.");
                     idField.setText(null);
                     pwField.setText(null);
                 }
