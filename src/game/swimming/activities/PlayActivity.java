@@ -17,9 +17,7 @@ public class PlayActivity extends JPanel {
         setVisible(true);
 
         /*
-        자유형 1 배영 2 접영 3 평영 4
-        싱글 1 개인 2 그룹 3
-        스피드 1 아이템 2
+         템스피드 | 거리 | 네트워킹 | 영법
          */
     }
 }

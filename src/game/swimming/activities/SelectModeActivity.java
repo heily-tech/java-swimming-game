@@ -6,11 +6,15 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static game.swimming.activities.SelectStrokeActivity.strokeChooseNum;
+
 public class SelectModeActivity extends JPanel implements ActionListener {
+    public static int backupNum = 0;
     JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, reBtn;
     JButton chosenBtn;
     private MainActivity main;
     private SelectStrokeActivity selectStrokeActivity;
+    private JOptionPane nullSelection;
 
 
     public SelectModeActivity(MainActivity main) {
@@ -23,16 +27,57 @@ public class SelectModeActivity extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == singleBtn)
-            SelectStrokeActivity.strokeChooseNum += 5;
-        else if (e.getSource() == indivBtn)
-            SelectStrokeActivity.strokeChooseNum += 6;
-        else if (e.getSource() == grpBtn)
-            SelectStrokeActivity.strokeChooseNum += 7;
+        if (e.getSource() == singleBtn) {
+            strokeChooseNum += 10;
+            singleBtn.setEnabled(false);
+            indivBtn.setEnabled(false);
+            grpBtn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
+        else if (e.getSource() == indivBtn){
+            strokeChooseNum += 20;
+            singleBtn.setEnabled(false);
+            indivBtn.setEnabled(false);
+            grpBtn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
+        else if (e.getSource() == grpBtn){
+            strokeChooseNum += 30;
+            singleBtn.setEnabled(false);
+            indivBtn.setEnabled(false);
+            grpBtn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
+
+        if (e.getSource() == speedBtn) {
+            strokeChooseNum += 1;
+            speedBtn.setEnabled(false);
+            itemBtn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
+        else if (e.getSource() == itemBtn){
+            strokeChooseNum += 2;
+            speedBtn.setEnabled(false);
+            itemBtn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
 
         if (e.getSource() == chosenBtn) {
-            main.change("PlayActivity");
-            System.out.println(SelectStrokeActivity.strokeChooseNum);
+            if (strokeChooseNum == backupNum) {
+                nullSelection.showMessageDialog(null, "모드를 선택해주세요.");
+            } else {
+                main.change("PlayActivity");
+                System.out.println(strokeChooseNum);
+            }
+            System.out.println(strokeChooseNum);
+        } else if (e.getSource() == reBtn) {
+            strokeChooseNum = backupNum;
+            singleBtn.setEnabled(true);
+            indivBtn.setEnabled(true);
+            grpBtn.setEnabled(true);
+            speedBtn.setEnabled(true);
+            itemBtn.setEnabled(true);
+            System.out.println(strokeChooseNum);
         }
     }
 
@@ -71,6 +116,13 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         itemBtn.addActionListener(this);
         itemBtn.setBounds(300, 230, 100, 45);
         add(itemBtn);
+
+        reBtn = new JButton("다시 선택");
+//        ImageIcon reImg = new ImageIcon(MainActivity.class.getResource("res/btns/join.jpg")); //바꾸기
+//        reBtn.setIcon(reImg);
+        reBtn.addActionListener(this);
+        reBtn.setBounds(700, 180, 100, 45);
+        add(reBtn);
 
         chosenBtn = new JButton("게임시작");
         chosenBtn.addActionListener(this);
