@@ -33,7 +33,6 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
 
         if (e.getSource() == nextBtn){
             main.change("SelectModeActivity");
-            System.out.println(strokeChooseNum);
         }
     }
 
