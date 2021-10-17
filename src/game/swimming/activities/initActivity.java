@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class initActivity extends JPanel {
+    private MainActivity main;
     Image background = new ImageIcon(MainActivity.class.getResource("res/초기화면.jpg")).getImage();
     JButton loginBtn, joinBtn;
     JLabel idLabel, pwLabel;
@@ -16,7 +17,8 @@ public class initActivity extends JPanel {
     String idSample = "1111", pwSample = "1111"; //변경 필요
     JOptionPane notFound;
 
-    public initActivity() {
+    public initActivity(MainActivity main) {
+        this.main = main;
         setOpaque(false);
         setLayout(null);
         notFound = new JOptionPane();
@@ -28,8 +30,8 @@ public class initActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(idField.getText().equals(idSample) && pwField.getText().equals(pwSample)) {
-                    setVisible(false);
-                    new SelectActivity();
+                    main.change("SelectStrokeActivity");
+                    //setVisible(false);
                 }
                 else {
                     notFound.showMessageDialog(null, "ID/Password가 일치하지 않습니다.");
