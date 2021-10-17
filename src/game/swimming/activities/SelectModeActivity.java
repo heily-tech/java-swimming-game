@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SelectModeActivity extends JPanel implements ActionListener {
-    JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, distBtn; //distance 버튼 말고?
+    JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, reBtn;
     JButton chosenBtn;
     private MainActivity main;
     private SelectStrokeActivity selectStrokeActivity;
@@ -24,11 +24,11 @@ public class SelectModeActivity extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == singleBtn)
-            SelectStrokeActivity.strokeChooseNum += "1";
+            SelectStrokeActivity.strokeChooseNum += 5;
         else if (e.getSource() == indivBtn)
-            SelectStrokeActivity.strokeChooseNum += "2";
+            SelectStrokeActivity.strokeChooseNum += 6;
         else if (e.getSource() == grpBtn)
-            SelectStrokeActivity.strokeChooseNum += "3";
+            SelectStrokeActivity.strokeChooseNum += 7;
 
         if (e.getSource() == chosenBtn) {
             main.change("PlayActivity");

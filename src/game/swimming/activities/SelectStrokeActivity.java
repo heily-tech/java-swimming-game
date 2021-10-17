@@ -7,10 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SelectStrokeActivity extends JPanel implements ActionListener {
-    public static String strokeChooseNum = "";
+    public static int strokeChooseNum;
     private MainActivity main;
     private SelectModeActivity selectModeActivity;
-    JButton freeBtn, backBtn, btflyBtn, brstBtn, nextBtn;
+    JButton freeBtn, backBtn, btflyBtn, brstBtn, nextBtn, dist100Btn, dist200Btn, reBtn;
+    JOptionPane nullSelection;
 
     public SelectStrokeActivity(MainActivity main) {
         this.main = main;
@@ -22,18 +23,68 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == freeBtn)
-            strokeChooseNum += "1";
-        else if (e.getSource() == backBtn)
-            strokeChooseNum += "2";
-        else if (e.getSource() == btflyBtn)
-            strokeChooseNum += "3";
-        else if (e.getSource() == brstBtn)
-            strokeChooseNum += "4";
+        if (e.getSource() == freeBtn) {
+            strokeChooseNum = 1;
+            freeBtn.setEnabled(false);
+            backBtn.setEnabled(false);
+            btflyBtn.setEnabled(false);
+            brstBtn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
+        else if (e.getSource() == backBtn){
+            strokeChooseNum = 2;
+            freeBtn.setEnabled(false);
+            backBtn.setEnabled(false);
+            btflyBtn.setEnabled(false);
+            brstBtn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
+        else if (e.getSource() == btflyBtn){
+            strokeChooseNum = 3;
+            freeBtn.setEnabled(false);
+            backBtn.setEnabled(false);
+            btflyBtn.setEnabled(false);
+            brstBtn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
+        else if (e.getSource() == brstBtn){
+            strokeChooseNum = 4;
+            freeBtn.setEnabled(false);
+            backBtn.setEnabled(false);
+            btflyBtn.setEnabled(false);
+            brstBtn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
+        if (e.getSource() == dist100Btn) {
+            strokeChooseNum += 100;
+            dist100Btn.setEnabled(false);
+            dist200Btn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
+        else if (e.getSource() == dist200Btn){
+            strokeChooseNum += 200;
+            dist100Btn.setEnabled(false);
+            dist200Btn.setEnabled(false);
+            System.out.println(strokeChooseNum);
+        }
 
         if (e.getSource() == nextBtn){
-            main.change("SelectModeActivity");
+            if (strokeChooseNum == 0) {
+                nullSelection.showMessageDialog(null, "영법과 거리를 선택해주세요.");
+            } else {
+                main.change("SelectModeActivity");
+            }
+        } else if (e.getSource() == reBtn) {
+            strokeChooseNum = 0;
+            freeBtn.setEnabled(true);
+            backBtn.setEnabled(true);
+            btflyBtn.setEnabled(true);
+            brstBtn.setEnabled(true);
+            dist100Btn.setEnabled(true);
+            dist200Btn.setEnabled(true);
+            System.out.println(strokeChooseNum);
         }
+
     }
 
     void btnInit() {
@@ -65,6 +116,13 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         brstBtn.setBounds(540, 180, 100, 45);
         add(brstBtn);
 
+        reBtn = new JButton("다시 선택");
+//        ImageIcon reImg = new ImageIcon(MainActivity.class.getResource("res/btns/join.jpg")); //바꾸기
+//        reBtn.setIcon(reImg);
+        reBtn.addActionListener(this);
+        reBtn.setBounds(700, 180, 100, 45);
+        add(reBtn);
+
         nextBtn = new JButton("=>");
 //        ImageIcon nextImg = new ImageIcon(MainActivity.class.getResource("res/btns/join.jpg")); //바꾸기
 //        nextBtn.setIcon(nextImg);
@@ -72,9 +130,13 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         nextBtn.setBounds(180, 400, 100, 45);
         add(nextBtn);
 
-    }
-
-    public String getStrokeChooseNum() {
-        return strokeChooseNum;
+        dist100Btn = new JButton("100m");
+        dist100Btn.addActionListener(this);
+        dist100Btn.setBounds(180, 300, 100, 45);
+        add(dist100Btn);
+        dist200Btn = new JButton("200m");
+        dist200Btn.addActionListener(this);
+        dist200Btn.setBounds(300, 300, 100, 45);
+        add(dist200Btn);
     }
 }
