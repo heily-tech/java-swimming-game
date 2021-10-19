@@ -62,6 +62,7 @@ public class SignUpActivity extends JFrame{
         this.add(btnPanel);
         this.setTitle("My Swimming Game : Sign UP");
         this.setSize(400, 500);
+        this.setUndecorated(true);
         this.setResizable(false);
         this.setLocationRelativeTo(null); //화면 중앙에 창 위치
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

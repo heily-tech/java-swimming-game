@@ -50,6 +50,7 @@ public class initActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new SignUpActivity();
+                //setVisible(false);
             }
         });
         joinBtn.setBounds(670, 655, 100, 35);
