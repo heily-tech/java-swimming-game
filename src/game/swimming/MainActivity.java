@@ -5,7 +5,7 @@ import game.swimming.activities.SelectModeActivity;
 import game.swimming.activities.SelectStrokeActivity;
 import game.swimming.activities.initActivity;
 import javax.swing.*;
-
+//testing
 public class MainActivity extends JFrame {
     public static final int GAME_WIDTH = 1000;
     public static final int GAME_HEIGHT = 800;
