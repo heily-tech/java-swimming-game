@@ -25,7 +25,7 @@ public class Home extends JFrame {
         contentPane.add(panel);
         panel.setLayout(null);
 
-        JLabel lblUsername = new JLabel("      수영선수권대회");
+        JLabel lblUsername = new JLabel("Swimming game");
         lblUsername.setBounds(60, 10, 163, 34);
         lblUsername.setFont(new Font("Gulim", Font.BOLD, 15));
         panel.add(lblUsername);
