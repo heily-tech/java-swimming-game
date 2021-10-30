@@ -49,7 +49,7 @@ public class swimmerThread extends JFrame implements KeyListener {
 
     class MySwimmerThread extends Thread {
         String pc_name = "";
-        private JLabel label;
+        private JLabel label, countLabel;
         private int x, y;
 
         public MySwimmerThread(String pc_name, int x, int y) {
@@ -60,10 +60,31 @@ public class swimmerThread extends JFrame implements KeyListener {
             label.setIcon(new ImageIcon("car1.png"));
             label.setBounds(x, y, 100, 100);
             add(label);
+//            countLabel = new JLabel();
+//            countLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/3.png")));
+//            countLabel.setBounds(350, 226, 300, 350);
+//            add(countLabel);
         }
 
         @Override
         public void run() {
+            try {
+                countLabel = new JLabel();
+                countLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/3.png")));
+                countLabel.setBounds(425, 210, 300, 350);
+                add(countLabel);
+                Thread.sleep(1000);
+                countLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/2.png")));
+                Thread.sleep(1000);
+                countLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/1.png")));
+                Thread.sleep(1000);
+                countLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/start.png")));
+                countLabel.setBounds(290, 210, 450, 350);
+                Thread.sleep(1000);
+                countLabel.setVisible(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             for (int i = 0; i < 600; i++) {
                 try {
                     x += 15 * Math.random();

@@ -14,9 +14,9 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     private MainActivity main;
     private SelectModeActivity selectModeActivity;
     JButton freeBtn, backBtn, btflyBtn, brstBtn, nextBtn, dist100Btn, dist200Btn, reBtn;
-    JLabel titleLabel, styleLabel, dLabel;
+    JLabel styleLabel, dLabel;
     private JOptionPane nullSelection;
-    Image background = new ImageIcon(MainActivity.class.getResource("res/modeBG.jpg")).getImage();
+    Image background = new ImageIcon(MainActivity.class.getResource("res/modeBackground.png")).getImage();
 
     public SelectStrokeActivity(MainActivity main) {
         this.main = main;
@@ -30,38 +30,22 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == freeBtn) {
             strokeChooseNum += 1000;
-            freeBtn.setBackground(new Color(193, 213, 207));
-            freeBtn.setEnabled(false);
-            backBtn.setEnabled(false);
-            btflyBtn.setEnabled(false);
-            brstBtn.setEnabled(false);
+            btnSelected();
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == backBtn){
             strokeChooseNum += 2000;
-            backBtn.setBackground(new Color(193, 213, 207));
-            freeBtn.setEnabled(false);
-            backBtn.setEnabled(false);
-            btflyBtn.setEnabled(false);
-            brstBtn.setEnabled(false);
+            btnSelected();
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == btflyBtn){
             strokeChooseNum += 3000;
-            btflyBtn.setBackground(new Color(193, 213, 207));
-            freeBtn.setEnabled(false);
-            backBtn.setEnabled(false);
-            btflyBtn.setEnabled(false);
-            brstBtn.setEnabled(false);
+            btnSelected();
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == brstBtn){
             strokeChooseNum += 4000;
-            brstBtn.setBackground(new Color(193, 213, 207));
-            freeBtn.setEnabled(false);
-            backBtn.setEnabled(false);
-            btflyBtn.setEnabled(false);
-            brstBtn.setEnabled(false);
+            btnSelected();
             System.out.println(strokeChooseNum);
         }
         if (e.getSource() == dist100Btn) {
@@ -101,92 +85,84 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     }
 
     void btnInit() {
-        titleLabel = new JLabel("Select Mode");
-        titleLabel.setFont(new Font("HY강B", Font.BOLD, 30));
-        titleLabel.setBounds(415, 140, 190, 70);
-        add(titleLabel);
-
-        styleLabel = new JLabel("영법");
-        styleLabel.setFont(new Font("HY강B", Font.PLAIN, 11));
-        styleLabel.setBounds(485, 200, 190, 70);
-        add(styleLabel);
-
-        freeBtn = new JButton("<HTML><body style='text-align:center;'>자유형<br>★★</body></HTML>");
-        freeBtn.setForeground(Color.DARK_GRAY);
-        freeBtn.setBackground(new Color(243, 236, 232));
+        freeBtn = new JButton();
+        freeBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/자유형1.png")));
         freeBtn.setBorderPainted(false);
-        freeBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        freeBtn.setContentAreaFilled(false);
+        freeBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/자유형2.png")));
         freeBtn.addActionListener(this);
-        freeBtn.setBounds(230, 250, 110, 55);
+        freeBtn.setBounds(44, 175, 210, 220);
         add(freeBtn);
 
-        backBtn = new JButton("<HTML><body style='text-align:center;'>배영<br>★</body></HTML>");
-        backBtn.setForeground(Color.DARK_GRAY);
-        backBtn.setBackground(new Color(243, 236, 232));
+        backBtn = new JButton();
+        backBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/배영1.png")));
         backBtn.setBorderPainted(false);
-        backBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        backBtn.setContentAreaFilled(false);
+        backBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/배영2.png")));
         backBtn.addActionListener(this);
-        backBtn.setBounds(370, 250, 110, 55);
+        backBtn.setBounds(277, 175, 210, 220);
         add(backBtn);
 
-        btflyBtn = new JButton("<HTML><body style='text-align:center;'>접영<br>★★★★</body></HTML>");
-        btflyBtn.setForeground(Color.DARK_GRAY);
-        btflyBtn.setBackground(new Color(243, 236, 232));
+        btflyBtn = new JButton();
+        btflyBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/접영1.png")));
         btflyBtn.setBorderPainted(false);
-        btflyBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        btflyBtn.setContentAreaFilled(false);
+        btflyBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/접영2.png")));
         btflyBtn.addActionListener(this);
-        btflyBtn.setBounds(510, 250, 110, 55);
+        btflyBtn.setBounds(510, 175, 210, 220);
         add(btflyBtn);
 
-        brstBtn = new JButton("<HTML><body style='text-align:center;'>평영<br>★★★★★</body></HTML>");
-        brstBtn.setForeground(Color.DARK_GRAY);
-        brstBtn.setBackground(new Color(243, 236, 232));
+        brstBtn = new JButton();
+        brstBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/평영1.png")));
         brstBtn.setBorderPainted(false);
-        brstBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        brstBtn.setContentAreaFilled(false);
+        brstBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/평영2.png")));
         brstBtn.addActionListener(this);
-        brstBtn.setBounds(650, 250, 110, 55);
+        brstBtn.setBounds(746, 175, 210, 220);
         add(brstBtn);
 
-        reBtn = new JButton("다시 선택");
-        reBtn.setForeground(Color.DARK_GRAY);
-        reBtn.setBackground(new Color(243, 236, 232));
+        reBtn = new JButton();
+        reBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/재선택1.png")));
         reBtn.setBorderPainted(false);
-        reBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        reBtn.setContentAreaFilled(false);
+        reBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/재선택2.png")));
         reBtn.addActionListener(this);
-        reBtn.setBounds(440, 510, 110, 55);
+        reBtn.setBounds(44, 660, 200, 75);
         add(reBtn);
 
-        nextBtn = new JButton("->");
-        nextBtn.setForeground(Color.DARK_GRAY);
-        nextBtn.setBackground(new Color(243, 236, 232));
+        nextBtn = new JButton();
+        nextBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/다음1.png")));
         nextBtn.setBorderPainted(false);
-        nextBtn.setFont(new Font("HY강B", Font.BOLD, 30));
+        nextBtn.setContentAreaFilled(false);
+        nextBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/다음2.png")));
         nextBtn.addActionListener(this);
-        nextBtn.setBounds(580, 510, 110, 55);
+        nextBtn.setBounds(756, 660, 200, 75);
         add(nextBtn);
 
-        dLabel = new JLabel("거리");
-        dLabel.setFont(new Font("HY강B", Font.PLAIN, 11));
-        dLabel.setBounds(485, 330, 190, 70);
-        add(dLabel);
-
-        dist100Btn = new JButton("100m");
-        dist100Btn.setForeground(Color.DARK_GRAY);
-        dist100Btn.setBackground(new Color(243, 236, 232));
+        dist100Btn = new JButton();
+        dist100Btn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/100m1.png")));
         dist100Btn.setBorderPainted(false);
-        dist100Btn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        dist100Btn.setContentAreaFilled(false);
+        dist100Btn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/100m2.png")));
         dist100Btn.addActionListener(this);
-        dist100Btn.setBounds(360, 380, 110, 55);
+        dist100Btn.setBounds(50, 427, 900, 95);
         add(dist100Btn);
 
-        dist200Btn = new JButton("200m");
-        dist200Btn.setForeground(Color.DARK_GRAY);
-        dist200Btn.setBackground(new Color(243, 236, 232));
+        dist200Btn = new JButton();
+        dist200Btn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/200m1.png")));
         dist200Btn.setBorderPainted(false);
-        dist200Btn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        dist200Btn.setContentAreaFilled(false);
+        dist200Btn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/200m2.png")));
         dist200Btn.addActionListener(this);
-        dist200Btn.setBounds(520, 380, 110, 55);
+        dist200Btn.setBounds(50, 537, 900, 95);
         add(dist200Btn);
+    }
+
+    void btnSelected() {
+        freeBtn.setEnabled(false);
+        backBtn.setEnabled(false);
+        btflyBtn.setEnabled(false);
+        brstBtn.setEnabled(false);
     }
 
     protected void paintComponent(Graphics g) {

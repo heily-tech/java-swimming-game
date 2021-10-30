@@ -17,7 +17,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
     private SelectStrokeActivity selectStrokeActivity;
     private swimmerThread swimmerThread;
     private JOptionPane nullSelection;
-    Image background = new ImageIcon(MainActivity.class.getResource("res/modeBG.jpg")).getImage();
+    Image background = new ImageIcon(MainActivity.class.getResource("res/modeBackground.png")).getImage();
 
     public SelectModeActivity(MainActivity main) {
         this.main = main;
@@ -96,11 +96,6 @@ public class SelectModeActivity extends JPanel implements ActionListener {
     }
 
     void btnInit() {
-        titleLabel = new JLabel("Select Mode");
-        titleLabel.setFont(new Font("HY강B", Font.BOLD, 30));
-        titleLabel.setBounds(415, 140, 190, 70);
-        add(titleLabel);
-
         entryLabel = new JLabel("플레이 인원");
         entryLabel.setFont(new Font("HY강B", Font.PLAIN, 11));
         entryLabel.setBounds(465, 200, 190, 70);
