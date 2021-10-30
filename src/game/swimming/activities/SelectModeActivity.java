@@ -70,8 +70,8 @@ public class SelectModeActivity extends JPanel implements ActionListener {
                 new swimmerThread();
                 main.dispose();
                 System.out.println(strokeChooseNum);
+                //num에 따라서 게임 모드 달라지는 메소드 만들기
             }
-            System.out.println(strokeChooseNum);
         } else if (e.getSource() == reBtn) {
             strokeChooseNum = backupNum;
             singleBtn.setEnabled(true);

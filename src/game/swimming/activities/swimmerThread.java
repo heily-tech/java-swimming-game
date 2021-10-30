@@ -4,8 +4,10 @@ import game.swimming.MainActivity;
 
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class swimmerThread extends JFrame {
+public class swimmerThread extends JFrame implements KeyListener {
     private int rank = 1;
 
     public swimmerThread() {
@@ -16,8 +18,6 @@ public class swimmerThread extends JFrame {
         setLocationRelativeTo(null); //화면 중앙에 창 위치
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-
         for (int i = 1; i <= 4; i++) {
             Thread pcThread = new MySwimmerThread("pc"+i,10, i * 75);
             pcThread.start();
@@ -26,8 +26,25 @@ public class swimmerThread extends JFrame {
             Thread pcThread = new MySwimmerThread("pc"+i,10, i * 75 + 75);
             pcThread.start();
         }
-
+        addKeyListener(this);
+        setFocusable(true);
         setVisible(true);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_DOWN)
+            System.out.println("아래");
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 
     class MySwimmerThread extends Thread {

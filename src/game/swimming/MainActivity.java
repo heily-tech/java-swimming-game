@@ -10,7 +10,6 @@ public class MainActivity extends JFrame {
     initActivity initActivity;
     SelectStrokeActivity selectStrokeActivity;
     SelectModeActivity selectModeActivity;
-    PlayActivity playActivity;
     swimmerThread swimmerThread;
 
 
@@ -28,7 +27,6 @@ public class MainActivity extends JFrame {
         main.initActivity = new initActivity(main);
         main.selectStrokeActivity = new SelectStrokeActivity(main);
         main.selectModeActivity = new SelectModeActivity(main);
-        main.playActivity = new PlayActivity(main);
 
         main.add(main.initActivity);
 
@@ -44,16 +42,6 @@ public class MainActivity extends JFrame {
         } else if (panelName.equals("SelectModeActivity")) {
             getContentPane().removeAll();
             getContentPane().add(selectModeActivity);
-            revalidate();
-            repaint();
-        }else if (panelName.equals("PlayActivity")) {
-            getContentPane().removeAll();
-            getContentPane().add(playActivity);
-            revalidate();
-            repaint();
-        } else if (panelName.equals("swimmerThread")) {
-            getContentPane().removeAll();
-            getContentPane().add(swimmerThread);
             revalidate();
             repaint();
         }
