@@ -1,9 +1,7 @@
 package game.swimming;
 
-import game.swimming.activities.PlayActivity;
-import game.swimming.activities.SelectModeActivity;
-import game.swimming.activities.SelectStrokeActivity;
-import game.swimming.activities.initActivity;
+import game.swimming.activities.*;
+
 import javax.swing.*;
 
 public class MainActivity extends JFrame {
@@ -13,10 +11,12 @@ public class MainActivity extends JFrame {
     SelectStrokeActivity selectStrokeActivity;
     SelectModeActivity selectModeActivity;
     PlayActivity playActivity;
+    swimmerThread swimmerThread;
 
 
     public static void main(String[] args) {
         MainActivity main = new MainActivity();
+
 
         main.setTitle("My Swimming Game");
         main.setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -49,6 +49,11 @@ public class MainActivity extends JFrame {
         }else if (panelName.equals("PlayActivity")) {
             getContentPane().removeAll();
             getContentPane().add(playActivity);
+            revalidate();
+            repaint();
+        } else if (panelName.equals("swimmerThread")) {
+            getContentPane().removeAll();
+            getContentPane().add(swimmerThread);
             revalidate();
             repaint();
         }

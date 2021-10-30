@@ -14,6 +14,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
     JButton chosenBtn;
     private MainActivity main;
     private SelectStrokeActivity selectStrokeActivity;
+    private swimmerThread swimmerThread;
     private JOptionPane nullSelection;
 
 
@@ -21,8 +22,8 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         this.main = main;
         setOpaque(false);
         setLayout(null);
-        setVisible(true);
         btnInit();
+        setVisible(true);
     }
 
     @Override
@@ -66,7 +67,8 @@ public class SelectModeActivity extends JPanel implements ActionListener {
             if (strokeChooseNum == backupNum) {
                 nullSelection.showMessageDialog(null, "모드를 선택해주세요.");
             } else {
-                main.change("PlayActivity");
+                new swimmerThread();
+                main.dispose();
                 System.out.println(strokeChooseNum);
             }
             System.out.println(strokeChooseNum);
@@ -124,7 +126,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         reBtn.setBounds(700, 180, 100, 45);
         add(reBtn);
 
-        chosenBtn = new JButton("게임시작");
+        chosenBtn = new JButton("게임 시작");
         chosenBtn.addActionListener(this);
         chosenBtn.setBounds(180, 650, 100, 45);
         add(chosenBtn);

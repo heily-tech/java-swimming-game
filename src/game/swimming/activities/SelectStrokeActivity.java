@@ -19,8 +19,8 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         this.main = main;
         setOpaque(false);
         setLayout(null);
-        setVisible(true);
         btnInit();
+        setVisible(true);
     }
 
     @Override
