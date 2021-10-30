@@ -62,19 +62,19 @@ public class initActivity extends JPanel {
 
         idLabel = new JLabel();
         idLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/idBase.png")));
-        idLabel.setBounds(350, 380, 300, 50);
+        idLabel.setBounds(330, 360, 300, 50);
         add(idLabel);
         idField = new JTextField();
         idField.setBorder(BorderFactory.createEmptyBorder());
         idField.setOpaque(false);
         //idField.setFont(new Font("SansSerif", Font.BOLD, 25));
         idField.setFont(new Font("Press Start 2P", Font.PLAIN, 25));
-        idField.setBounds(440, 390, 180, 30);
+        idField.setBounds(420, 370, 180, 30);
         add(idField);
 
         pwLabel = new JLabel();
-        pwLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/pswdBase.png")));
-        pwLabel.setBounds(295, 480, 400, 50);
+        pwLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/pwBase.png")));
+        pwLabel.setBounds(330, 460, 400, 50);
         add(pwLabel);
         pwField = new JPasswordField();
         pwField.setBorder(BorderFactory.createEmptyBorder());
@@ -82,7 +82,7 @@ public class initActivity extends JPanel {
         pwField.setEchoChar('*');
         //pwField.setFont(new Font("SansSerif", Font.BOLD, 25));
         pwField.setFont(new Font("Press Start 2P", Font.PLAIN, 25));
-        pwField.setBounds(440, 490, 180, 30);
+        pwField.setBounds(420, 470, 180, 30);
         add(pwField);
     }
     protected void paintComponent(Graphics g) {
