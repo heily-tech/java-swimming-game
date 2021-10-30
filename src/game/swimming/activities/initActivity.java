@@ -24,8 +24,10 @@ public class initActivity extends JPanel {
         notFound = new JOptionPane();
 
         loginBtn = new JButton();
-        ImageIcon loginImg = new ImageIcon(MainActivity.class.getResource("res/btns/login.jpg"));
-        loginBtn.setIcon(loginImg);
+        loginBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/loginBtn1.png")));
+        loginBtn.setBorderPainted(false);
+        loginBtn.setContentAreaFilled(false);
+        loginBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/loginBtn2.png")));
         loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -40,12 +42,14 @@ public class initActivity extends JPanel {
                 }
             }
         });
-        loginBtn.setBounds(550, 655, 100, 35);
+        loginBtn.setBounds(200, 600, 200, 75);
         add(loginBtn);
 
         joinBtn = new JButton();
-        ImageIcon joinImg = new ImageIcon(MainActivity.class.getResource("res/btns/join.jpg"));
-        joinBtn.setIcon(joinImg);
+        joinBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/joinBtn1.png")));
+        joinBtn.setBorderPainted(false);
+        joinBtn.setContentAreaFilled(false);
+        joinBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/joinBtn2.png")));
         joinBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,20 +57,32 @@ public class initActivity extends JPanel {
                 //setVisible(false);
             }
         });
-        joinBtn.setBounds(670, 655, 100, 35);
+        joinBtn.setBounds(600, 600, 200, 75);
         add(joinBtn);
 
-        idLabel = new JLabel("ID");
-        idLabel.setBounds(180, 650, 100, 45);
+        idLabel = new JLabel();
+        idLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/idBase.png")));
+        idLabel.setBounds(350, 380, 300, 50);
         add(idLabel);
-        pwLabel = new JLabel("PW");
-        pwLabel.setBounds(360, 650, 100, 45);
-        add(pwLabel);
         idField = new JTextField();
-        idField.setBounds(200, 660, 120, 30);
+        idField.setBorder(BorderFactory.createEmptyBorder());
+        idField.setOpaque(false);
+        //idField.setFont(new Font("SansSerif", Font.BOLD, 25));
+        idField.setFont(new Font("Press Start 2P", Font.PLAIN, 25));
+        idField.setBounds(440, 390, 180, 30);
         add(idField);
+
+        pwLabel = new JLabel();
+        pwLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/pswdBase.png")));
+        pwLabel.setBounds(295, 480, 400, 50);
+        add(pwLabel);
         pwField = new JPasswordField();
-        pwField.setBounds(385, 660, 120, 30);
+        pwField.setBorder(BorderFactory.createEmptyBorder());
+        pwField.setOpaque(false);
+        pwField.setEchoChar('*');
+        //pwField.setFont(new Font("SansSerif", Font.BOLD, 25));
+        pwField.setFont(new Font("Press Start 2P", Font.PLAIN, 25));
+        pwField.setBounds(440, 490, 180, 30);
         add(pwField);
     }
     protected void paintComponent(Graphics g) {
