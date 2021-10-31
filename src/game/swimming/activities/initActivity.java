@@ -24,10 +24,10 @@ public class initActivity extends JPanel {
         notFound = new JOptionPane();
 
         loginBtn = new JButton();
-        loginBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/loginBtn1.png")));
+        loginBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/init/loginBtn1.png")));
         loginBtn.setBorderPainted(false);
         loginBtn.setContentAreaFilled(false);
-        loginBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/loginBtn2.png")));
+        loginBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/init/loginBtn2.png")));
         loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,10 +46,10 @@ public class initActivity extends JPanel {
         add(loginBtn);
 
         joinBtn = new JButton();
-        joinBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/joinBtn1.png")));
+        joinBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/init/joinBtn1.png")));
         joinBtn.setBorderPainted(false);
         joinBtn.setContentAreaFilled(false);
-        joinBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/joinBtn2.png")));
+        joinBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/init/joinBtn2.png")));
         joinBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,7 +61,7 @@ public class initActivity extends JPanel {
         add(joinBtn);
 
         idLabel = new JLabel();
-        idLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/idBase.png")));
+        idLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/init/idBase.png")));
         idLabel.setBounds(330, 360, 300, 50);
         add(idLabel);
         idField = new JTextField();
@@ -73,7 +73,7 @@ public class initActivity extends JPanel {
         add(idField);
 
         pwLabel = new JLabel();
-        pwLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/pwBase.png")));
+        pwLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/init/pwBase.png")));
         pwLabel.setBounds(330, 460, 400, 50);
         add(pwLabel);
         pwField = new JPasswordField();

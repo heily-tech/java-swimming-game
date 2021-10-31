@@ -11,7 +11,7 @@ import static game.swimming.activities.SelectStrokeActivity.strokeChooseNum;
 
 public class SelectModeActivity extends JPanel implements ActionListener {
     public static int backupNum = 0;
-    JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, backBtn, reBtn, chosenBtn;
+    JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, gobackBtn, reBtn, chosenBtn;
     JLabel titleLabel, entryLabel, modeLabel;
     private MainActivity main;
     private SelectStrokeActivity selectStrokeActivity;
@@ -70,7 +70,8 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         }
 
         if (e.getSource() == chosenBtn) {
-            if (strokeChooseNum == backupNum) {
+            if (singleBtn.isEnabled() == true || indivBtn.isEnabled() == true || grpBtn.isEnabled() == true
+                    || speedBtn.isEnabled() == true || itemBtn.isEnabled() == true) {
                 nullSelection.showMessageDialog(null, "모드를 선택해주세요.");
             } else {
                 new swimmerThread();
@@ -85,7 +86,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
             grpBtn.setEnabled(true);		grpBtn.setBackground(new Color(243, 236, 232));
             speedBtn.setEnabled(true);		speedBtn.setBackground(new Color(243, 236, 232));
             itemBtn.setEnabled(true);		itemBtn.setBackground(new Color(243, 236, 232));
-        } else if (e.getSource() == backBtn) {
+        } else if (e.getSource() == gobackBtn) {
             main.change("SelectStrokeActivity");
             singleBtn.setEnabled(true);		singleBtn.setBackground(new Color(243, 236, 232));
             indivBtn.setEnabled(true);		indivBtn.setBackground(new Color(243, 236, 232));
@@ -96,86 +97,76 @@ public class SelectModeActivity extends JPanel implements ActionListener {
     }
 
     void btnInit() {
-        entryLabel = new JLabel("플레이 인원");
-        entryLabel.setFont(new Font("HY강B", Font.PLAIN, 11));
-        entryLabel.setBounds(465, 200, 190, 70);
-        add(entryLabel);
-
-        singleBtn = new JButton("싱글모드");
-        singleBtn.setForeground(Color.DARK_GRAY);
-        singleBtn.setBackground(new Color(243, 236, 232));
+        singleBtn = new JButton();
+        singleBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectMode/싱글모드1.png")));
         singleBtn.setBorderPainted(false);
-        singleBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        singleBtn.setContentAreaFilled(false);
+        singleBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectMode/싱글모드2.png")));
         singleBtn.addActionListener(this);
-        singleBtn.setBounds(280, 250, 110, 55);
+        singleBtn.setBounds(160, 175, 210, 220);
         add(singleBtn);
 
-        indivBtn = new JButton("개인전");
-        indivBtn.setForeground(Color.DARK_GRAY);
-        indivBtn.setBackground(new Color(243, 236, 232));
+        indivBtn = new JButton();
+        indivBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectMode/개인전1.png")));
         indivBtn.setBorderPainted(false);
-        indivBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        indivBtn.setContentAreaFilled(false);
+        indivBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectMode/개인전2.png")));
         indivBtn.addActionListener(this);
-        indivBtn.setBounds(440, 250, 110, 55);
+        indivBtn.setBounds(398, 175, 210, 220);
         add(indivBtn);
 
-        grpBtn = new JButton("단체전");
-        grpBtn.setForeground(Color.DARK_GRAY);
-        grpBtn.setBackground(new Color(243, 236, 232));
+        grpBtn = new JButton();
+        grpBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectMode/단체전1.png")));
         grpBtn.setBorderPainted(false);
-        grpBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        grpBtn.setContentAreaFilled(false);
+        grpBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectMode/단체전2.png")));
         grpBtn.addActionListener(this);
-        grpBtn.setBounds(600, 250, 110, 55);
+        grpBtn.setBounds(631, 175, 210, 220);
         add(grpBtn);
 
-        modeLabel = new JLabel("플레이 모드");
-        modeLabel.setFont(new Font("HY강B", Font.PLAIN, 11));
-        modeLabel.setBounds(465, 330, 190, 70);
-        add(modeLabel);
-
-        speedBtn = new JButton("스피드전");
-        speedBtn.setForeground(Color.DARK_GRAY);
-        speedBtn.setBackground(new Color(243, 236, 232));
+        speedBtn = new JButton();
+        speedBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectMode/속도전1.png")));
         speedBtn.setBorderPainted(false);
-        speedBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        speedBtn.setContentAreaFilled(false);
+        speedBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectMode/속도전2.png")));
         speedBtn.addActionListener(this);
-        speedBtn.setBounds(360, 380, 110, 55);
+        speedBtn.setBounds(50, 427, 900, 95);
         add(speedBtn);
 
-        itemBtn = new JButton("아이템전");
-        itemBtn.setForeground(Color.DARK_GRAY);
-        itemBtn.setBackground(new Color(243, 236, 232));
+        itemBtn = new JButton();
+        itemBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectMode/아이템전1.png")));
         itemBtn.setBorderPainted(false);
-        itemBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        itemBtn.setContentAreaFilled(false);
+        itemBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectMode/아이템전2.png")));
         itemBtn.addActionListener(this);
-        itemBtn.setBounds(520, 380, 110, 55);
+        itemBtn.setBounds(50, 537, 900, 95);
         add(itemBtn);
 
-        backBtn = new JButton("<-");
-        backBtn.setForeground(Color.DARK_GRAY);
-        backBtn.setBackground(new Color(243, 236, 232));
-        backBtn.setBorderPainted(false);
-        backBtn.setFont(new Font("HY강B", Font.BOLD, 30));
-        backBtn.addActionListener(this);
-        backBtn.setBounds(300, 510, 110, 55);
-        add(backBtn);
+        gobackBtn = new JButton();
+        gobackBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/뒤로가기1.png")));
+        gobackBtn.setBorderPainted(false);
+        gobackBtn.setContentAreaFilled(false);
+        gobackBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/뒤로가기2.png")));
+        gobackBtn.addActionListener(this);
+        gobackBtn.setBounds(44, 660, 200, 75);
+        add(gobackBtn);
 
-        reBtn = new JButton("다시 선택");
-        reBtn.setForeground(Color.DARK_GRAY);
-        reBtn.setBackground(new Color(243, 236, 232));
+        reBtn = new JButton();
+        reBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/재선택1.png")));
         reBtn.setBorderPainted(false);
-        reBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        reBtn.setContentAreaFilled(false);
+        reBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/재선택2.png")));
         reBtn.addActionListener(this);
-        reBtn.setBounds(440, 510, 110, 55);
+        reBtn.setBounds(399, 660, 200, 75);
         add(reBtn);
 
-        chosenBtn = new JButton("게임 시작");
-        chosenBtn.setForeground(Color.DARK_GRAY);
-        chosenBtn.setBackground(new Color(243, 236, 232));
+        chosenBtn = new JButton();
+        chosenBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/다음1.png")));
         chosenBtn.setBorderPainted(false);
-        chosenBtn.setFont(new Font("HY강B", Font.PLAIN, 17));
+        chosenBtn.setContentAreaFilled(false);
+        chosenBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/다음2.png")));
         chosenBtn.addActionListener(this);
-        chosenBtn.setBounds(580, 510, 110, 55);
+        chosenBtn.setBounds(756, 660, 200, 75);
         add(chosenBtn);
     }
 

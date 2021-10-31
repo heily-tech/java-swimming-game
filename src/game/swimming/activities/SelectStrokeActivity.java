@@ -64,7 +64,8 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         }
 
         if (e.getSource() == nextBtn){
-            if (strokeChooseNum < 1100 && strokeChooseNum < 2100 | strokeChooseNum < 3100 | strokeChooseNum < 4100) {
+            if (freeBtn.isEnabled() == true || backBtn.isEnabled() == true || btflyBtn.isEnabled() == true || brstBtn.isEnabled() == true ||
+            dist100Btn.isEnabled() == true || dist200Btn.isEnabled() == true) {
                 nullSelection.showMessageDialog(null, "영법과 거리를 선택해주세요.");
             } else {
                 main.change("SelectModeActivity");
@@ -86,37 +87,37 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
 
     void btnInit() {
         freeBtn = new JButton();
-        freeBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/자유형1.png")));
+        freeBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/자유형1.png")));
         freeBtn.setBorderPainted(false);
         freeBtn.setContentAreaFilled(false);
-        freeBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/자유형2.png")));
+        freeBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/자유형2.png")));
         freeBtn.addActionListener(this);
         freeBtn.setBounds(44, 175, 210, 220);
         add(freeBtn);
 
         backBtn = new JButton();
-        backBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/배영1.png")));
+        backBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/배영1.png")));
         backBtn.setBorderPainted(false);
         backBtn.setContentAreaFilled(false);
-        backBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/배영2.png")));
+        backBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/배영2.png")));
         backBtn.addActionListener(this);
         backBtn.setBounds(277, 175, 210, 220);
         add(backBtn);
 
         btflyBtn = new JButton();
-        btflyBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/접영1.png")));
+        btflyBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/접영1.png")));
         btflyBtn.setBorderPainted(false);
         btflyBtn.setContentAreaFilled(false);
-        btflyBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/접영2.png")));
+        btflyBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/접영2.png")));
         btflyBtn.addActionListener(this);
         btflyBtn.setBounds(510, 175, 210, 220);
         add(btflyBtn);
 
         brstBtn = new JButton();
-        brstBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/평영1.png")));
+        brstBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/평영1.png")));
         brstBtn.setBorderPainted(false);
         brstBtn.setContentAreaFilled(false);
-        brstBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/평영2.png")));
+        brstBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/평영2.png")));
         brstBtn.addActionListener(this);
         brstBtn.setBounds(746, 175, 210, 220);
         add(brstBtn);
@@ -140,19 +141,19 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         add(nextBtn);
 
         dist100Btn = new JButton();
-        dist100Btn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/100m1.png")));
+        dist100Btn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/100m1.png")));
         dist100Btn.setBorderPainted(false);
         dist100Btn.setContentAreaFilled(false);
-        dist100Btn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/100m2.png")));
+        dist100Btn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/100m2.png")));
         dist100Btn.addActionListener(this);
         dist100Btn.setBounds(50, 427, 900, 95);
         add(dist100Btn);
 
         dist200Btn = new JButton();
-        dist200Btn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/200m1.png")));
+        dist200Btn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/200m1.png")));
         dist200Btn.setBorderPainted(false);
         dist200Btn.setContentAreaFilled(false);
-        dist200Btn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/200m2.png")));
+        dist200Btn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/selectStroke/200m2.png")));
         dist200Btn.addActionListener(this);
         dist200Btn.setBounds(50, 537, 900, 95);
         add(dist200Btn);
