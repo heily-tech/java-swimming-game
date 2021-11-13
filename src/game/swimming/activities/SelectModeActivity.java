@@ -6,16 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.function.UnaryOperator;
 
 import static game.swimming.activities.SelectStrokeActivity.strokeChooseNum;
 
 public class SelectModeActivity extends JPanel implements ActionListener {
-    public static int backupNum = 0;
+    public static ArrayList<String> backupNum = new ArrayList<>();
     JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, gobackBtn, reBtn, chosenBtn;
-    JLabel titleLabel, entryLabel, modeLabel;
     private MainActivity main;
     private SelectStrokeActivity selectStrokeActivity;
-    private swimmerThread swimmerThread;
     private JOptionPane nullSelection;
     Image background = new ImageIcon(MainActivity.class.getResource("res/modeBackground.png")).getImage();
 
@@ -30,7 +30,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == singleBtn) {
-            strokeChooseNum += 10;
+            strokeChooseNum.add("1");
             singleBtn.setBackground(new Color(193, 213, 207));
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
@@ -38,7 +38,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == indivBtn){
-            strokeChooseNum += 20;
+            strokeChooseNum.add("2");
             indivBtn.setBackground(new Color(193, 213, 207));
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
@@ -46,7 +46,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == grpBtn){
-            strokeChooseNum += 30;
+            strokeChooseNum.add("3");
             grpBtn.setBackground(new Color(193, 213, 207));
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
@@ -55,14 +55,14 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         }
 
         if (e.getSource() == speedBtn) {
-            strokeChooseNum += 1;
+            strokeChooseNum.add("1");
             speedBtn.setBackground(new Color(193, 213, 207));
             speedBtn.setEnabled(false);
             itemBtn.setEnabled(false);
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == itemBtn){
-            strokeChooseNum += 2;
+            strokeChooseNum.add("2");
             itemBtn.setBackground(new Color(193, 213, 207));
             speedBtn.setEnabled(false);
             itemBtn.setEnabled(false);
@@ -74,13 +74,11 @@ public class SelectModeActivity extends JPanel implements ActionListener {
                     || speedBtn.isEnabled() == true || itemBtn.isEnabled() == true) {
                 nullSelection.showMessageDialog(null, "모드를 선택해주세요.");
             } else {
-                new swimmerThread();
-                main.dispose();
+                main.change("PlayActivity");
                 System.out.println(strokeChooseNum);
-                //num에 따라서 게임 모드 달라지는 메소드 만들기
             }
         } else if (e.getSource() == reBtn) {
-            strokeChooseNum = backupNum;
+            strokeChooseNum = (ArrayList<String>) backupNum.clone();
             singleBtn.setEnabled(true);		singleBtn.setBackground(new Color(243, 236, 232));
             indivBtn.setEnabled(true);		indivBtn.setBackground(new Color(243, 236, 232));
             grpBtn.setEnabled(true);		grpBtn.setBackground(new Color(243, 236, 232));

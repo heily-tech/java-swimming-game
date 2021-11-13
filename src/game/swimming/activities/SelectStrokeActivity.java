@@ -6,15 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static game.swimming.activities.SelectModeActivity.backupNum;
 
 public class SelectStrokeActivity extends JPanel implements ActionListener {
-    public static int strokeChooseNum = 0;
+    public static ArrayList<String> strokeChooseNum = new ArrayList<>();
     private MainActivity main;
     private SelectModeActivity selectModeActivity;
     JButton freeBtn, backBtn, btflyBtn, brstBtn, nextBtn, dist100Btn, dist200Btn, reBtn;
-    JLabel styleLabel, dLabel;
     private JOptionPane nullSelection;
     Image background = new ImageIcon(MainActivity.class.getResource("res/modeBackground.png")).getImage();
 
@@ -29,34 +29,34 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == freeBtn) {
-            strokeChooseNum += 1000;
+            strokeChooseNum.add("1");
             btnSelected();
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == backBtn){
-            strokeChooseNum += 2000;
+            strokeChooseNum.add("2");
             btnSelected();
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == btflyBtn){
-            strokeChooseNum += 3000;
+            strokeChooseNum.add("3");
             btnSelected();
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == brstBtn){
-            strokeChooseNum += 4000;
+            strokeChooseNum.add("4");
             btnSelected();
             System.out.println(strokeChooseNum);
         }
         if (e.getSource() == dist100Btn) {
-            strokeChooseNum += 100;
+            strokeChooseNum.add("1");
             dist100Btn.setBackground(new Color(193, 213, 207));
             dist100Btn.setEnabled(false);
             dist200Btn.setEnabled(false);
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == dist200Btn){
-            strokeChooseNum += 200;
+            strokeChooseNum.add("2");
             dist200Btn.setBackground(new Color(193, 213, 207));
             dist100Btn.setEnabled(false);
             dist200Btn.setEnabled(false);
@@ -70,10 +70,10 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
             } else {
                 main.change("SelectModeActivity");
                 System.out.println(strokeChooseNum);
-                backupNum = strokeChooseNum;
+                backupNum = (ArrayList<String>) strokeChooseNum.clone();
             }
         } else if (e.getSource() == reBtn) {
-            strokeChooseNum = 0;
+            strokeChooseNum.clear();
             freeBtn.setEnabled(true);		freeBtn.setBackground(new Color(243, 236, 232));
             backBtn.setEnabled(true);		backBtn.setBackground(new Color(243, 236, 232));
             btflyBtn.setEnabled(true);		btflyBtn.setBackground(new Color(243, 236, 232));

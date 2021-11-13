@@ -1,11 +1,14 @@
 package game.swimming.activities;
 
+import dbconn.DBConnection;
 import game.swimming.MainActivity;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class initActivity extends JPanel {
     private MainActivity main;
@@ -14,7 +17,7 @@ public class initActivity extends JPanel {
     JLabel idLabel, pwLabel;
     JTextField idField;
     JPasswordField pwField;
-    String idSample = "1111", pwSample = "1111"; //변경 필요
+    String idSample = "", pwSample = ""; //변경 필요
     JOptionPane notFound;
 
     public initActivity(MainActivity main) {
@@ -85,6 +88,7 @@ public class initActivity extends JPanel {
         pwField.setBounds(420, 470, 180, 30);
         add(pwField);
     }
+
     protected void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, 1000, 800, null);
     }
