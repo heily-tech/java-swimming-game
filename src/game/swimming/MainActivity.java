@@ -3,6 +3,8 @@ package game.swimming;
 import game.swimming.activities.*;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class MainActivity extends JFrame {
     public static final int GAME_WIDTH = 1000;
@@ -11,7 +13,6 @@ public class MainActivity extends JFrame {
     SelectStrokeActivity selectStrokeActivity;
     SelectModeActivity selectModeActivity;
     PlayActivity playActivity;
-
 
     public static void main(String[] args) {
         MainActivity main = new MainActivity();
@@ -22,7 +23,6 @@ public class MainActivity extends JFrame {
         main.setResizable(false);
         main.setLocationRelativeTo(null); //화면 중앙에 창 위치
         main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
         main.initActivity = new initActivity(main);
         main.selectStrokeActivity = new SelectStrokeActivity(main);
