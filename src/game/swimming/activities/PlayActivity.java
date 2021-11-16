@@ -23,8 +23,14 @@ public class PlayActivity extends JPanel {
         Runnable task = () -> {
             while (true) {
                 try {
-                    Thread.sleep(1000);
                     charPanel();
+                    Thread.sleep(1000);
+                    if (imgX >= 840) {
+                        leftPrsd = true;
+                        rightPrsd = true;
+                        spacePrsd = true;
+                        break;
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -41,38 +47,66 @@ public class PlayActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (leftPrsd == false) {
-                    System.out.println("left");
+//                    System.out.println("left");
                     free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_1.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
-                    rightPrsd = false;
+                    rightPrsd = true;
+                    spacePrsd = false;
                 }
             }
         });
-//        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "space");
-//        getActionMap().put("space", new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (spacePrsd = false) {
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "space");
+        getActionMap().put("space", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (spacePrsd == false) {
 //                    System.out.println("space");
-//                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_2.png")).getImage();
-//                    imgX += 10;
-//                }
-//            }
-//        });
+                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_2.png")).getImage();
+                    //이미지 바꾸쉴?
+                    imgX += 10;
+                    leftPrsd = true;
+                    rightPrsd = false;
+                    spacePrsd = true;
+                }
+            }
+        });
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
         getActionMap().put("right", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (rightPrsd == false) {
-                    System.out.println("right");
+//                    System.out.println("right");
                     free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_3.png")).getImage();
                     imgX += 10;
                     rightPrsd = true;
                     leftPrsd = false;
+                    spacePrsd = true;
                 }
             }
         });
+//        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
+//        getActionMap().put("up", new AbstractAction() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (spacePrsd == false) {
+//                    System.out.println("up");
+//                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_3.png")).getImage();
+//                    imgX += 10;
+//                }
+//            }
+//        });
+//        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
+//        getActionMap().put("down", new AbstractAction() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (spacePrsd == false) {
+//                    System.out.println("down");
+//                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_3.png")).getImage();
+//                    imgX += 10;
+//                }
+//            }
+//        });
     }
 
     public void paint(Graphics g) {
