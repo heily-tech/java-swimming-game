@@ -58,9 +58,9 @@ public class test extends JFrame {
     //        charPanel = new JPanel() {
 //            public void paint(Graphics g) {
 //                if (setImage == 1)
-//                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_1.png")).getImage();
+//                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle_1.png")).getImage();
 //                else if (setImage == 3)
-//                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_3.png")).getImage();
+//                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle_3.png")).getImage();
 //                g.drawImage(free, imgX, 385, 145, 80, this);
 //                //5, 105, 200, 290, 385
 //                repaint();

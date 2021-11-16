@@ -1,29 +1,36 @@
 package game.swimming.activities;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 import game.swimming.MainActivity;
 import game.swimming.player;
+import game.swimming.strokes.freestyle;
 
 public class PlayActivity extends JPanel {
+    public static ArrayList<String> strokeChooseNum = new ArrayList<>();
     private MainActivity main;
     private SelectModeActivity selectModeActivity;
     private int imgX;
-    boolean leftPrsd = false, rightPrsd = false, spacePrsd = false;
-    Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
-    Image free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_1.png")).getImage();
+    private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
+    String strokeName;
+    boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
+    Image pool, stroke;
 
     public PlayActivity(MainActivity main) {
         this.main = main;
         setOpaque(false);
         setLayout(null);
 
-        Runnable task = () -> {
+        pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
+        strokeName = "freestyle";
+        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "_1.png")).getImage();
+        Runnable freestyle = () -> {
             while (true) {
                 try {
-                    charPanel();
+                    keySet();
                     Thread.sleep(1000);
                     if (imgX >= 840) {
                         leftPrsd = true;
@@ -36,19 +43,17 @@ public class PlayActivity extends JPanel {
                 }
             }
         };
-        new Thread(task).start();
-
+        new Thread(freestyle).start();
         setVisible(true);
     }
 
-    private void charPanel() {
+    public void keySet() {
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
         getActionMap().put("left", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (leftPrsd == false) {
-//                    System.out.println("left");
-                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_1.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "_1.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
                     rightPrsd = true;
@@ -61,9 +66,7 @@ public class PlayActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (spacePrsd == false) {
-//                    System.out.println("space");
-                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_2.png")).getImage();
-                    //이미지 바꾸쉴?
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "_2.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
                     rightPrsd = false;
@@ -76,8 +79,7 @@ public class PlayActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (rightPrsd == false) {
-//                    System.out.println("right");
-                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_3.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "_3.png")).getImage();
                     imgX += 10;
                     rightPrsd = true;
                     leftPrsd = false;
@@ -85,34 +87,10 @@ public class PlayActivity extends JPanel {
                 }
             }
         });
-//        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
-//        getActionMap().put("up", new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (spacePrsd == false) {
-//                    System.out.println("up");
-//                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_3.png")).getImage();
-//                    imgX += 10;
-//                }
-//            }
-//        });
-//        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
-//        getActionMap().put("down", new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (spacePrsd == false) {
-//                    System.out.println("down");
-//                    free = new ImageIcon(MainActivity.class.getResource("res/strokes/free_3.png")).getImage();
-//                    imgX += 10;
-//                }
-//            }
-//        });
     }
-
     public void paint(Graphics g) {
         g.drawImage(pool, 0, 0, 990, 760, this);
-        g.drawImage(free, imgX, 385, 145, 80, this);
-        //5, 105, 200, 290, 385
+        g.drawImage(stroke, imgX, imgY[4], 145, 80, this);
         repaint();
     }
 }
