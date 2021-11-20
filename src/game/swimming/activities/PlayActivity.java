@@ -6,28 +6,68 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import game.swimming.MainActivity;
-import game.swimming.player;
-import game.swimming.strokes.freestyle;
 
 public class PlayActivity extends JPanel {
     public static ArrayList<String> strokeChooseNum = new ArrayList<>();
+    public static String strokeName;
     private MainActivity main;
-    private SelectModeActivity selectModeActivity;
-    private int imgX;
-    private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
-    String strokeName;
+    private int imgX, distance = 0, pcX, pcY;
+    private int[] pc_Y = {5, 105, 198, 290, 385, 480, 573, 668};
     boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
-    Image pool, stroke;
+    Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
+//    Image stroke, pcStroke;
+    Image stroke = new ImageIcon(MainActivity.class.getResource("res//strokes/freestyle_1.png")).getImage();
+    Image pcStroke = new ImageIcon(MainActivity.class.getResource("res//strokes/freestyle_1.png")).getImage();
 
     public PlayActivity(MainActivity main) {
         this.main = main;
         setOpaque(false);
         setLayout(null);
 
-        pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
-        strokeName = "freestyle";
-        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "_1.png")).getImage();
-        Runnable freestyle = () -> {
+        for (int i = 1; i <= 8; i++) {
+            if (i == 3)
+                continue;
+            pcY = pc_Y[i-1];
+            pcThread pc = new pcThread("pc" + i, pcY);
+            pc.start();
+        }
+
+        userThread user = new userThread();
+        user.start();
+
+        setBackground(Color.BLUE);
+        setVisible(true);
+    }
+
+    class pcThread extends Thread {
+        String pc_name = "";
+        int pc_y;
+
+        pcThread(String pc_name, int pc_y) {
+            this.pc_name = pc_name;
+            this.pc_y = pc_y;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 600; i++) {
+                try {
+                    pcX += 15 * Math.random();
+                    Thread.sleep(300);
+                    if (pcX >= 890) {
+                        pcX = 890;
+                        break;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    class userThread extends Thread {
+        @Override
+        public void run() {
             while (true) {
                 try {
                     keySet();
@@ -36,15 +76,14 @@ public class PlayActivity extends JPanel {
                         leftPrsd = true;
                         rightPrsd = true;
                         spacePrsd = true;
+                        new rankActivity(main);
                         break;
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        };
-        new Thread(freestyle).start();
-        setVisible(true);
+        }
     }
 
     public void keySet() {
@@ -88,9 +127,11 @@ public class PlayActivity extends JPanel {
             }
         });
     }
+
     public void paint(Graphics g) {
         g.drawImage(pool, 0, 0, 990, 760, this);
-        g.drawImage(stroke, imgX, imgY[4], 145, 80, this);
+        g.drawImage(stroke, imgX, 290, 145, 80, this);
+        g.drawImage(pcStroke, pcX, pcY, 145, 80, this);
         repaint();
     }
 }

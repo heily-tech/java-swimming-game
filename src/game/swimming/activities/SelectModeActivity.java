@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.function.UnaryOperator;
 
 import static game.swimming.activities.SelectStrokeActivity.strokeChooseNum;
+import static game.swimming.activities.PlayActivity.strokeName;
 
 public class SelectModeActivity extends JPanel implements ActionListener {
     public static ArrayList<String> backupNum = new ArrayList<>();
@@ -74,8 +75,26 @@ public class SelectModeActivity extends JPanel implements ActionListener {
                     || speedBtn.isEnabled() == true || itemBtn.isEnabled() == true) {
                 nullSelection.showMessageDialog(null, "모드를 선택해주세요.");
             } else {
-                main.change("PlayActivity");
-                System.out.println(strokeChooseNum);
+                if (strokeChooseNum.get(2).equals("1")) {
+                    main.change("PlayActivity");
+                    if (strokeChooseNum.get(0).equals("1"))
+                        strokeName = "freestyle";
+                    else if (strokeChooseNum.get(0).equals("2"))
+                        strokeName = "backStroke";
+                    else if (strokeChooseNum.get(0).equals("3"))
+                        strokeName = "butterfly";
+                    else if (strokeChooseNum.get(0).equals("4"))
+                        strokeName = "breastStroke";
+                } else {
+                    if (strokeChooseNum.get(0).equals("1"))
+                        main.change("freestyle");
+                    else if (strokeChooseNum.get(0).equals("2"))
+                        main.change("backStroke");
+                    else if (strokeChooseNum.get(0).equals("3"))
+                        main.change("butterfly");
+                    else if (strokeChooseNum.get(0).equals("4"))
+                        main.change("breastStroke");
+                }
             }
         } else if (e.getSource() == reBtn) {
             strokeChooseNum = (ArrayList<String>) backupNum.clone();

@@ -1,28 +1,100 @@
 package game.swimming.strokes;
 
+import game.swimming.MainActivity;
+import game.swimming.activities.rankActivity;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class breastStroke implements KeyListener {
-    @Override
-    public void keyTyped(KeyEvent e) {
+public class breastStroke extends JPanel {
+    private MainActivity main;
+    Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
+    Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke_1.png")).getImage();
+    private int imgX, distance = 0;
+    private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
+    boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
 
+    public breastStroke(MainActivity main) {
+        this.main = main;
+        setOpaque(false);
+        setLayout(null);
+
+        breastThread breast = new breastThread();
+        breast.start();
+
+        setBackground(Color.GREEN);
+        setVisible(true);
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-
+    class breastThread extends Thread {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    keySet();
+                    Thread.sleep(1000);
+                    if (imgX >= 840) {
+                        leftPrsd = true;
+                        rightPrsd = true;
+                        spacePrsd = true;
+                        new rankActivity(main);
+                        break;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-
+    public void keySet() {
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
+        getActionMap().put("left", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (leftPrsd == false) {
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke_1.png")).getImage();
+                    imgX += 10;
+                    leftPrsd = true;
+                    rightPrsd = true;
+                    spacePrsd = false;
+                }
+            }
+        });
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "space");
+        getActionMap().put("space", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (spacePrsd == false) {
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke_1.png")).getImage();
+                    imgX += 10;
+                    leftPrsd = true;
+                    rightPrsd = false;
+                    spacePrsd = true;
+                }
+            }
+        });
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
+        getActionMap().put("right", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (rightPrsd == false) {
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke_1.png")).getImage();
+                    imgX += 10;
+                    rightPrsd = true;
+                    leftPrsd = false;
+                    spacePrsd = true;
+                }
+            }
+        });
     }
-    /* 자유형 : 좌우키 스페이스 숨
-        배영 : 좌우키 스페이스 (반전)
-        접영 : 스페이스 양쪽 위 아래 숨
-        평영 : 위 양쪽 스페이스 아래 숨
 
-        시작 시 3 2 1 스페이스 연타 ?
-     */
+    public void paint(Graphics g) {
+        g.drawImage(pool, 0, 0, 990, 760, this);
+        g.drawImage(stroke, imgX, imgY[4], 145, 80, this);
+        repaint();
+    }
 }
