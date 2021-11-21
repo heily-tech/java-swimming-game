@@ -1,16 +1,15 @@
 package game.swimming.activities;
 
-import dbconn.DBConnection;
 import game.swimming.MainActivity;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.File;
 
 public class initActivity extends JPanel {
     private MainActivity main;
@@ -38,9 +37,11 @@ public class initActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if(idField.getText().equals(idSample) && pwField.getText().equals(pwSample)) {
                     main.change("SelectStrokeActivity");
+                    main.sfx("res/sfxs/select_with_reverb.wav");
                     //setVisible(false);
                 }
                 else {
+                    main.sfx("res/sfxs/error.wav");
                     notFound.showMessageDialog(null, "ID/Password가 일치하지 않습니다.");
                     idField.setText(null);
                     pwField.setText(null);
@@ -58,6 +59,7 @@ public class initActivity extends JPanel {
         joinBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                main.sfx("res/sfxs/select_with_reverb.wav");
                 new SignUpActivity();
                 //setVisible(false);
             }

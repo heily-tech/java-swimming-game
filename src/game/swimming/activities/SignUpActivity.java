@@ -17,6 +17,7 @@ public class SignUpActivity extends JFrame {
     JLabel idLabel, pwLabel;
     JTextField idField;
     JPasswordField pwField;
+    MainActivity main;
 
     public SignUpActivity() {
         Color c = new Color(120, 209, 255);
@@ -67,6 +68,7 @@ public class SignUpActivity extends JFrame {
         backBtn.setIcon(backImg);
         backBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                main.sfx("res/sfxs/back.wav");
                 dispose();
             }
         });

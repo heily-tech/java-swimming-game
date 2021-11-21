@@ -14,7 +14,7 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     public static ArrayList<String> strokeChooseNum = new ArrayList<>();
     private MainActivity main;
     private SelectModeActivity selectModeActivity;
-    JButton freeBtn, backBtn, btflyBtn, brstBtn, nextBtn, dist100Btn, dist200Btn, reBtn;
+    JButton freeBtn, backBtn, btflyBtn, brstBtn, nextBtn, dist100Btn, dist200Btn, reBtn, goBackBtn;
     private JOptionPane nullSelection;
     Image background = new ImageIcon(MainActivity.class.getResource("res/modeBackground.png")).getImage();
 
@@ -29,33 +29,36 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == freeBtn) {
+            main.sfx("res/sfxs/select.wav");
             strokeChooseNum.add("1");
             btnSelected();
             System.out.println(strokeChooseNum);
-        }
-        else if (e.getSource() == backBtn){
+        } else if (e.getSource() == backBtn){
+            main.sfx("res/sfxs/select.wav");
             strokeChooseNum.add("2");
             btnSelected();
             System.out.println(strokeChooseNum);
-        }
-        else if (e.getSource() == btflyBtn){
+        } else if (e.getSource() == btflyBtn){
+            main.sfx("res/sfxs/select.wav");
             strokeChooseNum.add("3");
             btnSelected();
             System.out.println(strokeChooseNum);
-        }
-        else if (e.getSource() == brstBtn){
+        } else if (e.getSource() == brstBtn){
+            main.sfx("res/sfxs/select.wav");
             strokeChooseNum.add("4");
             btnSelected();
             System.out.println(strokeChooseNum);
         }
+
         if (e.getSource() == dist100Btn) {
+            main.sfx("res/sfxs/select.wav");
             strokeChooseNum.add("1");
             dist100Btn.setBackground(new Color(193, 213, 207));
             dist100Btn.setEnabled(false);
             dist200Btn.setEnabled(false);
             System.out.println(strokeChooseNum);
-        }
-        else if (e.getSource() == dist200Btn){
+        } else if (e.getSource() == dist200Btn){
+            main.sfx("res/sfxs/select.wav");
             strokeChooseNum.add("2");
             dist200Btn.setBackground(new Color(193, 213, 207));
             dist100Btn.setEnabled(false);
@@ -66,13 +69,16 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         if (e.getSource() == nextBtn){
             if (freeBtn.isEnabled() == true || backBtn.isEnabled() == true || btflyBtn.isEnabled() == true || brstBtn.isEnabled() == true ||
             dist100Btn.isEnabled() == true || dist200Btn.isEnabled() == true) {
+                main.sfx("res/sfxs/error.wav");
                 nullSelection.showMessageDialog(null, "영법과 거리를 선택해주세요.");
             } else {
+                main.sfx("res/sfxs/select_with_reverb.wav");
                 main.change("SelectModeActivity");
                 System.out.println(strokeChooseNum);
                 backupNum = (ArrayList<String>) strokeChooseNum.clone();
             }
         } else if (e.getSource() == reBtn) {
+            main.sfx("res/sfxs/reselect.wav");
             strokeChooseNum.clear();
             freeBtn.setEnabled(true);		freeBtn.setBackground(new Color(243, 236, 232));
             backBtn.setEnabled(true);		backBtn.setBackground(new Color(243, 236, 232));
@@ -82,7 +88,10 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
             dist200Btn.setEnabled(true);	dist200Btn.setBackground(new Color(243, 236, 232));
             System.out.println(strokeChooseNum);
         }
-
+        if (e.getSource() == goBackBtn) {
+            main.sfx("res/sfxs/back.wav");
+            main.change("initActivity");
+        }
     }
 
     void btnInit() {
@@ -157,6 +166,14 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         dist200Btn.addActionListener(this);
         dist200Btn.setBounds(50, 537, 900, 95);
         add(dist200Btn);
+
+        goBackBtn = new JButton();
+        goBackBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/backBtn.png")));
+        goBackBtn.setBorderPainted(false);
+        goBackBtn.setContentAreaFilled(false);
+        goBackBtn.addActionListener(this);
+        goBackBtn.setBounds(20, 20, 55, 48);
+        add(goBackBtn);
     }
 
     void btnSelected() {

@@ -3,9 +3,13 @@ package game.swimming;
 import game.swimming.activities.*;
 import game.swimming.strokes.*;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class MainActivity extends JFrame {
     public static final int GAME_WIDTH = 1000;
@@ -42,8 +46,26 @@ public class MainActivity extends JFrame {
         main.setVisible(true);
     }
 
+    public void sfx(String fileName) {
+        try {
+            String path = MainActivity.class.getResource("").getPath();
+            File file = new File(path + fileName);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(file);
+            Clip clip = AudioSystem.getClip();
+            clip.open(ais);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void change(String panelName) {
-        if (panelName.equals("SelectStrokeActivity")) {
+        if (panelName.equals("initActivity")) {
+            getContentPane().removeAll();
+            getContentPane().add(initActivity);
+            revalidate();
+            repaint();
+         } else if (panelName.equals("SelectStrokeActivity")) {
             getContentPane().removeAll();
             getContentPane().add(selectStrokeActivity);
             revalidate();

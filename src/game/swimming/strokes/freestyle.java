@@ -91,7 +91,13 @@ public class freestyle extends JPanel {
         });
     }
 
-    public void setSpeed() {
+    public void setSpeed(String mapKey) {
+        ArrayList<String> keys = new ArrayList<>();
+        keys.add("left");
+        keys.add("space");
+        keys.add("right");
+
+//        if (mapKey ==
 //        리스트에 좌 스페이스 우
 //        틀린값이면 스피드 1, 맞는 값이면 ++
         //어레이리스트
