@@ -1,9 +1,17 @@
 package game.swimming;
 
+<<<<<<< Updated upstream
 import game.swimming.activities.PlayActivity;
 import game.swimming.activities.SelectModeActivity;
 import game.swimming.activities.SelectStrokeActivity;
 import game.swimming.activities.initActivity;
+=======
+import game.swimming.activities.SelectModeActivity;
+import game.swimming.activities.SelectStrokeActivity;
+import game.swimming.activities.initActivity;
+import game.swimming.activities.swimmerThread;
+
+>>>>>>> Stashed changes
 import javax.swing.*;
 
 public class MainActivity extends JFrame {
@@ -12,7 +20,8 @@ public class MainActivity extends JFrame {
     initActivity initActivity;
     SelectStrokeActivity selectStrokeActivity;
     SelectModeActivity selectModeActivity;
-    PlayActivity playActivity;
+    swimmerThread swimmerThread;
+
 
 
     public static void main(String[] args) {
@@ -28,7 +37,6 @@ public class MainActivity extends JFrame {
         main.initActivity = new initActivity(main);
         main.selectStrokeActivity = new SelectStrokeActivity(main);
         main.selectModeActivity = new SelectModeActivity(main);
-        main.playActivity = new PlayActivity(main);
 
         main.add(main.initActivity);
 
@@ -46,11 +54,14 @@ public class MainActivity extends JFrame {
             getContentPane().add(selectModeActivity);
             revalidate();
             repaint();
+<<<<<<< Updated upstream
         }else if (panelName.equals("PlayActivity")) {
             getContentPane().removeAll();
             getContentPane().add(playActivity);
             revalidate();
             repaint();
+=======
+>>>>>>> Stashed changes
         }
     }
 }

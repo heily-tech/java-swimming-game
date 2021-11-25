@@ -10,10 +10,16 @@ import static game.swimming.activities.SelectStrokeActivity.strokeChooseNum;
 
 public class SelectModeActivity extends JPanel implements ActionListener {
     public static int backupNum = 0;
+<<<<<<< Updated upstream
     JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, reBtn;
     JButton chosenBtn;
+=======
+    JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, gobackBtn, reBtn, chosenBtn;
+    JLabel titleLabel, entryLabel, modeLabel;
+>>>>>>> Stashed changes
     private MainActivity main;
     private SelectStrokeActivity selectStrokeActivity;
+    private swimmerThread swimmerThread;
     private JOptionPane nullSelection;
 
 
@@ -29,6 +35,10 @@ public class SelectModeActivity extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == singleBtn) {
             strokeChooseNum += 10;
+<<<<<<< Updated upstream
+=======
+            singleBtn.setBackground(new Color(193, 213, 207));
+>>>>>>> Stashed changes
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
             grpBtn.setEnabled(false);
@@ -36,6 +46,10 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         }
         else if (e.getSource() == indivBtn){
             strokeChooseNum += 20;
+<<<<<<< Updated upstream
+=======
+            indivBtn.setBackground(new Color(193, 213, 207));
+>>>>>>> Stashed changes
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
             grpBtn.setEnabled(false);
@@ -43,6 +57,10 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         }
         else if (e.getSource() == grpBtn){
             strokeChooseNum += 30;
+<<<<<<< Updated upstream
+=======
+            grpBtn.setBackground(new Color(193, 213, 207));
+>>>>>>> Stashed changes
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
             grpBtn.setEnabled(false);
@@ -51,12 +69,20 @@ public class SelectModeActivity extends JPanel implements ActionListener {
 
         if (e.getSource() == speedBtn) {
             strokeChooseNum += 1;
+<<<<<<< Updated upstream
+=======
+            speedBtn.setBackground(new Color(193, 213, 207));
+>>>>>>> Stashed changes
             speedBtn.setEnabled(false);
             itemBtn.setEnabled(false);
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == itemBtn){
             strokeChooseNum += 2;
+<<<<<<< Updated upstream
+=======
+            itemBtn.setBackground(new Color(193, 213, 207));
+>>>>>>> Stashed changes
             speedBtn.setEnabled(false);
             itemBtn.setEnabled(false);
             System.out.println(strokeChooseNum);
@@ -66,18 +92,35 @@ public class SelectModeActivity extends JPanel implements ActionListener {
             if (strokeChooseNum == backupNum) {
                 nullSelection.showMessageDialog(null, "모드를 선택해주세요.");
             } else {
-                main.change("PlayActivity");
+                new swimmerThread();
+                main.dispose();
                 System.out.println(strokeChooseNum);
+                //num에 따라서 게임 모드 달라지는 메소드 만들기
             }
             System.out.println(strokeChooseNum);
         } else if (e.getSource() == reBtn) {
             strokeChooseNum = backupNum;
+<<<<<<< Updated upstream
             singleBtn.setEnabled(true);
             indivBtn.setEnabled(true);
             grpBtn.setEnabled(true);
             speedBtn.setEnabled(true);
             itemBtn.setEnabled(true);
             System.out.println(strokeChooseNum);
+=======
+            singleBtn.setEnabled(true);		singleBtn.setBackground(new Color(243, 236, 232));
+            indivBtn.setEnabled(true);		indivBtn.setBackground(new Color(243, 236, 232));
+            grpBtn.setEnabled(true);		grpBtn.setBackground(new Color(243, 236, 232));
+            speedBtn.setEnabled(true);		speedBtn.setBackground(new Color(243, 236, 232));
+            itemBtn.setEnabled(true);		itemBtn.setBackground(new Color(243, 236, 232));
+        } else if (e.getSource() == gobackBtn) {
+            main.change("SelectStrokeActivity");
+            singleBtn.setEnabled(true);		singleBtn.setBackground(new Color(243, 236, 232));
+            indivBtn.setEnabled(true);		indivBtn.setBackground(new Color(243, 236, 232));
+            grpBtn.setEnabled(true);		grpBtn.setBackground(new Color(243, 236, 232));
+            speedBtn.setEnabled(true);		speedBtn.setBackground(new Color(243, 236, 232));
+            itemBtn.setEnabled(true);		itemBtn.setBackground(new Color(243, 236, 232));
+>>>>>>> Stashed changes
         }
     }
 

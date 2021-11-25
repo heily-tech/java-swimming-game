@@ -13,6 +13,7 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     private MainActivity main;
     private SelectModeActivity selectModeActivity;
     JButton freeBtn, backBtn, btflyBtn, brstBtn, nextBtn, dist100Btn, dist200Btn, reBtn;
+    JLabel styleLabel, dLabel;
     private JOptionPane nullSelection;
 
     public SelectStrokeActivity(MainActivity main) {
@@ -27,44 +28,68 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == freeBtn) {
             strokeChooseNum += 1000;
+<<<<<<< Updated upstream
             freeBtn.setEnabled(false);
             backBtn.setEnabled(false);
             btflyBtn.setEnabled(false);
             brstBtn.setEnabled(false);
+=======
+            btnSelected();
+>>>>>>> Stashed changes
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == backBtn){
             strokeChooseNum += 2000;
+<<<<<<< Updated upstream
             freeBtn.setEnabled(false);
             backBtn.setEnabled(false);
             btflyBtn.setEnabled(false);
             brstBtn.setEnabled(false);
+=======
+            btnSelected();
+>>>>>>> Stashed changes
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == btflyBtn){
             strokeChooseNum += 3000;
+<<<<<<< Updated upstream
             freeBtn.setEnabled(false);
             backBtn.setEnabled(false);
             btflyBtn.setEnabled(false);
             brstBtn.setEnabled(false);
+=======
+            btnSelected();
+>>>>>>> Stashed changes
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == brstBtn){
             strokeChooseNum += 4000;
+<<<<<<< Updated upstream
             freeBtn.setEnabled(false);
             backBtn.setEnabled(false);
             btflyBtn.setEnabled(false);
             brstBtn.setEnabled(false);
+=======
+            btnSelected();
+>>>>>>> Stashed changes
             System.out.println(strokeChooseNum);
         }
         if (e.getSource() == dist100Btn) {
             strokeChooseNum += 100;
+<<<<<<< Updated upstream
+=======
+            dist100Btn.setBackground(new Color(193, 213, 207));
+>>>>>>> Stashed changes
             dist100Btn.setEnabled(false);
             dist200Btn.setEnabled(false);
             System.out.println(strokeChooseNum);
         }
         else if (e.getSource() == dist200Btn){
             strokeChooseNum += 200;
+<<<<<<< Updated upstream
+=======
+            dist200Btn.setBackground(new Color(193, 213, 207));
+>>>>>>> Stashed changes
             dist100Btn.setEnabled(false);
             dist200Btn.setEnabled(false);
             System.out.println(strokeChooseNum);
@@ -80,12 +105,21 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
             }
         } else if (e.getSource() == reBtn) {
             strokeChooseNum = 0;
+<<<<<<< Updated upstream
             freeBtn.setEnabled(true);
             backBtn.setEnabled(true);
             btflyBtn.setEnabled(true);
             brstBtn.setEnabled(true);
             dist100Btn.setEnabled(true);
             dist200Btn.setEnabled(true);
+=======
+            freeBtn.setEnabled(true);		freeBtn.setBackground(new Color(243, 236, 232));
+            backBtn.setEnabled(true);		backBtn.setBackground(new Color(243, 236, 232));
+            btflyBtn.setEnabled(true);		btflyBtn.setBackground(new Color(243, 236, 232));
+            brstBtn.setEnabled(true);		brstBtn.setBackground(new Color(243, 236, 232));
+            dist100Btn.setEnabled(true);	dist100Btn.setBackground(new Color(243, 236, 232));
+            dist200Btn.setEnabled(true);	dist200Btn.setBackground(new Color(243, 236, 232));
+>>>>>>> Stashed changes
             System.out.println(strokeChooseNum);
         }
 

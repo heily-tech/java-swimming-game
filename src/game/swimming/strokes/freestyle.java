@@ -11,6 +11,17 @@ public class freestyle implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+<<<<<<< Updated upstream
+=======
+        if (e.getKeyCode() == KeyEvent.VK_UP)
+            System.out.println("숨 게이지 올리기");
+        else if (e.getKeyCode() == KeyEvent.VK_DOWN)
+            System.out.println("아래로");
+        else if (e.getKeyCode() == KeyEvent.VK_LEFT)
+            System.out.println("왼쪽");
+        else if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+            System.out.println("오른쪽");
+>>>>>>> Stashed changes
 
     }
 
