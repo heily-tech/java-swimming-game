@@ -14,6 +14,7 @@ import java.io.File;
 public class MainActivity extends JFrame {
     public static final int GAME_WIDTH = 1000;
     public static final int GAME_HEIGHT = 800;
+    static tcpClient client;
     initActivity initActivity;
     SelectStrokeActivity selectStrokeActivity;
     SelectModeActivity selectModeActivity;
@@ -32,7 +33,8 @@ public class MainActivity extends JFrame {
         main.setLocationRelativeTo(null); //화면 중앙에 창 위치
         main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        main.initActivity = new initActivity(main);
+        main.client = new tcpClient();
+        main.initActivity = new initActivity(main, client);
         main.selectStrokeActivity = new SelectStrokeActivity(main);
         main.selectModeActivity = new SelectModeActivity(main);
         main.playActivity = new PlayActivity(main);
