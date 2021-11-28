@@ -19,13 +19,14 @@ public class UserActivity extends JPanel {
         setVisible(true);
 
         go2play = new JButton();
-        go2play.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/다음1.png")));
+        go2play.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/게임하기1.png")));
         go2play.setBorderPainted(false);
         go2play.setContentAreaFilled(false);
-        go2play.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/다음2.png")));
+        go2play.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/게임하기2.png")));
         go2play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                main.sfx("res/sfxs/select_with_reverb.wav");
                 main.change("SelectStrokeActivity");
             }
         });
