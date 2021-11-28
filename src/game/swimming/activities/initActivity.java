@@ -1,6 +1,7 @@
 package game.swimming.activities;
 
 import game.swimming.MainActivity;
+import game.swimming.res.sfxs.backgroundMusic;
 import game.swimming.tcpClient;
 
 import javax.swing.*;
@@ -24,6 +25,10 @@ public class initActivity extends JPanel {
         setLayout(null);
         notFound = new JOptionPane();
         client.startClient();
+        backgroundMusic.change("res/sfxs/start2.wav");
+        backgroundMusic.play();
+
+
 
         loginBtn = new JButton();
         loginBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/init/loginBtn1.png")));

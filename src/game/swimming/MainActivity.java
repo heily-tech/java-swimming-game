@@ -56,6 +56,9 @@ public class MainActivity extends JFrame {
             Clip clip = AudioSystem.getClip();
             clip.open(ais);
             clip.start();
+            if (clip.isRunning()) {
+                clip.stop();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

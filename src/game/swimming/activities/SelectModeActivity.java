@@ -1,6 +1,7 @@
 package game.swimming.activities;
 
 import game.swimming.MainActivity;
+import game.swimming.res.sfxs.backgroundMusic;
 
 import javax.swing.*;
 import java.awt.*;
@@ -81,6 +82,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
                 main.sfx("res/sfxs/error.wav");
                 nullSelection.showMessageDialog(null, "모드를 선택해주세요.");
             } else {
+                backgroundMusic.stop();
                 if (strokeChooseNum.get(2).equals("1")) {
                     main.sfx("res/sfxs/select_with_reverb.wav");
                     main.change("PlayActivity");

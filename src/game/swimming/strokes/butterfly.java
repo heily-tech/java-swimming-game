@@ -27,6 +27,7 @@ public class butterfly extends JPanel {
 
         setBackground(Color.YELLOW);
         setVisible(true);
+
     }
 
     class btflyThread extends Thread {

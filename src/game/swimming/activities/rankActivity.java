@@ -1,6 +1,7 @@
 package game.swimming.activities;
 
 import game.swimming.MainActivity;
+import game.swimming.res.sfxs.backgroundMusic;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +27,9 @@ public class rankActivity extends JFrame {
         backBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                backgroundMusic.stop();
+                backgroundMusic.change("res/sfxs/start2.wav");
+                backgroundMusic.play();
                 main.change("SelectStrokeActivity"); //이동하고 버튼 값 초기화
             }
         });

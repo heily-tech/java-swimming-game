@@ -30,6 +30,7 @@ public class freestyle extends JPanel {
         freestyleThread free = new freestyleThread();
         free.start();
         setVisible(true);
+
     }
 
     class freestyleThread extends Thread {
