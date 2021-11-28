@@ -23,6 +23,7 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         setOpaque(false);
         setLayout(null);
         btnInit();
+        btnDeselected();
         setVisible(true);
     }
 
@@ -90,7 +91,7 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         }
         if (e.getSource() == goBackBtn) {
             main.sfx("res/sfxs/back.wav");
-            main.change("initActivity");
+            main.change("UserActivity");
         }
     }
 
@@ -181,6 +182,17 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         backBtn.setEnabled(false);
         btflyBtn.setEnabled(false);
         brstBtn.setEnabled(false);
+    }
+
+    void btnDeselected() {
+        freeBtn.setEnabled(true);
+        backBtn.setEnabled(true);
+        btflyBtn.setEnabled(true);
+        brstBtn.setEnabled(true);
+        nextBtn.setEnabled(true);
+        dist100Btn.setEnabled(true);
+        dist200Btn.setEnabled(true);
+        goBackBtn.setEnabled(true);
     }
 
     protected void paintComponent(Graphics g) {

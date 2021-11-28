@@ -7,8 +7,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.File;
 
 public class MainActivity extends JFrame {
@@ -19,6 +17,7 @@ public class MainActivity extends JFrame {
     SelectStrokeActivity selectStrokeActivity;
     SelectModeActivity selectModeActivity;
     PlayActivity playActivity;
+    UserActivity userActivity;
     freestyle freestyle;
     backStroke backStroke;
     butterfly butterfly;
@@ -38,6 +37,7 @@ public class MainActivity extends JFrame {
         main.selectStrokeActivity = new SelectStrokeActivity(main);
         main.selectModeActivity = new SelectModeActivity(main);
         main.playActivity = new PlayActivity(main);
+        main.userActivity = new UserActivity(main);
         main.freestyle = new freestyle(main);
         main.backStroke = new backStroke(main);
         main.butterfly = new butterfly(main);
@@ -83,6 +83,11 @@ public class MainActivity extends JFrame {
         } else if (panelName.equals("PlayActivity")) {
             getContentPane().removeAll();
             getContentPane().add(playActivity);
+            revalidate();
+            repaint();
+        } else if (panelName.equals("UserActivity")) {
+            getContentPane().removeAll();
+            getContentPane().add(userActivity);
             revalidate();
             repaint();
         } else if (panelName.equals("freestyle")) {

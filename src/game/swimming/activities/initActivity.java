@@ -39,7 +39,7 @@ public class initActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(idField.getText().equals(idSample) && pwField.getText().equals(pwSample)) {
-                    main.change("SelectStrokeActivity");
+                    main.change("UserActivity");
                     main.sfx("res/sfxs/select_with_reverb.wav");
                     //setVisible(false);
                 }

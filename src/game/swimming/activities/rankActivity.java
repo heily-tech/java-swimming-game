@@ -30,7 +30,7 @@ public class rankActivity extends JFrame {
                 backgroundMusic.stop();
                 backgroundMusic.change("res/sfxs/start2.wav");
                 backgroundMusic.play();
-                main.change("SelectStrokeActivity"); //이동하고 버튼 값 초기화
+                main.change("UserActivity");
             }
         });
         add(backBtn);
