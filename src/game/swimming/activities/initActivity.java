@@ -1,15 +1,12 @@
 package game.swimming.activities;
 
 import game.swimming.MainActivity;
+import game.swimming.tcpClient;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class initActivity extends JPanel {
     private MainActivity main;
@@ -21,11 +18,12 @@ public class initActivity extends JPanel {
     String idSample = "", pwSample = ""; //변경 필요
     JOptionPane notFound;
 
-    public initActivity(MainActivity main) {
+    public initActivity(MainActivity main, tcpClient client) {
         this.main = main;
         setOpaque(false);
         setLayout(null);
         notFound = new JOptionPane();
+        client.startClient();
 
         loginBtn = new JButton();
         loginBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/init/loginBtn1.png")));
@@ -60,7 +58,7 @@ public class initActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 main.sfx("res/sfxs/select_with_reverb.wav");
-                new SignUpActivity();
+                new SignUpActivity(main, client);
                 //setVisible(false);
             }
         });

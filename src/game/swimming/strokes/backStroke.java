@@ -11,11 +11,12 @@ import java.awt.event.KeyListener;
 
 public class backStroke extends JPanel {
     private MainActivity main;
-    Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
-    Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke_1.png")).getImage();
+    private String[] hats = {"black", "blue", "green", "org", "pur", "red", "white", "yel"};
     private int imgX, distance = 0;
     private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
     boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
+    Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
+    Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_org_1.png")).getImage();
 
     public backStroke(MainActivity main) {
         this.main = main;
@@ -56,24 +57,10 @@ public class backStroke extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (leftPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke_1.png")).getImage();
-                    imgX += 10;
-                    leftPrsd = true;
-                    rightPrsd = true;
-                    spacePrsd = false;
-                }
-            }
-        });
-        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "space");
-        getActionMap().put("space", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (spacePrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke_1.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_org_1.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
                     rightPrsd = false;
-                    spacePrsd = true;
                 }
             }
         });
@@ -82,7 +69,7 @@ public class backStroke extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (rightPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke_1.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_org_2.png")).getImage();
                     imgX += 10;
                     rightPrsd = true;
                     leftPrsd = false;

@@ -26,7 +26,7 @@ public class rankActivity extends JFrame {
         backBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                main.change("SelectStrokeActivity");
+                main.change("SelectStrokeActivity"); //이동하고 버튼 값 초기화
             }
         });
         add(backBtn);

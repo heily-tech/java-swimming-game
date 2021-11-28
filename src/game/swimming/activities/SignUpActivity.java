@@ -1,13 +1,11 @@
 package game.swimming.activities;
 
-import dbconn.DBConnection;
+
 import game.swimming.MainActivity;
+import game.swimming.tcpClient;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.*;
 
 //뒤로가기 버튼
@@ -17,13 +15,15 @@ public class SignUpActivity extends JFrame {
     JLabel idLabel, pwLabel;
     JTextField idField;
     JPasswordField pwField;
-    MainActivity main;
+    String password = "";
+    JOptionPane notFound;
 
-    public SignUpActivity() {
+    public SignUpActivity(MainActivity main, tcpClient client) {
         Color c = new Color(120, 209, 255);
         JPanel btnPanel = new JPanel();
         btnPanel.setBackground(c);
         btnPanel.setLayout(null);
+        notFound = new JOptionPane();
 
         idLabel = new JLabel();
         idLabel.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/init/idBase.png")));
@@ -58,6 +58,38 @@ public class SignUpActivity extends JFrame {
         doBtn.setContentAreaFilled(false);
         doBtn.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/가입2.png")));
         doBtn.setBounds(100, 350, 200, 75);
+        doBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                char[] pw = pwField.getPassword();
+                for(char cha : pw)
+                {
+                    Character.toString(cha);
+                    password += (password.equals("")) ? ""+cha+"" : ""+cha+"";
+                }
+
+
+                client.send("@signup" + idField.getText() + "," + password);
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                if(client.getSignupResult()) {
+                    notFound.showMessageDialog(null, "회원가입에 성공했습니다.");
+                    dispose();
+                    //setVisible(false);
+                }
+                else {
+                    notFound.showMessageDialog(null, "ID/Password가 이미 존재합니다.");
+                    idField.setText(null);
+                    pwField.setText(null);
+                }
+                //dispose();
+            }
+        });
         btnPanel.add(doBtn);
 
         backBtn = new JButton();
@@ -84,4 +116,3 @@ public class SignUpActivity extends JFrame {
         this.setVisible(true);
     }
 }
-

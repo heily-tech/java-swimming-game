@@ -12,7 +12,7 @@ import java.awt.event.KeyListener;
 public class butterfly extends JPanel {
     private MainActivity main;
     Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
-    Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly_1.png")).getImage();
+    Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_1.png")).getImage();
     private int imgX, distance = 0;
     private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
     boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
@@ -56,7 +56,7 @@ public class butterfly extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (leftPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly_1.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_1.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
                     rightPrsd = true;
@@ -69,7 +69,7 @@ public class butterfly extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (spacePrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly_1.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_2.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
                     rightPrsd = false;
@@ -82,7 +82,7 @@ public class butterfly extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (rightPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly_1.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_3.png")).getImage();
                     imgX += 10;
                     rightPrsd = true;
                     leftPrsd = false;
