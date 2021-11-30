@@ -179,6 +179,7 @@ public class butterfly extends JPanel {
         spacePrsd = false;
         downPrsd = false;
     }
+
     public void paint(Graphics g) {
         g.drawImage(pool, 0, 0, 990, 760, this);
         g.drawImage(stroke, imgX, imgY[4], 145, 80, this);

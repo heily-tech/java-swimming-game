@@ -2,6 +2,7 @@ package game.swimming.activities;
 
 import game.swimming.MainActivity;
 import game.swimming.strokes.backStroke;
+import game.swimming.strokes.breastStroke;
 import game.swimming.strokes.butterfly;
 import game.swimming.strokes.freestyle;
 
@@ -49,5 +50,6 @@ public class RankActivity extends JFrame {
         freestyle.imgReset();
         backStroke.imgReset();
         butterfly.imgReset();
+        breastStroke.imgReset();
     }
 }
