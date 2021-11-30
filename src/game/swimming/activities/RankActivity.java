@@ -41,8 +41,6 @@ public class RankActivity extends JFrame {
 
         this.setFocusable(true);
         this.setVisible(true);
-
-
     }
     void reset() {
         SelectStrokeActivity.reset();

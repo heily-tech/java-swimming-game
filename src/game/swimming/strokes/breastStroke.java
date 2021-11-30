@@ -30,7 +30,6 @@ public class breastStroke extends JPanel {
 
         setBackground(Color.GREEN);
         setVisible(true);
-
     }
 
     class breastThread extends Thread {
