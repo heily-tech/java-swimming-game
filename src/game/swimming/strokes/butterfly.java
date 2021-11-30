@@ -7,14 +7,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class butterfly extends JPanel {
     private MainActivity main;
+    private static int imgX, distance;
+    private double speed = 1.0;
+    private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
+    private String[] hats = {"black", "blue", "green", "org", "pur", "red", "white", "yel"};
+    static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
     Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
     Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_1.png")).getImage();
-    private int imgX, distance = 0;
-    private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
-    boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
+    ArrayList<String> keys = new ArrayList<>();
 
     public butterfly(MainActivity main) {
         this.main = main;
@@ -39,7 +43,9 @@ public class butterfly extends JPanel {
                     if (imgX >= 840) {
                         leftPrsd = true;
                         rightPrsd = true;
+                        upPrsd = true;
                         spacePrsd = true;
+                        downPrsd = true;
                         new RankActivity(main);
                         break;
                     }
@@ -51,17 +57,36 @@ public class butterfly extends JPanel {
     }
 
     public void keySet() {
-        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
-        getActionMap().put("left", new AbstractAction() {
+        //좌우 위 스페이스 아래
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "side");
+        getActionMap().put("side", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (leftPrsd == false) {
-                    System.out.println("left");
+                if (leftPrsd == false && rightPrsd == false) {
+                    System.out.println("side");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_1.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
                     rightPrsd = true;
+                    upPrsd = false;
+                    spacePrsd = true;
+                    downPrsd = true;
+                }
+            }
+        });
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
+        getActionMap().put("up", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (upPrsd == false) {
+                    System.out.println("up");
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_2.png")).getImage();
+                    imgX += 10;
+                    leftPrsd = true;
+                    rightPrsd = true;
+                    upPrsd = true;
                     spacePrsd = false;
+                    downPrsd = true;
                 }
             }
         });
@@ -71,30 +96,70 @@ public class butterfly extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (spacePrsd == false) {
                     System.out.println("space");
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_2.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_3.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
-                    rightPrsd = false;
+                    rightPrsd = true;
+                    upPrsd = true;
                     spacePrsd = true;
+                    downPrsd = false;
                 }
             }
         });
-        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "right");
-        getActionMap().put("right", new AbstractAction() {
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
+        getActionMap().put("down", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rightPrsd == false) {
-                    System.out.println("right");
+                if (downPrsd == false) {
+                    System.out.println("down");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_3.png")).getImage();
                     imgX += 10;
-                    rightPrsd = true;
+                    rightPrsd = false;
                     leftPrsd = false;
+                    upPrsd = true;
                     spacePrsd = true;
+                    downPrsd = true;
                 }
             }
         });
     }
+    public void setSpeed(String mapKey) {
+        keys.add(mapKey);
+        System.out.print(mapKey + " | 키 사이즈 " + keys.size() + " | 스피드 " + speed + "\n");
+        System.out.println(keys);
+        if (keys.size() == 1) {
+            if (keys.get(0).equals("right"))
+                speed += 0.1;
+            else {
+                speed = 1;
+                keys.remove(0);
+            }
+        } else if (keys.size() == 2) {
+            if (keys.get(0).equals("right") && keys.get(1).equals("space"))
+                speed += 0.1;
+            else {
+                speed = 1;
+                keys.remove(1);
+            }
+        } else if (keys.size() == 3) {
+            if (keys.get(0).equals("right") && keys.get(1).equals("space") && keys.get(2).equals("left")) {
+                speed += 0.1;
+                keys.clear();
+            } else {
+                speed = 1;
+                keys.remove(2);
+            }
+        }
+    }
 
+    public static void imgReset() {
+        imgX = 0;
+        leftPrsd = false;
+        rightPrsd = false;
+        upPrsd = false;
+        spacePrsd = false;
+        downPrsd = false;
+    }
     public void paint(Graphics g) {
         g.drawImage(pool, 0, 0, 990, 760, this);
         g.drawImage(stroke, imgX, imgY[4], 145, 80, this);

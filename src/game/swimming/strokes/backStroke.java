@@ -15,7 +15,7 @@ public class backStroke extends JPanel {
     private double speed = 1.0;
     private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
     private String[] hats = {"black", "blue", "green", "org", "pur", "red", "white", "yel"};
-    boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
+    static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
     Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
     Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_org_1.png")).getImage();
     ArrayList<String> keys = new ArrayList<>();
@@ -111,6 +111,9 @@ public class backStroke extends JPanel {
 
     public static void imgReset() {
         imgX = 0;
+        leftPrsd = false;
+        rightPrsd = false;
+        spacePrsd = false;
     }
 
     public void paint(Graphics g) {

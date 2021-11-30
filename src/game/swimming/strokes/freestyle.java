@@ -18,7 +18,7 @@ public class freestyle extends JPanel {
     private String[] hats = {"black", "blue", "green", "org", "pur", "red", "white", "yel"};
     Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
     Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle/freestyle_org_1.png")).getImage();
-    boolean leftPrsd = false, rightPrsd = false, spacePrsd = false;
+    static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false;
     ArrayList<String> keys = new ArrayList<>();
 
     public freestyle(MainActivity main) {
@@ -142,6 +142,9 @@ public class freestyle extends JPanel {
 
     public static void imgReset() {
         imgX = 0;
+        leftPrsd = false;
+        rightPrsd = false;
+        spacePrsd = false;
     }
 
     public void paint(Graphics g) {
