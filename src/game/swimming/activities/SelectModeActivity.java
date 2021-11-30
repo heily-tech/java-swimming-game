@@ -106,6 +106,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
             }
         } else if (e.getSource() == reBtn) {
             main.sfx("res/sfxs/reselect.wav");
+            reset();
         }
         if (e.getSource() == goBackBtn) {
             main.sfx("res/sfxs/back.wav");

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class freestyle extends JPanel {
     private MainActivity main;
     public static boolean dist;
-    private static int imgX;
+    private static int imgX, distance;
     private double speed = 1.0;
     private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
     private String[] hats = {"black", "blue", "green", "org", "pur", "red", "white", "yel"};
@@ -26,14 +26,12 @@ public class freestyle extends JPanel {
         setOpaque(false);
         setLayout(null);
         imgReset();
+
         freestyleThread free = new freestyleThread();
         free.start();
+
         setVisible(true);
 
-    }
-
-    public static void imgReset() {
-        imgX = 0;
     }
 
     class freestyleThread extends Thread {
@@ -141,6 +139,11 @@ public class freestyle extends JPanel {
             }
         }
     }
+
+    public static void imgReset() {
+        imgX = 0;
+    }
+
     public void paint(Graphics g) {
         g.drawImage(pool, 0, 0, 990, 760, this);
         g.drawImage(stroke, imgX, imgY[4], 145, 80, this);

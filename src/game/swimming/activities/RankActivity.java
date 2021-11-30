@@ -1,6 +1,7 @@
 package game.swimming.activities;
 
 import game.swimming.MainActivity;
+import game.swimming.strokes.backStroke;
 import game.swimming.strokes.freestyle;
 
 import javax.swing.*;
@@ -30,9 +31,7 @@ public class RankActivity extends JFrame {
                 backgroundMusic.stop();
                 backgroundMusic.change("res/sfxs/start2.wav");
                 backgroundMusic.play();
-                SelectStrokeActivity.reset();
-                SelectModeActivity.reset();
-                freestyle.imgReset();
+                reset();
                 main.change("UserActivity");
             }
         });
@@ -40,5 +39,13 @@ public class RankActivity extends JFrame {
 
         this.setFocusable(true);
         this.setVisible(true);
+
+
+    }
+    void reset() {
+        SelectStrokeActivity.reset();
+        SelectModeActivity.reset();
+        freestyle.imgReset();
+        backStroke.imgReset();
     }
 }
