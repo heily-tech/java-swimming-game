@@ -1,21 +1,19 @@
 package game.swimming.activities;
 
 import game.swimming.MainActivity;
-import game.swimming.res.sfxs.backgroundMusic;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.function.UnaryOperator;
 
 import static game.swimming.activities.SelectStrokeActivity.strokeChooseNum;
 import static game.swimming.activities.PlayActivity.strokeName;
 
 public class SelectModeActivity extends JPanel implements ActionListener {
     public static ArrayList<String> backupNum = new ArrayList<>();
-    JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, goBackBtn, reBtn, chosenBtn;
+    static JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, goBackBtn, reBtn, chosenBtn;
     private MainActivity main;
     private SelectStrokeActivity selectStrokeActivity;
     private JOptionPane nullSelection;
@@ -33,7 +31,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == singleBtn) {
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("1");
+            strokeChooseNum.set(2, "1");
             singleBtn.setBackground(new Color(193, 213, 207));
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
@@ -42,7 +40,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         }
         else if (e.getSource() == indivBtn){
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("2");
+            strokeChooseNum.set(2, "2");
             indivBtn.setBackground(new Color(193, 213, 207));
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
@@ -51,7 +49,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         }
         else if (e.getSource() == grpBtn){
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("3");
+            strokeChooseNum.set(2, "3");
             grpBtn.setBackground(new Color(193, 213, 207));
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
@@ -61,7 +59,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
 
         if (e.getSource() == speedBtn) {
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("1");
+            strokeChooseNum.set(3, "1");
             speedBtn.setBackground(new Color(193, 213, 207));
             speedBtn.setEnabled(false);
             itemBtn.setEnabled(false);
@@ -69,7 +67,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         }
         else if (e.getSource() == itemBtn){
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("2");
+            strokeChooseNum.set(3, "2");
             itemBtn.setBackground(new Color(193, 213, 207));
             speedBtn.setEnabled(false);
             itemBtn.setEnabled(false);
@@ -108,21 +106,10 @@ public class SelectModeActivity extends JPanel implements ActionListener {
             }
         } else if (e.getSource() == reBtn) {
             main.sfx("res/sfxs/reselect.wav");
-            strokeChooseNum = (ArrayList<String>) backupNum.clone();
-            singleBtn.setEnabled(true);		singleBtn.setBackground(new Color(243, 236, 232));
-            indivBtn.setEnabled(true);		indivBtn.setBackground(new Color(243, 236, 232));
-            grpBtn.setEnabled(true);		grpBtn.setBackground(new Color(243, 236, 232));
-            speedBtn.setEnabled(true);		speedBtn.setBackground(new Color(243, 236, 232));
-            itemBtn.setEnabled(true);		itemBtn.setBackground(new Color(243, 236, 232));
         }
         if (e.getSource() == goBackBtn) {
             main.sfx("res/sfxs/back.wav");
             main.change("SelectStrokeActivity");
-            singleBtn.setEnabled(true);		singleBtn.setBackground(new Color(243, 236, 232));
-            indivBtn.setEnabled(true);		indivBtn.setBackground(new Color(243, 236, 232));
-            grpBtn.setEnabled(true);		grpBtn.setBackground(new Color(243, 236, 232));
-            speedBtn.setEnabled(true);		speedBtn.setBackground(new Color(243, 236, 232));
-            itemBtn.setEnabled(true);		itemBtn.setBackground(new Color(243, 236, 232));
         }
     }
 
@@ -197,6 +184,16 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         chosenBtn.addActionListener(this);
         chosenBtn.setBounds(756, 660, 200, 75);
         add(chosenBtn);
+
+        reset();
+    }
+
+    static void reset() {
+        singleBtn.setEnabled(true);
+        indivBtn.setEnabled(true);
+        grpBtn.setEnabled(true);
+        speedBtn.setEnabled(true);
+        itemBtn.setEnabled(true);
     }
 
     protected void paintComponent(Graphics g) {

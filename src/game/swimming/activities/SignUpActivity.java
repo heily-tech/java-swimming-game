@@ -2,7 +2,7 @@ package game.swimming.activities;
 
 
 import game.swimming.MainActivity;
-import game.swimming.tcpClient;
+import server.tcpClient;
 
 import java.awt.*;
 import java.awt.event.*;

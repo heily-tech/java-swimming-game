@@ -1,18 +1,17 @@
 package game.swimming.strokes;
 
 import game.swimming.MainActivity;
-import game.swimming.activities.rankActivity;
+import game.swimming.activities.RankActivity;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class breastStroke extends JPanel {
     private MainActivity main;
     Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
-    Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke_1.png")).getImage();
+    Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breastStroke_org_1.png")).getImage();
     private int imgX, distance = 0;
     private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
     boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
@@ -41,7 +40,7 @@ public class breastStroke extends JPanel {
                         leftPrsd = true;
                         rightPrsd = true;
                         spacePrsd = true;
-                        new rankActivity(main);
+                        new RankActivity(main);
                         break;
                     }
                 } catch (InterruptedException e) {
@@ -57,7 +56,7 @@ public class breastStroke extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (leftPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke_1.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breastStroke_org_1.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
                     rightPrsd = true;
@@ -70,7 +69,7 @@ public class breastStroke extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (spacePrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke_1.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breastStroke_org_2.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
                     rightPrsd = false;
@@ -83,7 +82,7 @@ public class breastStroke extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (rightPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke_1.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breastStroke_org_3.png")).getImage();
                     imgX += 10;
                     rightPrsd = true;
                     leftPrsd = false;

@@ -14,16 +14,18 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     public static ArrayList<String> strokeChooseNum = new ArrayList<>();
     private MainActivity main;
     private SelectModeActivity selectModeActivity;
-    JButton freeBtn, backBtn, btflyBtn, brstBtn, nextBtn, dist100Btn, dist200Btn, reBtn, goBackBtn;
+    static JButton freeBtn, backBtn, btflyBtn, brstBtn, nextBtn, dist100Btn, dist200Btn, reBtn, goBackBtn;
     private JOptionPane nullSelection;
     Image background = new ImageIcon(MainActivity.class.getResource("res/modeBackground.png")).getImage();
 
     public SelectStrokeActivity(MainActivity main) {
+        for (int i = 0; i < 4; i++)
+            strokeChooseNum.add("0");
         this.main = main;
         setOpaque(false);
         setLayout(null);
         btnInit();
-        btnDeselected();
+
         setVisible(true);
     }
 
@@ -31,36 +33,36 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == freeBtn) {
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("1");
+            strokeChooseNum.set(0, "1");
             btnSelected();
             System.out.println(strokeChooseNum);
         } else if (e.getSource() == backBtn){
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("2");
+            strokeChooseNum.set(0, "2");
             btnSelected();
             System.out.println(strokeChooseNum);
         } else if (e.getSource() == btflyBtn){
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("3");
+            strokeChooseNum.set(0, "3");
             btnSelected();
             System.out.println(strokeChooseNum);
         } else if (e.getSource() == brstBtn){
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("4");
+            strokeChooseNum.set(0, "4");
             btnSelected();
             System.out.println(strokeChooseNum);
         }
 
         if (e.getSource() == dist100Btn) {
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("1");
+            strokeChooseNum.set(1, "1");
             dist100Btn.setBackground(new Color(193, 213, 207));
             dist100Btn.setEnabled(false);
             dist200Btn.setEnabled(false);
             System.out.println(strokeChooseNum);
         } else if (e.getSource() == dist200Btn){
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.add("2");
+            strokeChooseNum.set(2, "2");
             dist200Btn.setBackground(new Color(193, 213, 207));
             dist100Btn.setEnabled(false);
             dist200Btn.setEnabled(false);
@@ -80,13 +82,7 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
             }
         } else if (e.getSource() == reBtn) {
             main.sfx("res/sfxs/reselect.wav");
-            strokeChooseNum.clear();
-            freeBtn.setEnabled(true);		freeBtn.setBackground(new Color(243, 236, 232));
-            backBtn.setEnabled(true);		backBtn.setBackground(new Color(243, 236, 232));
-            btflyBtn.setEnabled(true);		btflyBtn.setBackground(new Color(243, 236, 232));
-            brstBtn.setEnabled(true);		brstBtn.setBackground(new Color(243, 236, 232));
-            dist100Btn.setEnabled(true);	dist100Btn.setBackground(new Color(243, 236, 232));
-            dist200Btn.setEnabled(true);	dist200Btn.setBackground(new Color(243, 236, 232));
+            reset();
             System.out.println(strokeChooseNum);
         }
         if (e.getSource() == goBackBtn) {
@@ -175,6 +171,8 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         goBackBtn.addActionListener(this);
         goBackBtn.setBounds(20, 20, 55, 48);
         add(goBackBtn);
+
+        reset();
     }
 
     void btnSelected() {
@@ -184,7 +182,11 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         brstBtn.setEnabled(false);
     }
 
-    void btnDeselected() {
+    static void reset() {
+        for (int i = 0; i < 4; i++)
+            strokeChooseNum.set(i, "0");
+        System.out.println(strokeChooseNum);
+
         freeBtn.setEnabled(true);
         backBtn.setEnabled(true);
         btflyBtn.setEnabled(true);
@@ -194,7 +196,6 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         dist200Btn.setEnabled(true);
         goBackBtn.setEnabled(true);
     }
-
     protected void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, 1000, 800, null);
     }

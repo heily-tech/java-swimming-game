@@ -2,6 +2,8 @@ package game.swimming;
 
 import game.swimming.activities.*;
 import game.swimming.strokes.*;
+import javafx.scene.text.Font;
+import server.tcpClient;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

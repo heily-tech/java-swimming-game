@@ -1,20 +1,18 @@
 package game.swimming.strokes;
 
 import game.swimming.MainActivity;
-import game.swimming.activities.SelectModeActivity;
-import game.swimming.activities.rankActivity;
+import game.swimming.activities.RankActivity;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class freestyle extends JPanel {
     private MainActivity main;
     public static boolean dist;
-    private int imgX;
+    private static int imgX;
     private double speed = 1.0;
     private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
     private String[] hats = {"black", "blue", "green", "org", "pur", "red", "white", "yel"};
@@ -27,10 +25,15 @@ public class freestyle extends JPanel {
         this.main = main;
         setOpaque(false);
         setLayout(null);
+        imgReset();
         freestyleThread free = new freestyleThread();
         free.start();
         setVisible(true);
 
+    }
+
+    public static void imgReset() {
+        imgX = 0;
     }
 
     class freestyleThread extends Thread {
@@ -45,7 +48,7 @@ public class freestyle extends JPanel {
                             leftPrsd = true;
                             rightPrsd = true;
                             spacePrsd = true;
-                            new rankActivity(main);
+                            new RankActivity(main);
                             break;
                         }
 //                    } else {
@@ -66,17 +69,16 @@ public class freestyle extends JPanel {
     }
 
     public void keySet() {
-        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
-        getActionMap().put("left", new AbstractAction() {
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
+        getActionMap().put("right", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setSpeed("left");
-                if (leftPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle/freestyle_"
-                            + hats[3] + "_1.png")).getImage();
+                setSpeed("right");
+                if (rightPrsd == false) {
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle/freestyle_org_2.png")).getImage();
                     imgX += 10 * speed;
-                    leftPrsd = true;
                     rightPrsd = true;
+                    leftPrsd = true;
                     spacePrsd = false;
                 }
             }
@@ -88,23 +90,23 @@ public class freestyle extends JPanel {
                 setSpeed("space");
                 if (spacePrsd == false) {
                     imgX += 10 * speed;
-                    leftPrsd = true;
-                    rightPrsd = false;
+                    leftPrsd = false;
+                    rightPrsd = true;
                     spacePrsd = true;
                 }
             }
         });
-        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
-        getActionMap().put("right", new AbstractAction() {
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
+        getActionMap().put("left", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setSpeed("right");
-                if (rightPrsd == false) {
-//                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle/freestyle_org_2.png")).getImage();
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle_1.png")).getImage();
+                setSpeed("left");
+                if (leftPrsd == false) {
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle/freestyle_"
+                            + hats[3] + "_1.png")).getImage();
                     imgX += 10 * speed;
-                    rightPrsd = true;
-                    leftPrsd = false;
+                    leftPrsd = true;
+                    rightPrsd = false;
                     spacePrsd = true;
                 }
             }
@@ -116,24 +118,21 @@ public class freestyle extends JPanel {
         System.out.print(mapKey + " | 키 사이즈 " + keys.size() + " | 스피드 " + speed + "\n");
         System.out.println(keys);
         if (keys.size() == 1) {
-            if (keys.get(0).equals("left"))
+            if (keys.get(0).equals("right"))
                 speed += 0.1;
             else {
                 speed = 1;
                 keys.remove(0);
             }
         } else if (keys.size() == 2) {
-            if (keys.get(0).equals("left") && keys.get(1).equals("space"))
+            if (keys.get(0).equals("right") && keys.get(1).equals("space"))
                     speed += 0.1;
-            else if (keys.get(0).equals("left") && keys.get(1).equals("left")) {
-                speed = 1;
-                keys.remove(1);
-            } else {
+            else {
                   speed = 1;
                   keys.remove(1);
             }
         } else if (keys.size() == 3) {
-            if (keys.get(0).equals("left") && keys.get(1).equals("space") && keys.get(2).equals("right")) {
+            if (keys.get(0).equals("right") && keys.get(1).equals("space") && keys.get(2).equals("left")) {
                 speed += 0.1;
                 keys.clear();
             } else {

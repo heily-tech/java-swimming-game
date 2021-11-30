@@ -16,8 +16,8 @@ public class PlayActivity extends JPanel {
     boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
     Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
 //    Image stroke, pcStroke;
-    Image stroke = new ImageIcon(MainActivity.class.getResource("res//strokes/freestyle_1.png")).getImage();
-    Image pcStroke = new ImageIcon(MainActivity.class.getResource("res//strokes/freestyle_1.png")).getImage();
+    Image stroke = new ImageIcon(MainActivity.class.getResource("res//strokes/freestyle/userfreestyle1.png")).getImage();
+    Image pcStroke = new ImageIcon(MainActivity.class.getResource("res//strokes/freestyle/PCfreestyle1.png")).getImage();
 
     public PlayActivity(MainActivity main) {
         this.main = main;
@@ -76,7 +76,7 @@ public class PlayActivity extends JPanel {
                         leftPrsd = true;
                         rightPrsd = true;
                         spacePrsd = true;
-                        new rankActivity(main);
+                        new RankActivity(main);
                         break;
                     }
                 } catch (InterruptedException e) {

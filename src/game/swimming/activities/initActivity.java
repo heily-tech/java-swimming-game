@@ -1,8 +1,7 @@
 package game.swimming.activities;
 
 import game.swimming.MainActivity;
-import game.swimming.res.sfxs.backgroundMusic;
-import game.swimming.tcpClient;
+import server.tcpClient;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,6 +76,7 @@ public class initActivity extends JPanel {
         idField = new JTextField();
         idField.setBorder(BorderFactory.createEmptyBorder());
         idField.setOpaque(false);
+
         //idField.setFont(new Font("SansSerif", Font.BOLD, 25));
         idField.setFont(new Font("Press Start 2P", Font.PLAIN, 25));
         idField.setBounds(420, 370, 180, 30);

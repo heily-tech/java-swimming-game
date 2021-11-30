@@ -1,13 +1,12 @@
 package game.swimming.strokes;
 
 import game.swimming.MainActivity;
-import game.swimming.activities.rankActivity;
+import game.swimming.activities.RankActivity;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class backStroke extends JPanel {
     private MainActivity main;
@@ -41,7 +40,7 @@ public class backStroke extends JPanel {
                         leftPrsd = true;
                         rightPrsd = true;
                         spacePrsd = true;
-                        new rankActivity(main);
+                        new RankActivity(main);
                         break;
                     }
                 } catch (InterruptedException e) {

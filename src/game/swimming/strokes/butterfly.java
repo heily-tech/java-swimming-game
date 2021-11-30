@@ -1,13 +1,12 @@
 package game.swimming.strokes;
 
 import game.swimming.MainActivity;
-import game.swimming.activities.rankActivity;
+import game.swimming.activities.RankActivity;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class butterfly extends JPanel {
     private MainActivity main;
@@ -41,7 +40,7 @@ public class butterfly extends JPanel {
                         leftPrsd = true;
                         rightPrsd = true;
                         spacePrsd = true;
-                        new rankActivity(main);
+                        new RankActivity(main);
                         break;
                     }
                 } catch (InterruptedException e) {
@@ -57,6 +56,7 @@ public class butterfly extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (leftPrsd == false) {
+                    System.out.println("left");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_1.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
@@ -70,6 +70,7 @@ public class butterfly extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (spacePrsd == false) {
+                    System.out.println("space");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_2.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
@@ -78,11 +79,12 @@ public class butterfly extends JPanel {
                 }
             }
         });
-        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "right");
         getActionMap().put("right", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (rightPrsd == false) {
+                    System.out.println("right");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_3.png")).getImage();
                     imgX += 10;
                     rightPrsd = true;
