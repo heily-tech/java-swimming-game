@@ -58,15 +58,25 @@ public class butterfly extends JPanel {
 
     public void keySet() {
         //좌우 위 스페이스 아래
-        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "side");
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "side1");
+        getActionMap().put("side1", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (leftPrsd == false) {
+                    leftPrsd = true;
+                }
+            }
+        });
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "side");
         getActionMap().put("side", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (leftPrsd == false && rightPrsd == false) {
-                    System.out.println("side");
+                if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_1.png")).getImage();
-                    imgX += 10;
-                    leftPrsd = true;
+                    if (leftPrsd == true && rightPrsd == false) {
+                        imgX += 10;
+                        setSpeed("side");
+                    }
                     rightPrsd = true;
                     upPrsd = false;
                     spacePrsd = true;
@@ -79,7 +89,7 @@ public class butterfly extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (upPrsd == false) {
-                    System.out.println("up");
+                    setSpeed("up");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_2.png")).getImage();
                     imgX += 10;
                     leftPrsd = true;
@@ -94,6 +104,7 @@ public class butterfly extends JPanel {
         getActionMap().put("space", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setSpeed("space");
                 if (spacePrsd == false) {
                     System.out.println("space");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_3.png")).getImage();
@@ -110,6 +121,7 @@ public class butterfly extends JPanel {
         getActionMap().put("down", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setSpeed("down");
                 if (downPrsd == false) {
                     System.out.println("down");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_3.png")).getImage();
@@ -128,26 +140,33 @@ public class butterfly extends JPanel {
         System.out.print(mapKey + " | 키 사이즈 " + keys.size() + " | 스피드 " + speed + "\n");
         System.out.println(keys);
         if (keys.size() == 1) {
-            if (keys.get(0).equals("right"))
+            if (keys.get(0).equals("side"))
                 speed += 0.1;
             else {
                 speed = 1;
                 keys.remove(0);
             }
         } else if (keys.size() == 2) {
-            if (keys.get(0).equals("right") && keys.get(1).equals("space"))
+            if (keys.get(0).equals("side") && keys.get(1).equals("up"))
                 speed += 0.1;
             else {
                 speed = 1;
                 keys.remove(1);
             }
         } else if (keys.size() == 3) {
-            if (keys.get(0).equals("right") && keys.get(1).equals("space") && keys.get(2).equals("left")) {
+            if (keys.get(0).equals("side") && keys.get(1).equals("up") && keys.get(2).equals("space")) {
+                speed += 0.1;
+            } else {
+                speed = 1;
+                keys.remove(2);
+            }
+        } else if (keys.size() == 4) {
+            if (keys.get(0).equals("side") && keys.get(1).equals("up") && keys.get(2).equals("space") && keys.get(3).equals("down")) {
                 speed += 0.1;
                 keys.clear();
             } else {
                 speed = 1;
-                keys.remove(2);
+                keys.remove(3);
             }
         }
     }
