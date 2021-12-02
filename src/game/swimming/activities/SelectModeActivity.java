@@ -50,7 +50,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         else if (e.getSource() == grpBtn){
             main.sfx("res/sfxs/select.wav");
             strokeChooseNum.set(2, "3");
-            grpBtn.setBackground(new Color(193, 213, 207));
+//            grpBtn.setBackground(new Color(193, 213, 207));
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
             grpBtn.setEnabled(false);
@@ -60,7 +60,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         if (e.getSource() == speedBtn) {
             main.sfx("res/sfxs/select.wav");
             strokeChooseNum.set(3, "1");
-            speedBtn.setBackground(new Color(193, 213, 207));
+//            speedBtn.setBackground(new Color(193, 213, 207));
             speedBtn.setEnabled(false);
             itemBtn.setEnabled(false);
             System.out.println(strokeChooseNum);
@@ -68,7 +68,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         else if (e.getSource() == itemBtn){
             main.sfx("res/sfxs/select.wav");
             strokeChooseNum.set(3, "2");
-            itemBtn.setBackground(new Color(193, 213, 207));
+//            itemBtn.setBackground(new Color(193, 213, 207));
             speedBtn.setEnabled(false);
             itemBtn.setEnabled(false);
             System.out.println(strokeChooseNum);
@@ -81,6 +81,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
                 nullSelection.showMessageDialog(null, "모드를 선택해주세요.");
             } else {
                 backgroundMusic.stop();
+                main.gameStatus = true;
                 if (strokeChooseNum.get(2).equals("1")) {
                     main.sfx("res/sfxs/select_with_reverb.wav");
                     main.change("PlayActivity");

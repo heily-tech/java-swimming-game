@@ -7,19 +7,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+
+import static game.swimming.MainActivity.KEYS;
+import static game.swimming.MainActivity.SPEED;
 
 public class freestyle extends JPanel {
     private MainActivity main;
     public static boolean dist;
-    private static int imgX, distance;
-    private double speed = 1.0;
+    private static int imgX;
     private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
     private String[] hats = {"black", "blue", "green", "org", "pur", "red", "white", "yel"};
-    Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
     Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle/freestyle_org_1.png")).getImage();
     static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false;
-    ArrayList<String> keys = new ArrayList<>();
 
     public freestyle(MainActivity main) {
         this.main = main;
@@ -66,7 +65,7 @@ public class freestyle extends JPanel {
         }
     }
 
-    public void keySet() {
+    private void keySet() {
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
         getActionMap().put("right", new AbstractAction() {
             @Override
@@ -74,7 +73,7 @@ public class freestyle extends JPanel {
                 setSpeed("right");
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle/freestyle_org_2.png")).getImage();
-                    imgX += 10 * speed;
+                    imgX += 10 * SPEED;
                     rightPrsd = true;
                     leftPrsd = true;
                     spacePrsd = false;
@@ -87,7 +86,7 @@ public class freestyle extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 setSpeed("space");
                 if (spacePrsd == false) {
-                    imgX += 10 * speed;
+                    imgX += 10 * SPEED;
                     leftPrsd = false;
                     rightPrsd = true;
                     spacePrsd = true;
@@ -102,7 +101,7 @@ public class freestyle extends JPanel {
                 if (leftPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle/freestyle_"
                             + hats[3] + "_1.png")).getImage();
-                    imgX += 10 * speed;
+                    imgX += 10 * SPEED;
                     leftPrsd = true;
                     rightPrsd = false;
                     spacePrsd = true;
@@ -111,31 +110,31 @@ public class freestyle extends JPanel {
         });
     }
 
-    public void setSpeed(String mapKey) {
-        keys.add(mapKey);
-        System.out.print(mapKey + " | 키 사이즈 " + keys.size() + " | 스피드 " + speed + "\n");
-        System.out.println(keys);
-        if (keys.size() == 1) {
-            if (keys.get(0).equals("right"))
-                speed += 0.1;
+    public static void setSpeed(String mapKey) {
+        KEYS.add(mapKey);
+        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
+        System.out.println(KEYS);
+        if (KEYS.size() == 1) {
+            if (KEYS.get(0).equals("right"))
+                SPEED += 0.1;
             else {
-                speed = 1;
-                keys.remove(0);
+                SPEED = 1;
+                KEYS.remove(0);
             }
-        } else if (keys.size() == 2) {
-            if (keys.get(0).equals("right") && keys.get(1).equals("space"))
-                    speed += 0.1;
+        } else if (KEYS.size() == 2) {
+            if (KEYS.get(0).equals("right") && KEYS.get(1).equals("space"))
+                SPEED += 0.1;
             else {
-                  speed = 1;
-                  keys.remove(1);
+                SPEED = 1;
+                KEYS.remove(1);
             }
-        } else if (keys.size() == 3) {
-            if (keys.get(0).equals("right") && keys.get(1).equals("space") && keys.get(2).equals("left")) {
-                speed += 0.1;
-                keys.clear();
+        } else if (KEYS.size() == 3) {
+            if (KEYS.get(0).equals("right") && KEYS.get(1).equals("space") && KEYS.get(2).equals("left")) {
+                SPEED += 0.1;
+                KEYS.clear();
             } else {
-                speed = 1;
-                keys.remove(2);
+                SPEED = 1;
+                KEYS.remove(2);
             }
         }
     }
@@ -148,7 +147,7 @@ public class freestyle extends JPanel {
     }
 
     public void paint(Graphics g) {
-        g.drawImage(pool, 0, 0, 990, 760, this);
+        g.drawImage(main.pool, 0, 0, 990, 760, this);
         g.drawImage(stroke, imgX, imgY[4], 145, 80, this);
         repaint();
     }

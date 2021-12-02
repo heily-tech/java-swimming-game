@@ -2,18 +2,22 @@ package game.swimming;
 
 import game.swimming.activities.*;
 import game.swimming.strokes.*;
-import javafx.scene.text.Font;
 import server.tcpClient;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 
 public class MainActivity extends JFrame {
     public static final int GAME_WIDTH = 1000;
     public static final int GAME_HEIGHT = 800;
+    public static double SPEED = 1.0;
+    public static boolean gameStatus = false;
+    public static ArrayList<String> KEYS = new ArrayList<>();
     static tcpClient client;
     initActivity initActivity;
     SelectStrokeActivity selectStrokeActivity;
@@ -24,6 +28,10 @@ public class MainActivity extends JFrame {
     backStroke backStroke;
     butterfly butterfly;
     breastStroke breastStroke;
+    public static Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
+    public static Image stroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
+    public static Image countImg = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
+
 
     public static void main(String[] args) {
         MainActivity main = new MainActivity();

@@ -7,18 +7,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+
+import static game.swimming.MainActivity.SPEED;
+import static game.swimming.MainActivity.KEYS;
 
 public class breastStroke extends JPanel {
     private MainActivity main;
-    private static int imgX, distance;
-    private double speed = 1.0;
+    private static int imgX;
     private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
     private String[] hats = {"black", "blue", "green", "org", "pur", "red", "white", "yel"};
     static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
     Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
     Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breastStroke_org_1.png")).getImage();
-    ArrayList<String> keys = new ArrayList<>();
 
     public breastStroke(MainActivity main) {
         this.main = main;
@@ -28,7 +28,6 @@ public class breastStroke extends JPanel {
         breastThread breast = new breastThread();
         breast.start();
 
-        setBackground(Color.GREEN);
         setVisible(true);
     }
 
@@ -55,7 +54,7 @@ public class breastStroke extends JPanel {
         }
     }
 
-    public void keySet() {
+    private void keySet() {
         //위 좌 스페이스 아래
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
         getActionMap().put("up", new AbstractAction() {
@@ -134,38 +133,41 @@ public class breastStroke extends JPanel {
             }
         });
     }
-    public void setSpeed(String mapKey) {
-        keys.add(mapKey);
-        System.out.print(mapKey + " | 키 사이즈 " + keys.size() + " | 스피드 " + speed + "\n");
-        System.out.println(keys);
-        if (keys.size() == 1) {
-            if (keys.get(0).equals("up"))
-                speed += 0.1;
+
+    public static void setSpeed(String mapKey) {
+        KEYS.add(mapKey);
+        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
+        System.out.println(KEYS);
+        if (KEYS.size() == 1) {
+            if (KEYS.get(0).equals("up"))
+                SPEED += 0.1;
             else {
-                speed = 1;
-                keys.remove(0);
+                SPEED = 1;
+                KEYS.remove(0);
             }
-        } else if (keys.size() == 2) {
-            if (keys.get(0).equals("up") && keys.get(1).equals("side"))
-                speed += 0.1;
+        } else if (KEYS.size() == 2) {
+            if (KEYS.get(0).equals("up") && KEYS.get(1).equals("side"))
+                SPEED += 0.1;
             else {
-                speed = 1;
-                keys.remove(1);
+                SPEED = 1;
+                KEYS.remove(1);
             }
-        } else if (keys.size() == 3) {
-            if (keys.get(0).equals("up") && keys.get(1).equals("side") && keys.get(2).equals("space")) {
-                speed += 0.1;
-            } else {
-                speed = 1;
-                keys.remove(2);
+        } else if (KEYS.size() != 3) {
+            if (KEYS.size() == 4) {
+                if (KEYS.get(0).equals("up") && KEYS.get(1).equals("side") && KEYS.get(2).equals("space") && KEYS.get(3).equals("down")) {
+                    SPEED += 0.1;
+                    KEYS.clear();
+                } else {
+                    SPEED = 1;
+                    KEYS.remove(3);
+                }
             }
-        } else if (keys.size() == 4) {
-            if (keys.get(0).equals("up") && keys.get(1).equals("side") && keys.get(2).equals("space") && keys.get(3).equals("down")) {
-                speed += 0.1;
-                keys.clear();
+        } else {
+            if (KEYS.get(0).equals("up") && KEYS.get(1).equals("side") && KEYS.get(2).equals("space")) {
+                SPEED += 0.1;
             } else {
-                speed = 1;
-                keys.remove(3);
+                SPEED = 1;
+                KEYS.remove(2);
             }
         }
     }

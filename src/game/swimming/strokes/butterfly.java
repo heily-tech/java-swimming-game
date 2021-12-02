@@ -7,18 +7,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+
+import static game.swimming.MainActivity.SPEED;
+import static game.swimming.MainActivity.KEYS;
 
 public class butterfly extends JPanel {
     private MainActivity main;
-    private static int imgX, distance;
-    private double speed = 1.0;
+    private static int imgX;
     private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
     private String[] hats = {"black", "blue", "green", "org", "pur", "red", "white", "yel"};
     static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
-    Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
-    Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_1.png")).getImage();
-    ArrayList<String> keys = new ArrayList<>();
+    Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterfly_org_1.png")).getImage();
 
     public butterfly(MainActivity main) {
         this.main = main;
@@ -28,7 +27,6 @@ public class butterfly extends JPanel {
         btflyThread btfly = new btflyThread();
         btfly.start();
 
-        setBackground(Color.YELLOW);
         setVisible(true);
 
     }
@@ -56,7 +54,7 @@ public class butterfly extends JPanel {
         }
     }
 
-    public void keySet() {
+    private void keySet() {
         //좌우 위 스페이스 아래
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "side1");
         getActionMap().put("side1", new AbstractAction() {
@@ -135,38 +133,38 @@ public class butterfly extends JPanel {
             }
         });
     }
-    public void setSpeed(String mapKey) {
-        keys.add(mapKey);
-        System.out.print(mapKey + " | 키 사이즈 " + keys.size() + " | 스피드 " + speed + "\n");
-        System.out.println(keys);
-        if (keys.size() == 1) {
-            if (keys.get(0).equals("side"))
-                speed += 0.1;
+    public static void setSpeed(String mapKey) {
+        KEYS.add(mapKey);
+        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
+        System.out.println(KEYS);
+        if (KEYS.size() == 1) {
+            if (KEYS.get(0).equals("side"))
+                SPEED += 0.1;
             else {
-                speed = 1;
-                keys.remove(0);
+                SPEED = 1;
+                KEYS.remove(0);
             }
-        } else if (keys.size() == 2) {
-            if (keys.get(0).equals("side") && keys.get(1).equals("up"))
-                speed += 0.1;
+        } else if (KEYS.size() == 2) {
+            if (KEYS.get(0).equals("side") && KEYS.get(1).equals("up"))
+                SPEED += 0.1;
             else {
-                speed = 1;
-                keys.remove(1);
+                SPEED = 1;
+                KEYS.remove(1);
             }
-        } else if (keys.size() == 3) {
-            if (keys.get(0).equals("side") && keys.get(1).equals("up") && keys.get(2).equals("space")) {
-                speed += 0.1;
+        } else if (KEYS.size() == 3) {
+            if (KEYS.get(0).equals("side") && KEYS.get(1).equals("up") && KEYS.get(2).equals("space")) {
+                SPEED += 0.1;
             } else {
-                speed = 1;
-                keys.remove(2);
+                SPEED = 1;
+                KEYS.remove(2);
             }
-        } else if (keys.size() == 4) {
-            if (keys.get(0).equals("side") && keys.get(1).equals("up") && keys.get(2).equals("space") && keys.get(3).equals("down")) {
-                speed += 0.1;
-                keys.clear();
+        } else if (KEYS.size() == 4) {
+            if (KEYS.get(0).equals("side") && KEYS.get(1).equals("up") && KEYS.get(2).equals("space") && KEYS.get(3).equals("down")) {
+                SPEED += 0.1;
+                KEYS.clear();
             } else {
-                speed = 1;
-                keys.remove(3);
+                SPEED = 1;
+                KEYS.remove(3);
             }
         }
     }
@@ -181,7 +179,7 @@ public class butterfly extends JPanel {
     }
 
     public void paint(Graphics g) {
-        g.drawImage(pool, 0, 0, 990, 760, this);
+        g.drawImage(main.pool, 0, 0, 990, 760, this);
         g.drawImage(stroke, imgX, imgY[4], 145, 80, this);
         repaint();
     }

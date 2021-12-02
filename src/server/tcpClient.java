@@ -41,9 +41,10 @@ public class tcpClient {
 
                     System.out.println(message);
                 } catch (IOException e) {
+                    System.out.println(e.getMessage());
                     String message = "[서버 통신 안됨]";
                     System.out.println(message);
-                    e.printStackTrace();
+//                    e.printStackTrace();
                     if (socketChannel.isOpen()) //socketChannel이 열려있으면 stopClient()호출
                         stopClient();
                     return; //스레드 종료
