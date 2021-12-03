@@ -9,6 +9,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class MainActivity extends JFrame {
     public static final int GAME_WIDTH = 1000;
     public static final int GAME_HEIGHT = 800;
     public static double SPEED = 1.0;
-    public static boolean singleGameStatus = false;
+    public static boolean singleGameStatus = false, dist = false;
     public static ArrayList<String> KEYS = new ArrayList<>();
     static tcpClient client;
     initActivity initActivity;

@@ -15,7 +15,6 @@ public class SelectModeActivity extends JPanel implements ActionListener {
     public static ArrayList<String> backupNum = new ArrayList<>();
     static JButton singleBtn, indivBtn, grpBtn, speedBtn, itemBtn, goBackBtn, reBtn, chosenBtn;
     private MainActivity main;
-    private SelectStrokeActivity selectStrokeActivity;
     private JOptionPane nullSelection;
     Image background = new ImageIcon(MainActivity.class.getResource("res/modeBackground.png")).getImage();
 
@@ -50,7 +49,6 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         else if (e.getSource() == grpBtn){
             main.sfx("res/sfxs/select.wav");
             strokeChooseNum.set(2, "3");
-//            grpBtn.setBackground(new Color(193, 213, 207));
             singleBtn.setEnabled(false);
             indivBtn.setEnabled(false);
             grpBtn.setEnabled(false);
@@ -60,7 +58,6 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         if (e.getSource() == speedBtn) {
             main.sfx("res/sfxs/select.wav");
             strokeChooseNum.set(3, "1");
-//            speedBtn.setBackground(new Color(193, 213, 207));
             speedBtn.setEnabled(false);
             itemBtn.setEnabled(false);
             System.out.println(strokeChooseNum);
@@ -68,7 +65,6 @@ public class SelectModeActivity extends JPanel implements ActionListener {
         else if (e.getSource() == itemBtn){
             main.sfx("res/sfxs/select.wav");
             strokeChooseNum.set(3, "2");
-//            itemBtn.setBackground(new Color(193, 213, 207));
             speedBtn.setEnabled(false);
             itemBtn.setEnabled(false);
             System.out.println(strokeChooseNum);
@@ -104,6 +100,8 @@ public class SelectModeActivity extends JPanel implements ActionListener {
                     else if (strokeChooseNum.get(0).equals("4"))
                         main.change("breastStroke");
                 }
+                if (strokeChooseNum.get(1).equals("2"))
+                    main.dist = true;
             }
         } else if (e.getSource() == reBtn) {
             main.sfx("res/sfxs/reselect.wav");

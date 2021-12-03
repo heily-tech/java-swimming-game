@@ -56,14 +56,12 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
         if (e.getSource() == dist100Btn) {
             main.sfx("res/sfxs/select.wav");
             strokeChooseNum.set(1, "1");
-            dist100Btn.setBackground(new Color(193, 213, 207));
             dist100Btn.setEnabled(false);
             dist200Btn.setEnabled(false);
             System.out.println(strokeChooseNum);
         } else if (e.getSource() == dist200Btn){
             main.sfx("res/sfxs/select.wav");
-            strokeChooseNum.set(2, "2");
-            dist200Btn.setBackground(new Color(193, 213, 207));
+            strokeChooseNum.set(1, "2");
             dist100Btn.setEnabled(false);
             dist200Btn.setEnabled(false);
             System.out.println(strokeChooseNum);

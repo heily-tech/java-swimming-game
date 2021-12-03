@@ -2,6 +2,9 @@ package game.swimming.activities;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import javax.swing.*;
@@ -25,6 +28,7 @@ public class PlayActivity extends JPanel {
     public Image stroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
     public Image pcStroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
     public Image countImg = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
+    boolean status = true;
 
     public PlayActivity(MainActivity main) {
         this.main = main;
@@ -66,10 +70,13 @@ public class PlayActivity extends JPanel {
                 counterStat = true;
                 Thread.sleep(100);
                 countImg = new ImageIcon(MainActivity.class.getResource("res/3.png")).getImage();
+                main.sfx("res/sfxs/beep.wav");
                 Thread.sleep(1000);
                 countImg = new ImageIcon(MainActivity.class.getResource("res/2.png")).getImage();
+                main.sfx("res/sfxs/beep.wav");
                 Thread.sleep(1000);
                 countImg = new ImageIcon(MainActivity.class.getResource("res/1.png")).getImage();
+                main.sfx("res/sfxs/beep.wav");
                 Thread.sleep(1000);
                 backgroundMusic.play();
                 counterStat = false;
@@ -82,9 +89,11 @@ public class PlayActivity extends JPanel {
                     pcThreads[i] = pc;
                 }
 
-                for (int i = 0; i < 7; i++) {
+                for (int i = 0; i < 7; i++)
                     pcThreads[i].start();
-                }
+
+                if (dist)
+                    System.out.println("hi");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -104,22 +113,25 @@ public class PlayActivity extends JPanel {
 
         @Override
         public void run() {
-            try {
-                Thread.sleep(100);
-                for (int i = 0; i < 600; i++) {
-                    Thread.sleep(300);
-                    pc_x += 15 * Math.random();
-                    pcXs[pc_num-1] = pc_x;
-                    changeImage(strokeName, i);
-                    if (pc_x >= 840) {
-                        System.out.println(rank + "등은 " + pc_name);
-                        pc_x = 840;
-                        rank++;
-                        break;
+                try {
+                    Thread.sleep(100);
+                    for (int i = 0; i < 600; i++) {
+                        Thread.sleep(300);
+                        pc_x += 30 * Math.random();
+                        pcXs[pc_num - 1] = pc_x;
+                        if (pc_num * i % 3 == 0)
+                            changeImage(strokeName, i);
+                        Thread.sleep(300 * (int) Math.random());
+                        if (pc_x >= 840) {
+                            System.out.println(rank + "등은 " + pc_name);
+                            pc_x = 840;
+                            rank++;
+                            break;
+                        } else if (!status)
+                            break;
                     }
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
             }
         }
 
@@ -154,13 +166,19 @@ public class PlayActivity extends JPanel {
                     else if (strokeName.equals("breastStroke"))
                         breastStrokeKeySet();
                     Thread.sleep(1000);
+
                     if (imgX >= 840) {
                         leftPrsd = true;
                         rightPrsd = true;
                         spacePrsd = true;
-                        System.out.println(rank + "등은 you.");
+                        System.out.println(rank++ + "등은 you.");
+                        status = false;
                         new RankActivity(main);
+                        backgroundMusic.stop();
+                        main.sfx("res/sfxs/end1.wav");
                         break;
+                    } else if (dist) {
+                        System.out.println("hi");
                     }
 
                 } catch (InterruptedException e) {
@@ -178,7 +196,7 @@ public class PlayActivity extends JPanel {
                 freestyle.setSpeed("right");
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
-                    imgX += 10 * SPEED;
+                    imgX += 5 * SPEED;
                     rightPrsd = true;
                     leftPrsd = true;
                     spacePrsd = false;
@@ -191,7 +209,7 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 freestyle.setSpeed("space");
                 if (spacePrsd == false) {
-                    imgX += 10 * SPEED;
+                    imgX += 5 * SPEED;
                     leftPrsd = false;
                     rightPrsd = true;
                     spacePrsd = true;
@@ -205,7 +223,7 @@ public class PlayActivity extends JPanel {
                 freestyle.setSpeed("left");
                 if (leftPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2.png")).getImage();
-                    imgX += 10 * SPEED;
+                    imgX += 5 * SPEED;
                     leftPrsd = true;
                     rightPrsd = false;
                     spacePrsd = true;
@@ -221,7 +239,7 @@ public class PlayActivity extends JPanel {
                 backStroke.setSpeed("left");
                 if (leftPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_user_1.png")).getImage();
-                    imgX += 10 * SPEED;
+                    imgX += 5 * SPEED;
                     leftPrsd = true;
                     rightPrsd = false;
                 }
@@ -234,7 +252,7 @@ public class PlayActivity extends JPanel {
                 backStroke.setSpeed("right");
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_user_2.png")).getImage();
-                    imgX += 10 * SPEED;
+                    imgX += 5 * SPEED;
                     rightPrsd = true;
                     leftPrsd = false;
                     spacePrsd = true;
@@ -260,7 +278,7 @@ public class PlayActivity extends JPanel {
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_1.png")).getImage();
                     if (leftPrsd == true && rightPrsd == false) {
-                        imgX += 10 * SPEED;
+                        imgX += 5 * SPEED;
                         butterfly.setSpeed("side");
                     }
                     rightPrsd = true;
@@ -277,7 +295,7 @@ public class PlayActivity extends JPanel {
                 if (upPrsd == false) {
                     butterfly.setSpeed("up");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_2.png")).getImage();
-                    imgX += 10 * SPEED;
+                    imgX += 5 * SPEED;
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -292,9 +310,8 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 butterfly.setSpeed("space");
                 if (spacePrsd == false) {
-                    System.out.println("space");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_3.png")).getImage();
-                    imgX += 10 * SPEED;
+                    imgX += 5 * SPEED;
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -309,9 +326,8 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 butterfly.setSpeed("down");
                 if (downPrsd == false) {
-                    System.out.println("down");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_3.png")).getImage();
-                    imgX += 10 * SPEED;
+                    imgX += 5 * SPEED;
                     rightPrsd = false;
                     leftPrsd = false;
                     upPrsd = true;
@@ -330,7 +346,7 @@ public class PlayActivity extends JPanel {
                 if (upPrsd == false) {
                     breastStroke.setSpeed("up");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_user_1.png")).getImage();
-                    imgX += 10;
+                    imgX += 5 * SPEED;
                     leftPrsd = false;
                     rightPrsd = false;
                     upPrsd = true;
@@ -355,7 +371,7 @@ public class PlayActivity extends JPanel {
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_user_2.png")).getImage();
                     if (leftPrsd == true && rightPrsd == false) {
-                        imgX += 10;
+                        imgX += 5 * SPEED;
                         breastStroke.setSpeed("side");
                     }
                     rightPrsd = true;
@@ -371,9 +387,8 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 breastStroke.setSpeed("space");
                 if (spacePrsd == false) {
-                    System.out.println("space");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_user_3.png")).getImage();
-                    imgX += 10;
+                    imgX += 5 * SPEED;
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -388,9 +403,8 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 breastStroke.setSpeed("down");
                 if (downPrsd == false) {
-                    System.out.println("down");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_user_1.png")).getImage();
-                    imgX += 10;
+                    imgX += 5 * SPEED;
                     rightPrsd = true;
                     leftPrsd = true;
                     upPrsd = false;
@@ -408,17 +422,17 @@ public class PlayActivity extends JPanel {
         spacePrsd = false;
         upPrsd = false;
         downPrsd = false;
-        for (int i : pcXs)
+        for (int i = 0; i < 7; i++) {
             pcXs[i] = 0;
+        }
     }
 
     public void paint(Graphics g) {
         g.drawImage(pool, 0, 0, 990, 760, this);
         if (main.singleGameStatus) {
             g.drawImage(stroke, imgX, 290, 145, 80, this);
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < 7; i++)
                 g.drawImage(pcStroke, pcXs[i], pcYs[i], 145, 80, this);
-            }
         }
         if (counterStat)
             g.drawImage(countImg, 420, 250, 80, 150, this);
