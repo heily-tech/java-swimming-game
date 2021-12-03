@@ -16,7 +16,7 @@ public class MainActivity extends JFrame {
     public static final int GAME_WIDTH = 1000;
     public static final int GAME_HEIGHT = 800;
     public static double SPEED = 1.0;
-    public static boolean gameStatus = false;
+    public static boolean singleGameStatus = false;
     public static ArrayList<String> KEYS = new ArrayList<>();
     static tcpClient client;
     initActivity initActivity;
@@ -29,8 +29,6 @@ public class MainActivity extends JFrame {
     butterfly butterfly;
     breastStroke breastStroke;
     public static Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
-    public static Image stroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
-    public static Image countImg = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
 
 
     public static void main(String[] args) {

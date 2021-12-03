@@ -61,7 +61,7 @@ public class backStroke extends JPanel {
                 setSpeed("left");
                 if (leftPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_org_1.png")).getImage();
-                    imgX += 10;
+                    imgX += 10 * SPEED;
                     leftPrsd = true;
                     rightPrsd = false;
                 }
@@ -74,7 +74,7 @@ public class backStroke extends JPanel {
                 setSpeed("right");
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_org_2.png")).getImage();
-                    imgX += 10;
+                    imgX += 10 * SPEED;
                     rightPrsd = true;
                     leftPrsd = false;
                     spacePrsd = true;

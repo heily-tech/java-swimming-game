@@ -2,31 +2,29 @@ package game.swimming.activities;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.*;
 
-import com.sun.javafx.binding.StringFormatter;
 import game.swimming.MainActivity;
-import game.swimming.activities.RankActivity;
 import game.swimming.strokes.backStroke;
 import game.swimming.strokes.breastStroke;
 import game.swimming.strokes.butterfly;
 import game.swimming.strokes.freestyle;
 
-import static game.swimming.MainActivity.SPEED;
-import static game.swimming.strokes.freestyle.setSpeed;
+import static game.swimming.MainActivity.*;
 
 public class PlayActivity extends JPanel {
-    public static ArrayList<String> strokeChooseNum = new ArrayList<>();
     public static String strokeName;
+    private static int imgX, rank = 1;;
+    private static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false, counterStat = false, gameStat = false;;
     private MainActivity main;
-    private int imgX, pcX, rank = 1;
-    private int[] pcY = {5, 105, 198, 290, 385, 480, 573, 668};
-    private boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false, counterStat = false, gameStat = false;
-    Image stroke, countImg;
-    JLabel pcStroke = new JLabel();
-    ArrayList<String> keys = new ArrayList<>();
+    private static int[] pcXs = new int[7];
+    private int[] pcYs = {5, 105, 198, 385, 480, 573, 668};
+    pcThread[] pcThreads = new pcThread[7];
+    public Image stroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
+    public Image pcStroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
+    public Image countImg = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
 
     public PlayActivity(MainActivity main) {
         this.main = main;
@@ -41,17 +39,16 @@ public class PlayActivity extends JPanel {
     class checkThread extends Thread {
         @Override
         public void run() {
-            while (!main.gameStatus) {
+            while (!main.singleGameStatus) {
                 try {
                     Thread.sleep(100);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            if (main.gameStatus) {
+            if (main.singleGameStatus) {
                 try {
                     backgroundMusic.change("res/sfxs/play1.wav");
-                    backgroundMusic.play();
                     Thread.sleep(100);
                     new playThread().start();
                 } catch (Exception e) {
@@ -65,9 +62,8 @@ public class PlayActivity extends JPanel {
         public void run() {
             try {
                 stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
-                pcStroke.setIcon(new ImageIcon("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png"));
+                pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
                 counterStat = true;
-
                 Thread.sleep(100);
                 countImg = new ImageIcon(MainActivity.class.getResource("res/3.png")).getImage();
                 Thread.sleep(1000);
@@ -75,18 +71,21 @@ public class PlayActivity extends JPanel {
                 Thread.sleep(1000);
                 countImg = new ImageIcon(MainActivity.class.getResource("res/1.png")).getImage();
                 Thread.sleep(1000);
-                gameStat = true;
+                backgroundMusic.play();
                 counterStat = false;
 
                 userThread user = new userThread();
                 user.start();
 
-                for (int i = 1; i <= 8; i++) {
-                    if (i == 3)
-                        continue;
-                    pcThread pc = new pcThread("pc" + i, pcY[i-1]);
-                    pc.start();
+                for (int i = 0; i < 7; i++) {
+                    pcThread pc = new pcThread(i, pcYs[i]);
+                    pcThreads[i] = pc;
                 }
+
+                for (int i = 0; i < 7; i++) {
+                    pcThreads[i].start();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -95,47 +94,48 @@ public class PlayActivity extends JPanel {
 
     class pcThread extends Thread {
         String pc_name = "";
-        int pc_y;
+        int pc_x, pc_y, pc_num;
 
-        pcThread(String pc_name, int pc_y) {
-            this.pc_name = pc_name;
+        pcThread(int num, int pc_y) {
+            this.pc_num = num + 1;
+            this.pc_name = "PC" + this.pc_num;
             this.pc_y = pc_y;
-            pcStroke = new JLabel();
-            pcStroke.setIcon(new ImageIcon("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png"));
-            pcStroke.setBounds(pcX, pc_y, 145, 80);
-            add(pcStroke);
         }
 
         @Override
         public void run() {
-            for (int i = 0; i < 600; i++) {
-                try {
-                    pcX += 10 * Math.random();
-                    changeImage(strokeName, i);
+            try {
+                Thread.sleep(100);
+                for (int i = 0; i < 600; i++) {
                     Thread.sleep(300);
-                    if (pcX >= 840) {
-                        pcX = 840;
-                        new RankActivity(main);
+                    pc_x += 15 * Math.random();
+                    pcXs[pc_num-1] = pc_x;
+                    changeImage(strokeName, i);
+                    if (pc_x >= 840) {
+                        System.out.println(rank + "등은 " + pc_name);
+                        pc_x = 840;
+                        rank++;
                         break;
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
+
         private void changeImage(String strokeName, int i) {
             if (strokeName.equals("freestyle") || strokeName.equals("backStroke")) {
                 if (i % 2 == 0)
-                    pcStroke.setIcon(new ImageIcon("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png"));
+                    pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
                 else
-                    pcStroke.setIcon(new ImageIcon("res/strokes/" + strokeName + "/" + strokeName + "_pc_2.png"));
+                    pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_2.png")).getImage();
             }  else if (strokeName.equals("butterfly") || strokeName.equals("breastStroke")) {
                 if (i % 3 == 0)
-                    pcStroke.setIcon(new ImageIcon("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png"));
+                    pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
                 else if (i % 3 == 1)
-                    pcStroke.setIcon(new ImageIcon("res/strokes/" + strokeName + "/" + strokeName + "_pc_2.png"));
+                    pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_2.png")).getImage();
                 else
-                    pcStroke.setIcon(new ImageIcon("res/strokes/" + strokeName + "/" + strokeName + "_pc_3.png"));
+                    pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_3.png")).getImage();
             }
         }
     }
@@ -158,6 +158,7 @@ public class PlayActivity extends JPanel {
                         leftPrsd = true;
                         rightPrsd = true;
                         spacePrsd = true;
+                        System.out.println(rank + "등은 you.");
                         new RankActivity(main);
                         break;
                     }
@@ -220,7 +221,7 @@ public class PlayActivity extends JPanel {
                 backStroke.setSpeed("left");
                 if (leftPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_user_1.png")).getImage();
-                    imgX += 10;
+                    imgX += 10 * SPEED;
                     leftPrsd = true;
                     rightPrsd = false;
                 }
@@ -233,7 +234,7 @@ public class PlayActivity extends JPanel {
                 backStroke.setSpeed("right");
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_user_2.png")).getImage();
-                    imgX += 10;
+                    imgX += 10 * SPEED;
                     rightPrsd = true;
                     leftPrsd = false;
                     spacePrsd = true;
@@ -259,7 +260,7 @@ public class PlayActivity extends JPanel {
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_1.png")).getImage();
                     if (leftPrsd == true && rightPrsd == false) {
-                        imgX += 10;
+                        imgX += 10 * SPEED;
                         butterfly.setSpeed("side");
                     }
                     rightPrsd = true;
@@ -276,7 +277,7 @@ public class PlayActivity extends JPanel {
                 if (upPrsd == false) {
                     butterfly.setSpeed("up");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_2.png")).getImage();
-                    imgX += 10;
+                    imgX += 10 * SPEED;
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -293,7 +294,7 @@ public class PlayActivity extends JPanel {
                 if (spacePrsd == false) {
                     System.out.println("space");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_3.png")).getImage();
-                    imgX += 10;
+                    imgX += 10 * SPEED;
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -310,7 +311,7 @@ public class PlayActivity extends JPanel {
                 if (downPrsd == false) {
                     System.out.println("down");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_3.png")).getImage();
-                    imgX += 10;
+                    imgX += 10 * SPEED;
                     rightPrsd = false;
                     leftPrsd = false;
                     upPrsd = true;
@@ -400,11 +401,25 @@ public class PlayActivity extends JPanel {
         });
     }
 
+    public static void imgReset() {
+        imgX = 0;
+        leftPrsd = false;
+        rightPrsd = false;
+        spacePrsd = false;
+        upPrsd = false;
+        downPrsd = false;
+        for (int i : pcXs)
+            pcXs[i] = 0;
+    }
 
     public void paint(Graphics g) {
-        g.drawImage(main.pool, 0, 0, 990, 760, this);
-        if (gameStat)
+        g.drawImage(pool, 0, 0, 990, 760, this);
+        if (main.singleGameStatus) {
             g.drawImage(stroke, imgX, 290, 145, 80, this);
+            for (int i = 0; i < 7; i++) {
+                g.drawImage(pcStroke, pcXs[i], pcYs[i], 145, 80, this);
+            }
+        }
         if (counterStat)
             g.drawImage(countImg, 420, 250, 80, 150, this);
 

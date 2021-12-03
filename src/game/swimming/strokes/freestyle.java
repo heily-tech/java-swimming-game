@@ -49,7 +49,7 @@ public class freestyle extends JPanel {
                             break;
                         }
 //                    } else {
-//                       //좌우반전해서 200미터 겜
+//                       //좌우반전해서 200미터 겜 show horizontal
 //                        if (imgX <= 0) {
 //                            leftPrsd = true;
 //                            rightPrsd = true;

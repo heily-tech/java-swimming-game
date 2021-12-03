@@ -49,5 +49,6 @@ public class RankActivity extends JFrame {
         backStroke.imgReset();
         butterfly.imgReset();
         breastStroke.imgReset();
+        PlayActivity.imgReset();
     }
 }

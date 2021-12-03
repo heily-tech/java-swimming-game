@@ -72,7 +72,7 @@ public class butterfly extends JPanel {
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_1.png")).getImage();
                     if (leftPrsd == true && rightPrsd == false) {
-                        imgX += 10;
+                        imgX += 10 * SPEED;
                         setSpeed("side");
                     }
                     rightPrsd = true;
@@ -89,7 +89,7 @@ public class butterfly extends JPanel {
                 if (upPrsd == false) {
                     setSpeed("up");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_2.png")).getImage();
-                    imgX += 10;
+                    imgX += 10 * SPEED;
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -106,7 +106,7 @@ public class butterfly extends JPanel {
                 if (spacePrsd == false) {
                     System.out.println("space");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_3.png")).getImage();
-                    imgX += 10;
+                    imgX += 10 * SPEED;
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -123,7 +123,7 @@ public class butterfly extends JPanel {
                 if (downPrsd == false) {
                     System.out.println("down");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_3.png")).getImage();
-                    imgX += 10;
+                    imgX += 10 * SPEED;
                     rightPrsd = false;
                     leftPrsd = false;
                     upPrsd = true;
