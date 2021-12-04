@@ -70,7 +70,7 @@ public class butterfly extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (rightPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_1.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterfly_org_1.png")).getImage();
                     if (leftPrsd == true && rightPrsd == false) {
                         imgX += 10 * SPEED;
                         setSpeed("side");
@@ -88,7 +88,7 @@ public class butterfly extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (upPrsd == false) {
                     setSpeed("up");
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_2.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterfly_org_2.png")).getImage();
                     imgX += 10 * SPEED;
                     leftPrsd = true;
                     rightPrsd = true;
@@ -104,7 +104,7 @@ public class butterfly extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 setSpeed("space");
                 if (spacePrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_3.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterfly_org_3.png")).getImage();
                     imgX += 10 * SPEED;
                     leftPrsd = true;
                     rightPrsd = true;
@@ -120,7 +120,7 @@ public class butterfly extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 setSpeed("down");
                 if (downPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_org_3.png")).getImage();
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterfly_org_3.png")).getImage();
                     imgX += 10 * SPEED;
                     rightPrsd = false;
                     leftPrsd = false;
@@ -133,7 +133,7 @@ public class butterfly extends JPanel {
     }
     public static void setSpeed(String mapKey) {
         KEYS.add(mapKey);
-        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
+//        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
         if (KEYS.size() == 1) {
             if (KEYS.get(0).equals("side"))
                 SPEED += 0.1;

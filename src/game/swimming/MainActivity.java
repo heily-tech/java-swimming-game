@@ -30,7 +30,16 @@ public class MainActivity extends JFrame {
     butterfly butterfly;
     breastStroke breastStroke;
     public static Image pool = new ImageIcon(MainActivity.class.getResource("res/poolBG.gif")).getImage();
-
+    public static Image[] pcStrokes = {
+            new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage(),
+            new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage(),
+            new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage(),
+            new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage(),
+            new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage(),
+            new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage(),
+            new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage()
+    };
+    public static String GAME_RESULT = "";
 
     public static void main(String[] args) {
         MainActivity main = new MainActivity();

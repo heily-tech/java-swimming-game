@@ -80,6 +80,8 @@ public class SelectModeActivity extends JPanel implements ActionListener {
                 if (strokeChooseNum.get(2).equals("1")) {
                     main.singleGameStatus = true;
                     main.sfx("res/sfxs/select_with_reverb.wav");
+                    if (strokeChooseNum.get(1).equals("2"))
+                        main.dist = true;
                     main.change("PlayActivity");
                     if (strokeChooseNum.get(0).equals("1"))
                         strokeName = "freestyle";
@@ -100,8 +102,6 @@ public class SelectModeActivity extends JPanel implements ActionListener {
                     else if (strokeChooseNum.get(0).equals("4"))
                         main.change("breastStroke");
                 }
-                if (strokeChooseNum.get(1).equals("2"))
-                    main.dist = true;
             }
         } else if (e.getSource() == reBtn) {
             main.sfx("res/sfxs/reselect.wav");
@@ -189,6 +189,9 @@ public class SelectModeActivity extends JPanel implements ActionListener {
     }
 
     static void reset() {
+        for (int i = 2; i < 4; i++) {
+            strokeChooseNum.set(i, "0");
+        }
         singleBtn.setEnabled(true);
         indivBtn.setEnabled(true);
         grpBtn.setEnabled(true);

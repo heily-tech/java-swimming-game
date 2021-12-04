@@ -181,7 +181,7 @@ public class SelectStrokeActivity extends JPanel implements ActionListener {
     }
 
     static void reset() {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
             strokeChooseNum.set(i, "0");
         System.out.println(strokeChooseNum);
 

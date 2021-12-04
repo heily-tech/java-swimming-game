@@ -48,15 +48,6 @@ public class freestyle extends JPanel {
                             new RankActivity(main);
                             break;
                         }
-//                    } else {
-//                       //좌우반전해서 200미터 겜 show horizontal
-//                        if (imgX <= 0) {
-//                            leftPrsd = true;
-//                            rightPrsd = true;
-//                            spacePrsd = true;
-//                            new rankActivity(main);
-//                            break;
-//                        }
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -112,7 +103,7 @@ public class freestyle extends JPanel {
 
     public static void setSpeed(String mapKey) {
         KEYS.add(mapKey);
-        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
+//        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
         if (KEYS.size() == 1) {
             if (KEYS.get(0).equals("right"))
                 SPEED += 0.1;

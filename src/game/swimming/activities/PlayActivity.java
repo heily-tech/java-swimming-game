@@ -2,10 +2,6 @@ package game.swimming.activities;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.util.Random;
 
 import javax.swing.*;
 
@@ -25,10 +21,11 @@ public class PlayActivity extends JPanel {
     private static int[] pcXs = new int[7];
     private int[] pcYs = {5, 105, 198, 385, 480, 573, 668};
     pcThread[] pcThreads = new pcThread[7];
-    public Image stroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
-    public Image pcStroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
+    private static boolean[] pcDists = {false, false, false, false, false, false, false};
+    public static Image stroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
     public Image countImg = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
-    boolean status = true;
+    static boolean gameStatus = true;
+    static boolean userDist = false;
 
     public PlayActivity(MainActivity main) {
         this.main = main;
@@ -66,7 +63,9 @@ public class PlayActivity extends JPanel {
         public void run() {
             try {
                 stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
-                pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
+                for (int i = 0; i < 7; i++) {
+                    pcStrokes[i] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
+                }
                 counterStat = true;
                 Thread.sleep(100);
                 countImg = new ImageIcon(MainActivity.class.getResource("res/3.png")).getImage();
@@ -79,6 +78,7 @@ public class PlayActivity extends JPanel {
                 main.sfx("res/sfxs/beep.wav");
                 Thread.sleep(1000);
                 backgroundMusic.play();
+//                long start = System.currentTimeMillis();
                 counterStat = false;
 
                 userThread user = new userThread();
@@ -91,10 +91,6 @@ public class PlayActivity extends JPanel {
 
                 for (int i = 0; i < 7; i++)
                     pcThreads[i].start();
-
-                if (dist)
-                    System.out.println("hi");
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -116,38 +112,76 @@ public class PlayActivity extends JPanel {
                 try {
                     Thread.sleep(100);
                     for (int i = 0; i < 600; i++) {
-                        Thread.sleep(300);
-                        pc_x += 30 * Math.random();
-                        pcXs[pc_num - 1] = pc_x;
-                        if (pc_num * i % 3 == 0)
-                            changeImage(strokeName, i);
-                        Thread.sleep(300 * (int) Math.random());
-                        if (pc_x >= 840) {
-                            System.out.println(rank + "등은 " + pc_name);
-                            pc_x = 840;
-                            rank++;
-                            break;
-                        } else if (!status)
-                            break;
+                        if (!dist) {
+                            Thread.sleep(300);
+                            pc_x += 30 * Math.random();
+                            pcXs[pc_num - 1] = pc_x;
+                            changeImage(strokeName, i, pc_num);
+                            if (pc_x >= 840) {
+                                GAME_RESULT += (rank + "등 | " + pc_name + "\n");
+                                pc_x = 840;
+                                rank++;
+                                break;
+                            } else if (!gameStatus)
+                                break;
+                        } else if (dist && !pcDists[pc_num - 1]) {
+                            Thread.sleep(300);
+                            pc_x += 30 * Math.random();
+                            pcXs[pc_num - 1] = pc_x;
+                            changeImage(strokeName, i, pc_num);
+                            if (pc_x >= 840)
+                                pcDists[pc_num - 1] = true;
+                            else if (!gameStatus)
+                                break;
+                        } else if (pcDists[pc_num - 1]) {
+                            Thread.sleep(300);
+                            pc_x -= 30 * Math.random();
+                            pcXs[pc_num - 1] = pc_x;
+                            changeImage(strokeName, i, pc_num);
+                            if (pc_x <= 0) {
+                                GAME_RESULT += (rank + "등 | " + pc_name + "\n");
+                                pc_x = 0;
+                                rank++;
+                                break;
+                            } else if (!gameStatus)
+                                break;
+                        }
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
             }
         }
 
-        private void changeImage(String strokeName, int i) {
+        private void changeImage(String strokeName, int i, int p) {
+            int pc = p - 1;
             if (strokeName.equals("freestyle") || strokeName.equals("backStroke")) {
-                if (i % 2 == 0)
-                    pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
-                else
-                    pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_2.png")).getImage();
+                if (!pcDists[pc_num - 1]) {
+                    if (i % 2 == 0)
+                        pcStrokes[pc] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
+                    else
+                        pcStrokes[pc] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_2.png")).getImage();
+                } else {
+                    if (i % 2 == 0)
+                        pcStrokes[pc] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1_rev.png")).getImage();
+                    else
+                        pcStrokes[pc] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_2_rev.png")).getImage();
+                }
             }  else if (strokeName.equals("butterfly") || strokeName.equals("breastStroke")) {
-                if (i % 3 == 0)
-                    pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
-                else if (i % 3 == 1)
-                    pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_2.png")).getImage();
-                else
-                    pcStroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_3.png")).getImage();
+                if (!pcDists[pc_num - 1]) {
+                    if (i % 3 == 0)
+                        pcStrokes[pc] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
+                    else if (i % 3 == 1)
+                        pcStrokes[pc] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_2.png")).getImage();
+                    else
+                        pcStrokes[pc] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_3.png")).getImage();
+                } else {
+                    if (i % 3 == 0)
+                        pcStrokes[pc] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1_rev.png")).getImage();
+                    else if (i % 3 == 1)
+                        pcStrokes[pc] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_2_rev.png")).getImage();
+                    else
+                        pcStrokes[pc] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_3_rev.png")).getImage();
+                }
             }
         }
     }
@@ -167,20 +201,34 @@ public class PlayActivity extends JPanel {
                         breastStrokeKeySet();
                     Thread.sleep(1000);
 
-                    if (imgX >= 840) {
+                    if (imgX >= 840 && !dist) {
                         leftPrsd = true;
                         rightPrsd = true;
                         spacePrsd = true;
-                        System.out.println(rank++ + "등은 you.");
-                        status = false;
+                        upPrsd = true;
+                        downPrsd = true;
+                        gameStatus = false;
+                        System.out.println(GAME_RESULT);
                         new RankActivity(main);
                         backgroundMusic.stop();
                         main.sfx("res/sfxs/end1.wav");
+                        GAME_RESULT += (rank++ + "등 | USER | \n");
                         break;
-                    } else if (dist) {
-                        System.out.println("hi");
+                    } else if (imgX >= 800 && dist) {
+                        userDist = true;
+                    } else if (imgX <= 0 && userDist) {
+                        leftPrsd = true;
+                        rightPrsd = true;
+                        spacePrsd = true;
+                        upPrsd = true;
+                        downPrsd = true;
+                        gameStatus = false;
+                        System.out.println(GAME_RESULT);
+                        new RankActivity(main);
+                        main.sfx("res/sfxs/end1.wav");
+                        System.out.println(rank++ + "등 | USER | \n");
+                        break;
                     }
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -195,8 +243,13 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 freestyle.setSpeed("right");
                 if (rightPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
-                    imgX += 5 * SPEED;
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
+                        imgX += 4 * SPEED;
+                    } else if (userDist){
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1_rev.png")).getImage();
+                        imgX -= 4 * SPEED;
+                    }
                     rightPrsd = true;
                     leftPrsd = true;
                     spacePrsd = false;
@@ -209,7 +262,10 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 freestyle.setSpeed("space");
                 if (spacePrsd == false) {
-                    imgX += 5 * SPEED;
+                    if (!userDist)
+                        imgX += 4 * SPEED;
+                    else if (userDist)
+                        imgX -= 4 * SPEED;
                     leftPrsd = false;
                     rightPrsd = true;
                     spacePrsd = true;
@@ -222,8 +278,13 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 freestyle.setSpeed("left");
                 if (leftPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2.png")).getImage();
-                    imgX += 5 * SPEED;
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2.png")).getImage();
+                        imgX += 4 * SPEED;
+                    } else if (userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2_rev.png")).getImage();
+                        imgX -= 4 * SPEED;
+                    }
                     leftPrsd = true;
                     rightPrsd = false;
                     spacePrsd = true;
@@ -237,12 +298,15 @@ public class PlayActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 backStroke.setSpeed("left");
-                if (leftPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_user_1.png")).getImage();
-                    imgX += 5 * SPEED;
-                    leftPrsd = true;
-                    rightPrsd = false;
+                if (!userDist) {
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
+                    imgX += 3 * SPEED;
+                } else if (userDist) {
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1_rev.png")).getImage();
+                    imgX -= 3 * SPEED;
                 }
+                leftPrsd = true;
+                rightPrsd = false;
             }
         });
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
@@ -251,8 +315,13 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 backStroke.setSpeed("right");
                 if (rightPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_user_2.png")).getImage();
-                    imgX += 5 * SPEED;
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2.png")).getImage();
+                        imgX += 3 * SPEED;
+                    } else if (userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2_rev.png")).getImage();
+                        imgX -= 3 * SPEED;
+                    }
                     rightPrsd = true;
                     leftPrsd = false;
                     spacePrsd = true;
@@ -276,10 +345,18 @@ public class PlayActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (rightPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_1.png")).getImage();
-                    if (leftPrsd == true && rightPrsd == false) {
-                        imgX += 5 * SPEED;
-                        butterfly.setSpeed("side");
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
+                        if (leftPrsd == true && rightPrsd == false) {
+                            imgX += 9 * SPEED;
+                            butterfly.setSpeed("side");
+                        }
+                    } else if (userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1_rev.png")).getImage();
+                        if (leftPrsd == true && rightPrsd == false) {
+                            imgX -= 9 * SPEED;
+                            butterfly.setSpeed("side");
+                        }
                     }
                     rightPrsd = true;
                     upPrsd = false;
@@ -293,9 +370,19 @@ public class PlayActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (upPrsd == false) {
-                    butterfly.setSpeed("up");
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_2.png")).getImage();
-                    imgX += 5 * SPEED;
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2.png")).getImage();
+                        if (leftPrsd == true && rightPrsd == false) {
+                            imgX += 9 * SPEED;
+                            butterfly.setSpeed("up");
+                        }
+                    } else if (userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2_rev.png")).getImage();
+                        if (leftPrsd == true && rightPrsd == false) {
+                            imgX -= 9 * SPEED;
+                            butterfly.setSpeed("up");
+                        }
+                    }
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -310,8 +397,13 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 butterfly.setSpeed("space");
                 if (spacePrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_3.png")).getImage();
-                    imgX += 5 * SPEED;
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_3.png")).getImage();
+                        imgX += 9 * SPEED;
+                    } else if (userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_3_rev.png")).getImage();
+                        imgX -= 9 * SPEED;
+                    }
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -326,8 +418,13 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 butterfly.setSpeed("down");
                 if (downPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/butterfly/butterflystroke_user_3.png")).getImage();
-                    imgX += 5 * SPEED;
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_3.png")).getImage();
+                        imgX += 9 * SPEED;
+                    } else if (userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_3_rev.png")).getImage();
+                        imgX -= 9 * SPEED;
+                    }
                     rightPrsd = false;
                     leftPrsd = false;
                     upPrsd = true;
@@ -345,8 +442,13 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (upPrsd == false) {
                     breastStroke.setSpeed("up");
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_user_1.png")).getImage();
-                    imgX += 5 * SPEED;
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
+                        imgX += 9 * SPEED;
+                    } else if (userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1_rev.png")).getImage();
+                        imgX -= 9 * SPEED;
+                    }
                     leftPrsd = false;
                     rightPrsd = false;
                     upPrsd = true;
@@ -369,10 +471,18 @@ public class PlayActivity extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (rightPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_user_2.png")).getImage();
-                    if (leftPrsd == true && rightPrsd == false) {
-                        imgX += 5 * SPEED;
-                        breastStroke.setSpeed("side");
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2.png")).getImage();
+                        if (leftPrsd == true && rightPrsd == false) {
+                            imgX += 9 * SPEED;
+                            breastStroke.setSpeed("side");
+                        }
+                    } else if (userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2_rev.png")).getImage();
+                        if (leftPrsd == true && rightPrsd == false) {
+                            imgX -= 9 * SPEED;
+                            breastStroke.setSpeed("side");
+                        }
                     }
                     rightPrsd = true;
                     upPrsd = true;
@@ -387,8 +497,13 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 breastStroke.setSpeed("space");
                 if (spacePrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_user_3.png")).getImage();
-                    imgX += 5 * SPEED;
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_3.png")).getImage();
+                        imgX += 9 * SPEED;
+                    } else if (userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_3_rev.png")).getImage();
+                        imgX -= 9 * SPEED;
+                    }
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -403,8 +518,13 @@ public class PlayActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 breastStroke.setSpeed("down");
                 if (downPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_user_1.png")).getImage();
-                    imgX += 5 * SPEED;
+                    if (!userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
+                        imgX += 9 * SPEED;
+                    } else if (userDist) {
+                        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1_rev.png")).getImage();
+                        imgX -= 9 * SPEED;
+                    }
                     rightPrsd = true;
                     leftPrsd = true;
                     upPrsd = false;
@@ -416,15 +536,22 @@ public class PlayActivity extends JPanel {
     }
 
     public static void imgReset() {
+        stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
         imgX = 0;
         leftPrsd = false;
         rightPrsd = false;
         spacePrsd = false;
         upPrsd = false;
         downPrsd = false;
+
+        userDist = false;
         for (int i = 0; i < 7; i++) {
             pcXs[i] = 0;
+            pcDists[i] = false;
+            pcStrokes[i] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
         }
+        gameStatus = true;
+        singleGameStatus = false;
     }
 
     public void paint(Graphics g) {
@@ -432,7 +559,7 @@ public class PlayActivity extends JPanel {
         if (main.singleGameStatus) {
             g.drawImage(stroke, imgX, 290, 145, 80, this);
             for (int i = 0; i < 7; i++)
-                g.drawImage(pcStroke, pcXs[i], pcYs[i], 145, 80, this);
+                g.drawImage(pcStrokes[i], pcXs[i], pcYs[i], 145, 80, this);
         }
         if (counterStat)
             g.drawImage(countImg, 420, 250, 80, 150, this);

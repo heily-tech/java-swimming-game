@@ -85,7 +85,7 @@ public class backStroke extends JPanel {
 
     public static void setSpeed(String mapKey) {
         KEYS.add(mapKey);
-        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
+//        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
         if (KEYS.size() == 1) {
             if (KEYS.get(0).equals("right"))
                 SPEED += 0.1;
