@@ -18,19 +18,10 @@ public class RankActivity extends JFrame {
     JButton backBtn;
 
     public RankActivity(MainActivity main) {
-        setSize(400, 500);
-        setUndecorated(true);
-        setResizable(false);
-        setLocationRelativeTo(null); //화면 중앙에 창 위치
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBackground(Color.RED);
-        
-        area = new JTextArea(GAME_RESULT);
-        area.setEditable(false);
-        area.setOpaque(false);
-        area.setFont(new Font("Press Start 2P", Font.PLAIN, 25));
-        area.setBounds(52, 139, 300, 320);
-        add(area);
+        Color c = new Color(120, 209, 255);
+        JPanel panel = new JPanel();
+        panel.setBackground(c);
+        panel.setLayout(null);
 
         backBtn = new JButton();
         backBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/backBtn.png")));
@@ -47,9 +38,24 @@ public class RankActivity extends JFrame {
             }
         });
         backBtn.setBounds(12, 18, 58, 48);
-        add(backBtn);
+        panel.add(backBtn);
 
-        setVisible(true);
+        area = new JTextArea(GAME_RESULT);
+        area.setEditable(false);
+        area.setOpaque(false);
+        area.setFont(new Font("Press Start 2P", Font.PLAIN, 20));
+        area.setBounds(52, 139, 300, 320);
+        panel.add(area);
+
+
+        this.add(panel);
+        this.setSize(400, 500);
+        this.setUndecorated(true);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null); //화면 중앙에 창 위치
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setVisible(true);
+        this.setVisible(true);
     }
     void reset() {
         SelectStrokeActivity.reset();

@@ -88,7 +88,7 @@ public class backStroke extends JPanel {
 //        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
         if (KEYS.size() == 1) {
             if (KEYS.get(0).equals("right"))
-                SPEED += 0.1;
+                SPEED += 0.05;
             else {
                 SPEED = 1;
                 KEYS.remove(0);
@@ -96,7 +96,7 @@ public class backStroke extends JPanel {
         } else {
             if (KEYS.size() == 2) {
                 if (KEYS.get(0).equals("right") && KEYS.get(1).equals("left")) {
-                    SPEED += 0.1;
+                    SPEED += 0.05;
                     KEYS.clear();
                }
                 else {

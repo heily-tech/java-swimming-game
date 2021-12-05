@@ -120,12 +120,12 @@ public class PlayActivity extends JPanel {
                             pcXs[pc_num - 1] = pc_x;
                             changeImage(strokeName, i, pc_num);
                             if (pc_x >= 840) {
-                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1));
+                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
                                 pc_x = 840;
                                 rank++;
                                 break;
                             } else if (!gameStatus) {
-                                GAME_RESULT += ("      | " + pc_name + " | not passed\n");
+                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n");
                                 break;
                             }
                         } else if (dist && !pcDists[pc_num - 1]) {
@@ -137,7 +137,7 @@ public class PlayActivity extends JPanel {
                             if (pc_x >= 840)
                                 pcDists[pc_num - 1] = true;
                             else if (!gameStatus) {
-                                GAME_RESULT += ("      | " + pc_name + " | not passed\n");
+                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n");
                                 break;
                             }
                         } else if (pcDists[pc_num - 1]) {
@@ -147,12 +147,12 @@ public class PlayActivity extends JPanel {
                             pcXs[pc_num - 1] = pc_x;
                             changeImage(strokeName, i, pc_num);
                             if (pc_x <= 0) {
-                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1));
+                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
                                 pc_x = 0;
                                 rank++;
                                 break;
                             } else if (!gameStatus) {
-                                GAME_RESULT += ("       | " + pc_name + " | not passed\n");
+                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n");
                                 break;
                             }
                         }
@@ -212,8 +212,8 @@ public class PlayActivity extends JPanel {
                         breastStrokeKeySet();
                     Thread.sleep(1000);
 
-                    if (imgX >= 840 && !dist) {
-                        GAME_RESULT += (rank++ + "등 | YOU | " + runningTime());
+                    if (imgX >= 800 && !dist) {
+                        GAME_RESULT += (rank++ + "등 | YOU | " + runningTime() + "\n");
                         gameStatus = false;
                         Thread.sleep(1000);
                         leftPrsd = true;
@@ -228,7 +228,7 @@ public class PlayActivity extends JPanel {
                     } else if (imgX >= 800 && dist) {
                         userDist = true;
                     } else if (imgX <= 0 && userDist) {
-                        GAME_RESULT += (rank++ + "등 | YOU | " + runningTime());
+                        GAME_RESULT += (rank++ + "등 | YOU | " + runningTime() + "\n");
                         gameStatus = false;
                         Thread.sleep(1000);
                         leftPrsd = true;
