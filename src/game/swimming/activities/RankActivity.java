@@ -11,7 +11,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static game.swimming.MainActivity.GAME_RESULT;
+
 public class RankActivity extends JFrame {
+    JTextArea area;
+    JButton backBtn;
 
     public RankActivity(MainActivity main) {
         setSize(400, 500);
@@ -20,13 +24,18 @@ public class RankActivity extends JFrame {
         setLocationRelativeTo(null); //화면 중앙에 창 위치
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBackground(Color.RED);
+        
+        area = new JTextArea(GAME_RESULT);
+        area.setEditable(false);
+        area.setOpaque(false);
+        area.setFont(new Font("Press Start 2P", Font.PLAIN, 25));
+        area.setBounds(52, 139, 300, 320);
+        add(area);
 
-        JButton backBtn = new JButton();
-        backBtn.setBounds(20, 20, 55, 48);
-        ImageIcon backImg = new ImageIcon(MainActivity.class.getResource("res/btns/backBtn.png"));
+        backBtn = new JButton();
+        backBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/backBtn.png")));
         backBtn.setBorderPainted(false);
         backBtn.setContentAreaFilled(false);
-        backBtn.setIcon(backImg);
         backBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
@@ -37,10 +46,10 @@ public class RankActivity extends JFrame {
                 main.change("UserActivity");
             }
         });
+        backBtn.setBounds(12, 18, 58, 48);
         add(backBtn);
 
-        this.setFocusable(true);
-        this.setVisible(true);
+        setVisible(true);
     }
     void reset() {
         SelectStrokeActivity.reset();

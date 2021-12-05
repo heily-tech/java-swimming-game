@@ -12,6 +12,7 @@ import game.swimming.strokes.butterfly;
 import game.swimming.strokes.freestyle;
 
 import static game.swimming.MainActivity.*;
+import static game.swimming.activities.RunningTimer.*;
 
 public class PlayActivity extends JPanel {
     public static String strokeName;
@@ -78,7 +79,6 @@ public class PlayActivity extends JPanel {
                 main.sfx("res/sfxs/beep.wav");
                 Thread.sleep(1000);
                 backgroundMusic.play();
-//                long start = System.currentTimeMillis();
                 counterStat = false;
 
                 userThread user = new userThread();
@@ -110,41 +110,51 @@ public class PlayActivity extends JPanel {
         @Override
         public void run() {
                 try {
+                    startTimer(pc_num - 1);
                     Thread.sleep(100);
                     for (int i = 0; i < 600; i++) {
                         if (!dist) {
+                            pcRunningTimes(pc_num - 1);
                             Thread.sleep(300);
                             pc_x += 30 * Math.random();
                             pcXs[pc_num - 1] = pc_x;
                             changeImage(strokeName, i, pc_num);
                             if (pc_x >= 840) {
-                                GAME_RESULT += (rank + "등 | " + pc_name + "\n");
+                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1));
                                 pc_x = 840;
                                 rank++;
                                 break;
-                            } else if (!gameStatus)
+                            } else if (!gameStatus) {
+                                GAME_RESULT += ("      | " + pc_name + " | not passed\n");
                                 break;
+                            }
                         } else if (dist && !pcDists[pc_num - 1]) {
+                            pcRunningTimes(pc_num - 1);
                             Thread.sleep(300);
                             pc_x += 30 * Math.random();
                             pcXs[pc_num - 1] = pc_x;
                             changeImage(strokeName, i, pc_num);
                             if (pc_x >= 840)
                                 pcDists[pc_num - 1] = true;
-                            else if (!gameStatus)
+                            else if (!gameStatus) {
+                                GAME_RESULT += ("      | " + pc_name + " | not passed\n");
                                 break;
+                            }
                         } else if (pcDists[pc_num - 1]) {
+                            pcRunningTimes(pc_num - 1);
                             Thread.sleep(300);
                             pc_x -= 30 * Math.random();
                             pcXs[pc_num - 1] = pc_x;
                             changeImage(strokeName, i, pc_num);
                             if (pc_x <= 0) {
-                                GAME_RESULT += (rank + "등 | " + pc_name + "\n");
+                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1));
                                 pc_x = 0;
                                 rank++;
                                 break;
-                            } else if (!gameStatus)
+                            } else if (!gameStatus) {
+                                GAME_RESULT += ("       | " + pc_name + " | not passed\n");
                                 break;
+                            }
                         }
                     }
                 } catch (InterruptedException e) {
@@ -189,6 +199,7 @@ public class PlayActivity extends JPanel {
     class userThread extends Thread {
         @Override
         public void run() {
+            startTimer();
             while (true) {
                 try {
                     if (strokeName.equals("freestyle"))
@@ -202,31 +213,32 @@ public class PlayActivity extends JPanel {
                     Thread.sleep(1000);
 
                     if (imgX >= 840 && !dist) {
+                        GAME_RESULT += (rank++ + "등 | YOU | " + runningTime());
+                        gameStatus = false;
+                        Thread.sleep(1000);
                         leftPrsd = true;
                         rightPrsd = true;
                         spacePrsd = true;
                         upPrsd = true;
                         downPrsd = true;
-                        gameStatus = false;
-                        System.out.println(GAME_RESULT);
-                        new RankActivity(main);
                         backgroundMusic.stop();
                         main.sfx("res/sfxs/end1.wav");
-                        GAME_RESULT += (rank++ + "등 | USER | \n");
+                        new RankActivity(main);
                         break;
                     } else if (imgX >= 800 && dist) {
                         userDist = true;
                     } else if (imgX <= 0 && userDist) {
+                        GAME_RESULT += (rank++ + "등 | YOU | " + runningTime());
+                        gameStatus = false;
+                        Thread.sleep(1000);
                         leftPrsd = true;
                         rightPrsd = true;
                         spacePrsd = true;
                         upPrsd = true;
                         downPrsd = true;
-                        gameStatus = false;
-                        System.out.println(GAME_RESULT);
                         new RankActivity(main);
+                        backgroundMusic.stop();
                         main.sfx("res/sfxs/end1.wav");
-                        System.out.println(rank++ + "등 | USER | \n");
                         break;
                     }
                 } catch (InterruptedException e) {
