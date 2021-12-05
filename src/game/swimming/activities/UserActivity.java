@@ -9,14 +9,30 @@ import java.awt.event.ActionListener;
 
 public class UserActivity extends JPanel {
     private MainActivity main;
-    JButton go2play;
-    Image background = new ImageIcon(MainActivity.class.getResource("res/userBG.png")).getImage();
+    JButton go2play, goBack;
+    Image background = new ImageIcon(MainActivity.class.getResource("res/HowTo.png")).getImage();
 
     public UserActivity(MainActivity main) {
         this.main = main;
         setOpaque(false);
         setLayout(null);
         setVisible(true);
+
+        goBack = new JButton();
+        goBack.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/나가기1.png")));
+        goBack.setBorderPainted(false);
+        goBack.setContentAreaFilled(false);
+        goBack.setRolloverIcon(new ImageIcon(MainActivity.class.getResource("res/btns/나가기2.png")));
+        goBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.sfx("res/sfxs/select_with_reverb.wav");
+                main.change("initActivity");
+            }
+        });
+        goBack.setBounds(44, 660, 200, 75);
+
+        add(goBack);
 
         go2play = new JButton();
         go2play.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/게임하기1.png")));

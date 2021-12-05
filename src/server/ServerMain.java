@@ -35,7 +35,7 @@ public class ServerMain {
             serverSocketChannel = ServerSocketChannel.open(); //ServerSocketChannel을 정적 메소드인 open()으로 생성
             serverSocketChannel.configureBlocking(true); //기본적으로 블로킹 방식으로 동작하지만, 명시적으로 설정한다.
             //serverSocketChannel.bind(new InetSocketAddress("jdeok.iptime.org", 5001)); // IP(도메인)및 바인딩포트 적용해 서버소켓을 구성
-            serverSocketChannel.bind(new InetSocketAddress("192.168.0.9", 5005)); // IP(도메인)및 바인딩포트 적용해 서버소켓을 구성
+            serverSocketChannel.bind(new InetSocketAddress("192.168.0.5", 5006)); // IP(도메인)및 바인딩포트 적용해 서버소켓을 구성
         } catch(Exception e) {
             e.printStackTrace();
             System.out.println("이미 사용되고 있는 포트번호 입니다."); //해당 포트를 이미 다른 프로그램에서 사용하고 있을때.
@@ -111,7 +111,6 @@ public class ServerMain {
                     while(true) { //무한 반복
                         try {
                             ByteBuffer byteBuffer = ByteBuffer.allocate(10000); //100개의 바이트를 저장할 수 있는 ByteBuffer를 생성한다.
-
 
                             //socketChannel의 read() 메소드를 호출하여 클라이언트가 데이터를 보내기 전까지 블로킹된다.
                             //클라이언트가 비정상 종료를 했을 경우 IOException 발생

@@ -15,6 +15,7 @@ public class initActivity extends JPanel {
     JLabel idLabel, pwLabel;
     JTextField idField;
     JPasswordField pwField;
+    String password = "";
     String idSample = "", pwSample = ""; //변경 필요
     JOptionPane notFound;
 
@@ -26,8 +27,6 @@ public class initActivity extends JPanel {
         client.startClient();
         backgroundMusic.change("res/sfxs/start2.wav");
         backgroundMusic.play();
-
-
 
         loginBtn = new JButton();
         loginBtn.setIcon(new ImageIcon(MainActivity.class.getResource("res/btns/init/loginBtn1.png")));
@@ -49,6 +48,29 @@ public class initActivity extends JPanel {
                     pwField.setText(null);
                 }
             }
+//                char[] pw = pwField.getPassword();
+//                for (char cha : pw) {
+//                    Character.toString(cha);
+//                    password += (password.equals("")) ? "" + cha + "" : "" + cha + "";
+//                }
+//                client.send("@login" + idField.getText() + "," + password);
+//
+//                try {
+//                    Thread.sleep(300);
+//                } catch (InterruptedException ex) {
+//                    ex.printStackTrace();
+//                }
+//
+//                if (client.getLoginResult()) {
+//                    main.change("UserActivity");
+//                    main.sfx("res/sfxs/select_with_reverb.wav");
+//                } else {
+//                    main.sfx("res/sfxs/error.wav");
+//                    notFound.showMessageDialog(null, "ID/Password가 일치하지 않습니다.");
+//                    idField.setText(null);
+//                    pwField.setText(null);
+//                }
+//            }
         });
         loginBtn.setBounds(200, 600, 200, 75);
         add(loginBtn);
@@ -63,7 +85,6 @@ public class initActivity extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 main.sfx("res/sfxs/select_with_reverb.wav");
                 new SignUpActivity(main, client);
-                //setVisible(false);
             }
         });
         joinBtn.setBounds(600, 600, 200, 75);

@@ -62,20 +62,16 @@ public class SignUpActivity extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 char[] pw = pwField.getPassword();
-                for(char cha : pw)
-                {
+                for (char cha : pw) {
                     Character.toString(cha);
                     password += (password.equals("")) ? ""+cha+"" : ""+cha+"";
                 }
-
-
                 client.send("@signup" + idField.getText() + "," + password);
 
                 try {
                     Thread.sleep(300);
-                } catch (InterruptedException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
                 }
                 if(client.getSignupResult()) {
                     notFound.showMessageDialog(null, "회원가입에 성공했습니다.");

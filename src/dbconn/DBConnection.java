@@ -18,7 +18,7 @@ public class DBConnection {
     private static Statement stmt = null;
     private static final String user = "root";
     private static final String password = "qoxo!!159753";
-    private static final String database = "jdbc:mysql://127.0.0.1/boarddb?serverTimezone=UTC";
+    private static final String database = "jdbc:mysql:/58.237.30.215/boarddb?serverTimezone=UTC";
 
     static PreparedStatement preparedStatement;
 
