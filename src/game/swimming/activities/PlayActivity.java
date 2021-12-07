@@ -15,24 +15,25 @@ import static game.swimming.MainActivity.*;
 import static game.swimming.activities.RunningTimer.*;
 
 public class PlayActivity extends JPanel {
-    private MainActivity main;
     public static String strokeName;
     private static int imgX, rank = 1;
     private static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false,
-            counterStat = false, gameStatus = true, userDist = false, isPaused = true, isCounterFinished=false;
-    ;
-    pcThread[] pcThreads = new pcThread[7];
+            counterStat = false, isCounterFinished = false, userDist = false;
+    private MainActivity main;
     private static int[] pcXs = new int[7];
     private int[] pcYs = {5, 105, 198, 385, 480, 573, 668};
+    private pcThread[] pcThreads = new pcThread[7];
     private static boolean[] pcDists = {false, false, false, false, false, false, false};
     public static Image stroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
+    static boolean gameStatus = true;
+    boolean isPaused = true;
+    int pauseOption;
     Image countImg = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
-    Image pause = new ImageIcon(MainActivity.class.getResource("res/btns/가입1.png")).getImage();
+    Image pause = new ImageIcon(MainActivity.class.getResource("res/btns/pause1.png")).getImage();
     Image exitBtn = new ImageIcon(MainActivity.class.getResource("res/btns/뒤로가기1.png")).getImage();
     Image resumeBtn = new ImageIcon(MainActivity.class.getResource("res/btns/게임하기1.png")).getImage();
     Image NUll = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
     JPanel pausePanel, exitPanel, resumePanel;
-    int pauseOption;
 
     public PlayActivity(MainActivity main) {
         this.main = main;
@@ -62,12 +63,12 @@ public class PlayActivity extends JPanel {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                pause = new ImageIcon(MainActivity.class.getResource("res/btns/가입2.png")).getImage();
+                pause = new ImageIcon(MainActivity.class.getResource("res/btns/pause2.png")).getImage();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                pause = new ImageIcon(MainActivity.class.getResource("res/btns/가입1.png")).getImage();
+                pause = new ImageIcon(MainActivity.class.getResource("res/btns/pause1.png")).getImage();
             }
         });
         add(pausePanel);
@@ -225,62 +226,62 @@ public class PlayActivity extends JPanel {
 
         @Override
         public void run() {
-                try {
-                    startTimer(pc_num - 1);
-                    Thread.sleep(100);
-                    int i = 0;
-                    while (true) {
-                        if (isPaused)
-                            Thread.sleep(100);
-                        else {
-                            if (!dist) {
-                                pcRunningTimes(pc_num - 1);
-                                Thread.sleep(300);
-                                pc_x += 25 * Math.random();
-                                pcXs[pc_num - 1] = pc_x;
-                                changeImage(strokeName, i, pc_num);
-                                if (pc_x >= 840) {
-                                    GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
-                                    pc_x = 840;
-                                    rank++;
-                                    break;
-                                } else if (!gameStatus) {
-                                    GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
-                                    break;
-                                }
-                            } else if (dist && !pcDists[pc_num - 1]) {
-                                pcRunningTimes(pc_num - 1);
-                                Thread.sleep(300);
-                                pc_x += 25 * Math.random();
-                                pcXs[pc_num - 1] = pc_x;
-                                changeImage(strokeName, i, pc_num);
-                                if (pc_x >= 840)
-                                    pcDists[pc_num - 1] = true;
-                                else if (!gameStatus) {
-                                    GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
-                                    break;
-                                }
-                            } else if (pcDists[pc_num - 1]) {
-                                pcRunningTimes(pc_num - 1);
-                                Thread.sleep(300);
-                                pc_x -= 25 * Math.random();
-                                pcXs[pc_num - 1] = pc_x;
-                                changeImage(strokeName, i, pc_num);
-                                if (pc_x <= 0) {
-                                    GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
-                                    pc_x = 0;
-                                    rank++;
-                                    break;
-                                } else if (!gameStatus) {
-                                    GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
-                                    break;
-                                }
+            try {
+                startTimer(pc_num - 1);
+                Thread.sleep(100);
+                int i = 0;
+                while (true) {
+                    if (isPaused)
+                        Thread.sleep(100);
+                    else {
+                        if (!dist) {
+                            pcRunningTimes(pc_num - 1);
+                            Thread.sleep(300);
+                            pc_x += 25 * Math.random();
+                            pcXs[pc_num - 1] = pc_x;
+                            changeImage(strokeName, i, pc_num);
+                            if (pc_x >= 840) {
+                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
+                                pc_x = 840;
+                                rank++;
+                                break;
+                            } else if (!gameStatus) {
+                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
+                                break;
                             }
-                            i++;
+                        } else if (dist && !pcDists[pc_num - 1]) {
+                            pcRunningTimes(pc_num - 1);
+                            Thread.sleep(300);
+                            pc_x += 25 * Math.random();
+                            pcXs[pc_num - 1] = pc_x;
+                            changeImage(strokeName, i, pc_num);
+                            if (pc_x >= 840)
+                                pcDists[pc_num - 1] = true;
+                            else if (!gameStatus) {
+                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
+                                break;
+                            }
+                        } else if (pcDists[pc_num - 1]) {
+                            pcRunningTimes(pc_num - 1);
+                            Thread.sleep(300);
+                            pc_x -= 25 * Math.random();
+                            pcXs[pc_num - 1] = pc_x;
+                            changeImage(strokeName, i, pc_num);
+                            if (pc_x <= 0) {
+                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
+                                pc_x = 0;
+                                rank++;
+                                break;
+                            } else if (!gameStatus) {
+                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
+                                break;
+                            }
                         }
+                        i++;
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 
@@ -434,10 +435,10 @@ public class PlayActivity extends JPanel {
                 backStroke.setSpeed("left");
                 if (!userDist) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
-                    imgX += 3 * SPEED;
+                    imgX += 4 * SPEED;
                 } else if (userDist) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1_rev.png")).getImage();
-                    imgX -= 3 * SPEED;
+                    imgX -= 4 * SPEED;
                 }
                 leftPrsd = true;
                 rightPrsd = false;
@@ -451,10 +452,10 @@ public class PlayActivity extends JPanel {
                 if (rightPrsd == false) {
                     if (!userDist) {
                         stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2.png")).getImage();
-                        imgX += 3 * SPEED;
+                        imgX += 4 * SPEED;
                     } else if (userDist) {
                         stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_2_rev.png")).getImage();
-                        imgX -= 3 * SPEED;
+                        imgX -= 4 * SPEED;
                     }
                     rightPrsd = true;
                     leftPrsd = false;
@@ -697,9 +698,9 @@ public class PlayActivity extends JPanel {
         }
         if (counterStat)
             if(isCounterFinished)
-                g.drawImage(countImg, 310, 280, 430, 70, this);
+                g.drawImage(countImg, 290, 310, 430, 70, this);
             else
-                g.drawImage(countImg, 420, 250, 80, 150, this);
+                g.drawImage(countImg, 440, 250, 80, 150, this);
 
         if(!isPaused)
             g.drawImage(pause, 10, 10, 30, 30, this);
