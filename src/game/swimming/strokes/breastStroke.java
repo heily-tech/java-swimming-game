@@ -134,40 +134,38 @@ public class breastStroke extends JPanel {
 
     public static void setSpeed(String mapKey) {
         KEYS.add(mapKey);
-//        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
+        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
         if (KEYS.size() == 1) {
             if (KEYS.get(0).equals("up"))
-                SPEED += 0.1;
+                SPEED += 0.04;
             else {
                 SPEED = 1;
                 KEYS.remove(0);
             }
         } else if (KEYS.size() == 2) {
             if (KEYS.get(0).equals("up") && KEYS.get(1).equals("side"))
-                SPEED += 0.1;
+                SPEED += 0.04;
             else {
                 SPEED = 1;
                 KEYS.remove(1);
             }
-        } else if (KEYS.size() != 3) {
-            if (KEYS.size() == 4) {
-                if (KEYS.get(0).equals("up") && KEYS.get(1).equals("side") && KEYS.get(2).equals("space") && KEYS.get(3).equals("down")) {
-                    SPEED += 0.1;
-                    KEYS.clear();
-                } else {
-                    SPEED = 1;
-                    KEYS.remove(3);
-                }
-            }
-        } else {
+        } else if (KEYS.size() == 3) {
             if (KEYS.get(0).equals("up") && KEYS.get(1).equals("side") && KEYS.get(2).equals("space")) {
-                SPEED += 0.1;
+                SPEED += 0.04;
             } else {
                 SPEED = 1;
                 KEYS.remove(2);
             }
+        } else if (KEYS.size() == 4) {
+            if (KEYS.get(0).equals("up") && KEYS.get(1).equals("side") && KEYS.get(2).equals("space") && KEYS.get(3).equals("down")) {
+                SPEED += 0.04;
+                KEYS.clear();
+            } else {
+                SPEED = 1;
+                KEYS.remove(3);
+                }
+            }
         }
-    }
 
     public static void imgReset() {
         imgX = 0;

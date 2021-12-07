@@ -38,13 +38,14 @@ public class RankActivity extends JFrame {
             }
         });
         backBtn.setBounds(12, 18, 58, 48);
+        backBtn.setFocusable(false);
         panel.add(backBtn);
 
         area = new JTextArea(GAME_RESULT);
         area.setEditable(false);
         area.setOpaque(false);
         area.setFont(new Font("Press Start 2P", Font.PLAIN, 20));
-        area.setBounds(52, 139, 300, 320);
+        area.setBounds(52, 139, 300, 350);
         panel.add(area);
 
 
@@ -54,7 +55,6 @@ public class RankActivity extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null); //화면 중앙에 창 위치
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setVisible(true);
         this.setVisible(true);
     }
     void reset() {

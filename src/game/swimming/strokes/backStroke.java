@@ -60,8 +60,9 @@ public class backStroke extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 setSpeed("left");
                 if (leftPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_org_1.png")).getImage();
-                    imgX += 10 * SPEED;
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_"
+                            + hats[3] + "_1.png")).getImage();
+                    imgX += 5 * SPEED;
                     leftPrsd = true;
                     rightPrsd = false;
                 }
@@ -73,8 +74,9 @@ public class backStroke extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 setSpeed("right");
                 if (rightPrsd == false) {
-                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_org_2.png")).getImage();
-                    imgX += 10 * SPEED;
+                    stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_"
+                            + hats[3] + "_2.png")).getImage();
+                    imgX += 5 * SPEED;
                     rightPrsd = true;
                     leftPrsd = false;
                     spacePrsd = true;
@@ -88,7 +90,7 @@ public class backStroke extends JPanel {
 //        System.out.print(mapKey + " | 키 사이즈 " + KEYS.size() + " | 스피드 " + SPEED + "\n");
         if (KEYS.size() == 1) {
             if (KEYS.get(0).equals("right"))
-                SPEED += 0.05;
+                SPEED += 0.02;
             else {
                 SPEED = 1;
                 KEYS.remove(0);
@@ -96,7 +98,7 @@ public class backStroke extends JPanel {
         } else {
             if (KEYS.size() == 2) {
                 if (KEYS.get(0).equals("right") && KEYS.get(1).equals("left")) {
-                    SPEED += 0.05;
+                    SPEED += 0.02;
                     KEYS.clear();
                }
                 else {
@@ -116,7 +118,7 @@ public class backStroke extends JPanel {
 
     public void paint(Graphics g) {
         g.drawImage(main.pool, 0, 0, 990, 760, this);
-        g.drawImage(stroke, imgX, imgY[4], 145, 80, this);
+        g.drawImage(stroke, imgX, imgY[3], 145, 80, this);
         repaint();
     }
 }

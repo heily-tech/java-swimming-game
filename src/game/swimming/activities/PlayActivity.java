@@ -16,7 +16,7 @@ import static game.swimming.activities.RunningTimer.*;
 
 public class PlayActivity extends JPanel {
     public static String strokeName;
-    private static int imgX, rank = 1;;
+    private static int imgX, rank = 1;
     private static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false, counterStat = false, gameStat = false;;
     private MainActivity main;
     private static int[] pcXs = new int[7];
@@ -116,7 +116,7 @@ public class PlayActivity extends JPanel {
                         if (!dist) {
                             pcRunningTimes(pc_num - 1);
                             Thread.sleep(300);
-                            pc_x += 30 * Math.random();
+                            pc_x += 25 * Math.random();
                             pcXs[pc_num - 1] = pc_x;
                             changeImage(strokeName, i, pc_num);
                             if (pc_x >= 840) {
@@ -125,25 +125,25 @@ public class PlayActivity extends JPanel {
                                 rank++;
                                 break;
                             } else if (!gameStatus) {
-                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n");
+                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
                                 break;
                             }
                         } else if (dist && !pcDists[pc_num - 1]) {
                             pcRunningTimes(pc_num - 1);
                             Thread.sleep(300);
-                            pc_x += 30 * Math.random();
+                            pc_x += 25 * Math.random();
                             pcXs[pc_num - 1] = pc_x;
                             changeImage(strokeName, i, pc_num);
                             if (pc_x >= 840)
                                 pcDists[pc_num - 1] = true;
                             else if (!gameStatus) {
-                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n");
+                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
                                 break;
                             }
                         } else if (pcDists[pc_num - 1]) {
                             pcRunningTimes(pc_num - 1);
                             Thread.sleep(300);
-                            pc_x -= 30 * Math.random();
+                            pc_x -= 25 * Math.random();
                             pcXs[pc_num - 1] = pc_x;
                             changeImage(strokeName, i, pc_num);
                             if (pc_x <= 0) {
@@ -152,7 +152,7 @@ public class PlayActivity extends JPanel {
                                 rank++;
                                 break;
                             } else if (!gameStatus) {
-                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n");
+                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
                                 break;
                             }
                         }
@@ -163,6 +163,7 @@ public class PlayActivity extends JPanel {
         }
 
         private void changeImage(String strokeName, int i, int p) {
+            i += (int) Math.random();
             int pc = p - 1;
             if (strokeName.equals("freestyle") || strokeName.equals("backStroke")) {
                 if (!pcDists[pc_num - 1]) {
