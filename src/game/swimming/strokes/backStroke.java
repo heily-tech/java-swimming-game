@@ -17,7 +17,7 @@ public class backStroke extends JPanel {
     private static int imgX;
     private int[] imgY = {5, 105, 198, 290, 385, 480, 573, 668};
     private String[] hats = {"black", "blue", "green", "org", "pur", "red", "white", "yel"};
-    static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false;
+    static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false;
     Image stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backStroke_org_1.png")).getImage();
 
     public backStroke(MainActivity main) {
@@ -62,7 +62,7 @@ public class backStroke extends JPanel {
                 if (leftPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_"
                             + hats[3] + "_1.png")).getImage();
-                    imgX += 5 * SPEED;
+                    imgX += 3 * SPEED;
                     leftPrsd = true;
                     rightPrsd = false;
                 }
@@ -76,7 +76,7 @@ public class backStroke extends JPanel {
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/backStroke/backstroke_"
                             + hats[3] + "_2.png")).getImage();
-                    imgX += 5 * SPEED;
+                    imgX += 3 * SPEED;
                     rightPrsd = true;
                     leftPrsd = false;
                     spacePrsd = true;

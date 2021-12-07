@@ -63,7 +63,7 @@ public class breastStroke extends JPanel {
                 if (upPrsd == false) {
                     setSpeed("up");
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_org_1.png")).getImage();
-                    imgX += 10 * SPEED;
+                    imgX += 9 * SPEED;
                     leftPrsd = false;
                     rightPrsd = false;
                     upPrsd = true;
@@ -88,7 +88,7 @@ public class breastStroke extends JPanel {
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_org_2.png")).getImage();
                     if (leftPrsd == true && rightPrsd == false) {
-                        imgX += 10 * SPEED;
+                        imgX += 9 * SPEED;
                         setSpeed("side");
                     }
                     rightPrsd = true;
@@ -105,7 +105,7 @@ public class breastStroke extends JPanel {
                 setSpeed("space");
                 if (spacePrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_org_3.png")).getImage();
-                    imgX += 10 * SPEED;
+                    imgX += 9 * SPEED;
                     leftPrsd = true;
                     rightPrsd = true;
                     upPrsd = true;
@@ -121,7 +121,7 @@ public class breastStroke extends JPanel {
                 setSpeed("down");
                 if (downPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/breastStroke/breaststroke_org_1.png")).getImage();
-                    imgX += 10 * SPEED;
+                    imgX += 9 * SPEED;
                     rightPrsd = true;
                     leftPrsd = true;
                     upPrsd = false;

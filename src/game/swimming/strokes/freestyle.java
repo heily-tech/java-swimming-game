@@ -84,7 +84,7 @@ public class freestyle extends JPanel {
                 if (rightPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle/freestyle_"
                             + hats[3] + "_2.png")).getImage();
-                    imgX += 3 * SPEED;
+                    imgX += 4 * SPEED;
                     rightPrsd = true;
                     leftPrsd = true;
                     spacePrsd = false;
@@ -97,7 +97,7 @@ public class freestyle extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 setSpeed("space");
                 if (spacePrsd == false) {
-                    imgX += 3 * SPEED;
+                    imgX += 4 * SPEED;
                     leftPrsd = false;
                     rightPrsd = true;
                     spacePrsd = true;
@@ -112,7 +112,7 @@ public class freestyle extends JPanel {
                 if (leftPrsd == false) {
                     stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/freestyle/freestyle_"
                             + hats[3] + "_1.png")).getImage();
-                    imgX += 3 * SPEED;
+                    imgX += 4 * SPEED;
                     leftPrsd = true;
                     rightPrsd = false;
                     spacePrsd = true;
