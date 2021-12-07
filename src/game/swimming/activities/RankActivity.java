@@ -57,7 +57,7 @@ public class RankActivity extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
-    void reset() {
+    static void reset() {
         SelectStrokeActivity.reset();
         SelectModeActivity.reset();
         freestyle.imgReset();

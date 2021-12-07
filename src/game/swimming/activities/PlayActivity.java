@@ -15,18 +15,24 @@ import static game.swimming.MainActivity.*;
 import static game.swimming.activities.RunningTimer.*;
 
 public class PlayActivity extends JPanel {
+    private MainActivity main;
     public static String strokeName;
     private static int imgX, rank = 1;
-    private static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false, counterStat = false, gameStat = false;;
-    private MainActivity main;
+    private static boolean leftPrsd = false, rightPrsd = false, spacePrsd = false, upPrsd = false, downPrsd = false,
+            counterStat = false, gameStatus = true, userDist = false, isPaused = true, isCounterFinished=false;
+    ;
+    pcThread[] pcThreads = new pcThread[7];
     private static int[] pcXs = new int[7];
     private int[] pcYs = {5, 105, 198, 385, 480, 573, 668};
-    pcThread[] pcThreads = new pcThread[7];
     private static boolean[] pcDists = {false, false, false, false, false, false, false};
     public static Image stroke = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
-    public Image countImg = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
-    static boolean gameStatus = true;
-    static boolean userDist = false;
+    Image countImg = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
+    Image pause = new ImageIcon(MainActivity.class.getResource("res/btns/가입1.png")).getImage();
+    Image exitBtn = new ImageIcon(MainActivity.class.getResource("res/btns/뒤로가기1.png")).getImage();
+    Image resumeBtn = new ImageIcon(MainActivity.class.getResource("res/btns/게임하기1.png")).getImage();
+    Image NUll = new ImageIcon(MainActivity.class.getResource("res/null.png")).getImage();
+    JPanel pausePanel, exitPanel, resumePanel;
+    int pauseOption;
 
     public PlayActivity(MainActivity main) {
         this.main = main;
@@ -36,6 +42,110 @@ public class PlayActivity extends JPanel {
         setVisible(true);
 
         new checkThread().start();
+
+        pausePanel = new JPanel();
+        pausePanel.setBounds(10, 10, 30, 30);
+        pausePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                main.sfx("res/sfxs/select.wav");
+                isPaused = true;
+                leftPrsd = true;
+                rightPrsd = true;
+                spacePrsd = true;
+                upPrsd = true;
+                downPrsd = true;
+                pauseOption = 1;
+                optionInit();
+                backgroundMusic.stop();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                pause = new ImageIcon(MainActivity.class.getResource("res/btns/가입2.png")).getImage();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                pause = new ImageIcon(MainActivity.class.getResource("res/btns/가입1.png")).getImage();
+            }
+        });
+        add(pausePanel);
+
+        exitPanel = new JPanel();
+        exitPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                main.sfx("res/sfxs/reselect.wav");
+                pauseOption = 2;
+                for (int i = 0; i < pcThreads.length; i++)
+                    pcXs[i] = 0;
+                repaint();
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    return;
+                }
+                main.change("UserActivity");
+                for (int i = 0; i < pcThreads.length; i++)
+                    pcThreads[i] = null;
+                SelectStrokeActivity.reset();
+                SelectModeActivity.reset();
+                RankActivity.reset();
+                backgroundMusic.stop();
+                backgroundMusic.change("res/sfxs/lobby.wav");
+                backgroundMusic.play();
+                main.playActivity = null;
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exitBtn = new ImageIcon(MainActivity.class.getResource("res/btns/뒤로가기2.png")).getImage();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exitBtn = new ImageIcon(MainActivity.class.getResource("res/btns/뒤로가기1.png")).getImage();
+            }
+        });
+
+        resumePanel = new JPanel();
+        resumePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                main.sfx("res/sfxs/select_with_reverb.wav");
+                pauseOption = 3;
+                isPaused = false;
+                leftPrsd = false;
+                rightPrsd = false;
+                spacePrsd = false;
+                upPrsd = false;
+                downPrsd = false;
+                backgroundMusic.stop();
+                backgroundMusic.change("res/sfxs/play1.wav");
+                backgroundMusic.play();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                resumeBtn = new ImageIcon(MainActivity.class.getResource("res/btns/게임하기2.png")).getImage();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                resumeBtn = new ImageIcon(MainActivity.class.getResource("res/btns/게임하기1.png")).getImage();
+            }
+        });
+    }
+
+    private void optionInit() {
+        exitPanel.setBounds(382, 310, 200, 50);
+        add(exitPanel);
+        exitPanel.setVisible(true);
+
+        resumePanel.setBounds(382, 390, 200, 50);
+        add(resumePanel);
+        resumePanel.setVisible(true);
     }
 
     class checkThread extends Thread {
@@ -64,10 +174,12 @@ public class PlayActivity extends JPanel {
         public void run() {
             try {
                 stroke = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_user_1.png")).getImage();
-                for (int i = 0; i < 7; i++) {
+                for (int i = 0; i < 7; i++)
                     pcStrokes[i] = new ImageIcon(MainActivity.class.getResource("res/strokes/" + strokeName + "/" + strokeName + "_pc_1.png")).getImage();
-                }
+
                 counterStat = true;
+                isPaused = true;
+                isCounterFinished=false;
                 Thread.sleep(100);
                 countImg = new ImageIcon(MainActivity.class.getResource("res/3.png")).getImage();
                 main.sfx("res/sfxs/beep.wav");
@@ -78,8 +190,12 @@ public class PlayActivity extends JPanel {
                 countImg = new ImageIcon(MainActivity.class.getResource("res/1.png")).getImage();
                 main.sfx("res/sfxs/beep.wav");
                 Thread.sleep(1000);
+                isCounterFinished=true;
+                countImg = new ImageIcon(MainActivity.class.getResource("res/start.png")).getImage();
+                Thread.sleep(1000);
                 backgroundMusic.play();
                 counterStat = false;
+                isPaused = false;
 
                 userThread user = new userThread();
                 user.start();
@@ -112,49 +228,55 @@ public class PlayActivity extends JPanel {
                 try {
                     startTimer(pc_num - 1);
                     Thread.sleep(100);
-                    for (int i = 0; i < 600; i++) {
-                        if (!dist) {
-                            pcRunningTimes(pc_num - 1);
-                            Thread.sleep(300);
-                            pc_x += 25 * Math.random();
-                            pcXs[pc_num - 1] = pc_x;
-                            changeImage(strokeName, i, pc_num);
-                            if (pc_x >= 840) {
-                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
-                                pc_x = 840;
-                                rank++;
-                                break;
-                            } else if (!gameStatus) {
-                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
-                                break;
+                    int i = 0;
+                    while (true) {
+                        if (isPaused)
+                            Thread.sleep(100);
+                        else {
+                            if (!dist) {
+                                pcRunningTimes(pc_num - 1);
+                                Thread.sleep(300);
+                                pc_x += 25 * Math.random();
+                                pcXs[pc_num - 1] = pc_x;
+                                changeImage(strokeName, i, pc_num);
+                                if (pc_x >= 840) {
+                                    GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
+                                    pc_x = 840;
+                                    rank++;
+                                    break;
+                                } else if (!gameStatus) {
+                                    GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
+                                    break;
+                                }
+                            } else if (dist && !pcDists[pc_num - 1]) {
+                                pcRunningTimes(pc_num - 1);
+                                Thread.sleep(300);
+                                pc_x += 25 * Math.random();
+                                pcXs[pc_num - 1] = pc_x;
+                                changeImage(strokeName, i, pc_num);
+                                if (pc_x >= 840)
+                                    pcDists[pc_num - 1] = true;
+                                else if (!gameStatus) {
+                                    GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
+                                    break;
+                                }
+                            } else if (pcDists[pc_num - 1]) {
+                                pcRunningTimes(pc_num - 1);
+                                Thread.sleep(300);
+                                pc_x -= 25 * Math.random();
+                                pcXs[pc_num - 1] = pc_x;
+                                changeImage(strokeName, i, pc_num);
+                                if (pc_x <= 0) {
+                                    GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
+                                    pc_x = 0;
+                                    rank++;
+                                    break;
+                                } else if (!gameStatus) {
+                                    GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
+                                    break;
+                                }
                             }
-                        } else if (dist && !pcDists[pc_num - 1]) {
-                            pcRunningTimes(pc_num - 1);
-                            Thread.sleep(300);
-                            pc_x += 25 * Math.random();
-                            pcXs[pc_num - 1] = pc_x;
-                            changeImage(strokeName, i, pc_num);
-                            if (pc_x >= 840)
-                                pcDists[pc_num - 1] = true;
-                            else if (!gameStatus) {
-                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
-                                break;
-                            }
-                        } else if (pcDists[pc_num - 1]) {
-                            pcRunningTimes(pc_num - 1);
-                            Thread.sleep(300);
-                            pc_x -= 25 * Math.random();
-                            pcXs[pc_num - 1] = pc_x;
-                            changeImage(strokeName, i, pc_num);
-                            if (pc_x <= 0) {
-                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
-                                pc_x = 0;
-                                rank++;
-                                break;
-                            } else if (!gameStatus) {
-                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
-                                break;
-                            }
+                            i++;
                         }
                     }
                 } catch (InterruptedException e) {
@@ -163,7 +285,6 @@ public class PlayActivity extends JPanel {
         }
 
         private void changeImage(String strokeName, int i, int p) {
-            i += (int) Math.random();
             int pc = p - 1;
             if (strokeName.equals("freestyle") || strokeName.equals("backStroke")) {
                 if (!pcDists[pc_num - 1]) {
@@ -575,8 +696,24 @@ public class PlayActivity extends JPanel {
                 g.drawImage(pcStrokes[i], pcXs[i], pcYs[i], 145, 80, this);
         }
         if (counterStat)
-            g.drawImage(countImg, 420, 250, 80, 150, this);
+            if(isCounterFinished)
+                g.drawImage(countImg, 310, 280, 430, 70, this);
+            else
+                g.drawImage(countImg, 420, 250, 80, 150, this);
 
+        if(!isPaused)
+            g.drawImage(pause, 10, 10, 30, 30, this);
+        else
+            g.drawImage(NUll, 10, 10, 30, 30, this);
+
+        if (pauseOption == 1) {
+            g.setColor(new Color(174, 227, 255, 205));
+            g.fillRect(330, 270, 300, 200);
+            g.drawImage(exitBtn, 382, 295, 200, 75, this);
+            g.drawImage(resumeBtn, 382, 375, 200, 75, this);
+            if (pauseOption == 2 || pauseOption == 3)
+                setVisible(false);
+        }
         repaint();
     }
 }

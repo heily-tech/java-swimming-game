@@ -23,7 +23,7 @@ public class MainActivity extends JFrame {
     initActivity initActivity;
     SelectStrokeActivity selectStrokeActivity;
     SelectModeActivity selectModeActivity;
-    PlayActivity playActivity;
+    public PlayActivity playActivity;
     UserActivity userActivity;
     freestyle freestyle;
     backStroke backStroke;
@@ -54,7 +54,6 @@ public class MainActivity extends JFrame {
         main.initActivity = new initActivity(main, client);
         main.selectStrokeActivity = new SelectStrokeActivity(main);
         main.selectModeActivity = new SelectModeActivity(main);
-        main.playActivity = new PlayActivity(main);
         main.userActivity = new UserActivity(main);
         main.freestyle = new freestyle(main);
         main.backStroke = new backStroke(main);

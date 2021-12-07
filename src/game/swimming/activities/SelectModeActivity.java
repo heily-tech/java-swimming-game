@@ -77,6 +77,7 @@ public class SelectModeActivity extends JPanel implements ActionListener {
                 nullSelection.showMessageDialog(null, "모드를 선택해주세요.");
             } else {
                 backgroundMusic.stop();
+                main.playActivity = new PlayActivity(main);
                 if (strokeChooseNum.get(2).equals("1")) {
                     main.singleGameStatus = true;
                     main.sfx("res/sfxs/select_with_reverb.wav");
