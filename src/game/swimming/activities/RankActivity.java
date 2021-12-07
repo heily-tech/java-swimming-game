@@ -45,7 +45,7 @@ public class RankActivity extends JFrame {
         area.setEditable(false);
         area.setOpaque(false);
         area.setFont(new Font("Press Start 2P", Font.PLAIN, 20));
-        area.setBounds(52, 139, 300, 350);
+        area.setBounds(52, 110, 300, 350);
         panel.add(area);
 
 
@@ -65,5 +65,6 @@ public class RankActivity extends JFrame {
         butterfly.imgReset();
         breastStroke.imgReset();
         PlayActivity.imgReset();
+        GAME_RESULT = "";
     }
 }

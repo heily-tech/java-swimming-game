@@ -229,55 +229,55 @@ public class PlayActivity extends JPanel {
             try {
                 startTimer(pc_num - 1);
                 Thread.sleep(100);
-                int i = 0;
-                while (true) {
-                    if (isPaused)
-                        Thread.sleep(100);
-                    else {
-                        if (!dist) {
-                            pcRunningTimes(pc_num - 1);
-                            Thread.sleep(300);
-                            pc_x += 25 * Math.random();
-                            pcXs[pc_num - 1] = pc_x;
-                            changeImage(strokeName, i, pc_num);
-                            if (pc_x >= 840) {
-                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
-                                pc_x = 840;
-                                rank++;
-                                break;
-                            } else if (!gameStatus) {
-                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
-                                break;
-                            }
-                        } else if (dist && !pcDists[pc_num - 1]) {
-                            pcRunningTimes(pc_num - 1);
-                            Thread.sleep(300);
-                            pc_x += 25 * Math.random();
-                            pcXs[pc_num - 1] = pc_x;
-                            changeImage(strokeName, i, pc_num);
-                            if (pc_x >= 840)
-                                pcDists[pc_num - 1] = true;
-                            else if (!gameStatus) {
-                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
-                                break;
-                            }
-                        } else if (pcDists[pc_num - 1]) {
-                            pcRunningTimes(pc_num - 1);
-                            Thread.sleep(300);
-                            pc_x -= 25 * Math.random();
-                            pcXs[pc_num - 1] = pc_x;
-                            changeImage(strokeName, i, pc_num);
-                            if (pc_x <= 0) {
-                                GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
-                                pc_x = 0;
-                                rank++;
-                                break;
-                            } else if (!gameStatus) {
-                                GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
-                                break;
-                            }
+                for (int i = 0; i < 600; i++) {
+                    while (true) {
+                        if (isPaused)
+                            Thread.sleep(100);
+                        else
+                            break;
+                    }
+                    if (!dist) {
+                        pcRunningTimes(pc_num - 1);
+                        Thread.sleep(300);
+                        pc_x += 25 * Math.random();
+                        pcXs[pc_num - 1] = pc_x;
+                        changeImage(strokeName, i, pc_num);
+                        if (pc_x >= 840) {
+                            GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
+                            pc_x = 840;
+                            rank++;
+                            break;
+                        } else if (!gameStatus) {
+                            GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
+                            break;
                         }
-                        i++;
+                    } else if (dist && !pcDists[pc_num - 1]) {
+                        pcRunningTimes(pc_num - 1);
+                        Thread.sleep(300);
+                        pc_x += 25 * Math.random();
+                        pcXs[pc_num - 1] = pc_x;
+                        changeImage(strokeName, i, pc_num);
+                        if (pc_x >= 840)
+                            pcDists[pc_num - 1] = true;
+                        else if (!gameStatus) {
+                            GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
+                            break;
+                        }
+                    } else if (pcDists[pc_num - 1]) {
+                        pcRunningTimes(pc_num - 1);
+                        Thread.sleep(300);
+                        pc_x -= 25 * Math.random();
+                        pcXs[pc_num - 1] = pc_x;
+                        changeImage(strokeName, i, pc_num);
+                        if (pc_x <= 0) {
+                            GAME_RESULT += (rank + "등 | " + pc_name + " | " + pcRunningTimes(pc_num - 1) + "\n");
+                            pc_x = 0;
+                            rank++;
+                            break;
+                        } else if (!gameStatus) {
+                            GAME_RESULT += ("   | " + pc_name + " | unfin.\n\n");
+                            break;
+                        }
                     }
                 }
             } catch (InterruptedException e) {
@@ -335,7 +335,7 @@ public class PlayActivity extends JPanel {
                         breastStrokeKeySet();
                     Thread.sleep(1000);
 
-                    if (imgX >= 800 && !dist) {
+                    if (imgX >= 840 && !dist) {
                         GAME_RESULT += (rank++ + "등 | YOU | " + runningTime() + "\n");
                         gameStatus = false;
                         Thread.sleep(1000);
@@ -346,9 +346,10 @@ public class PlayActivity extends JPanel {
                         downPrsd = true;
                         backgroundMusic.stop();
                         main.sfx("res/sfxs/end1.wav");
+                        System.out.println(GAME_RESULT);
                         new RankActivity(main);
                         break;
-                    } else if (imgX >= 800 && dist) {
+                    } else if (imgX >= 840 && dist) {
                         userDist = true;
                     } else if (imgX <= 0 && userDist) {
                         GAME_RESULT += (rank++ + "등 | YOU | " + runningTime() + "\n");
