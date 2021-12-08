@@ -679,7 +679,7 @@ public class PlayActivity extends JPanel {
         spacePrsd = false;
         upPrsd = false;
         downPrsd = false;
-
+        dist = false;
         userDist = false;
         for (int i = 0; i < 7; i++) {
             pcXs[i] = 0;
@@ -688,6 +688,7 @@ public class PlayActivity extends JPanel {
         }
         gameStatus = true;
         singleGameStatus = false;
+        rank = 1;
     }
 
     public void paint(Graphics g) {
